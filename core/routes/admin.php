@@ -50,6 +50,27 @@ Route::middleware('admin')->group(function () {
         Route::get('download-attachments/{file_hash}', 'downloadAttachment')->name('download.attachment');
     });
 
+    // Manage City
+    Route::controller('CityController')->prefix('city')->name('city.')->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::post('update/{id?}', 'update')->name('update');
+        Route::post('status/{id}', 'status')->name('status');
+    });
+
+    // Manage Location
+    Route::controller('LocationController')->prefix('location')->name('location.')->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::post('update/{id?}', 'update')->name('update');
+        Route::post('status/{id}', 'status')->name('status');
+    });
+
+    // Blood Group Manage
+    Route::controller('BloodController')->prefix('blood-group')->name('blood-group.')->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::post('update/{id?}', 'update')->name('update');
+        Route::post('status/{id}', 'status')->name('status');
+    });
+
     // Subscriber
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function(){
         Route::get('/', 'index')->name('index');
@@ -57,7 +78,6 @@ Route::middleware('admin')->group(function () {
         Route::post('remove/{id}', 'remove')->name('remove');
         Route::post('send-email', 'sendEmail')->name('send.email');
     });
-
 
     // Admin Support
     Route::controller('SupportTicketController')->prefix('ticket')->name('ticket.')->group(function(){
@@ -72,7 +92,6 @@ Route::middleware('admin')->group(function () {
         Route::post('delete/{id}', 'ticketDelete')->name('delete');
     });
 
-
     // Language Manager
     Route::controller('LanguageController')->prefix('language')->name('language.')->group(function(){
         Route::get('/', 'langManage')->name('manage');
@@ -86,6 +105,7 @@ Route::middleware('admin')->group(function () {
         Route::post('update/key/{id}', 'updateLanguageJson')->name('update.key');
         Route::get('get-keys', 'getKeys')->name('get.key');
     });
+
 
     Route::controller('GeneralSettingController')->group(function(){
 

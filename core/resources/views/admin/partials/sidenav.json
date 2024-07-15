@@ -26,6 +26,27 @@
         "route_name": "admin.dashboard",
         "menu_active": "admin.dashboard"
     },
+    "manage_city": {
+        "keyword": ["Manage City", "City management", "City list", "City activity"],
+        "title": "Manage City",
+        "icon": "las la-city",
+        "route_name": "admin.city.index",
+        "menu_active": "admin.city.*"
+    },
+    "manage_location": {
+        "keyword": ["Manage Location", "Location management", "Location list", "Location activity"],
+        "title": "Manage Location",
+        "icon": "las la-map",
+        "route_name": "admin.location.index",
+        "menu_active": "admin.location.*"
+    },
+    "manage_blood": {
+        "keyword": ["Manage Blood", "Blood management", "Blood list", "Blood activity"],
+        "title": "Manage Blood",
+        "icon": "las la-tint",
+        "route_name": "admin.blood-group.index",
+        "menu_active": "admin.blood-group.*"
+    },
     "support_ticket": {
         "title": "Support Ticket",
         "icon": "la la-ticket",

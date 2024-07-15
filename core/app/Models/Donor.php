@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\GlobalStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Donor extends Model
 {
+    use GlobalStatus;
     protected $dates = ['birth_date', 'last_donate'];
 
     protected $casts = [
