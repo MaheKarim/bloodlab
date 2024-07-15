@@ -27,20 +27,6 @@
         "icon": "las la-bell",
         "route_name": "admin.setting.notification.global.email"
     },
-    "payment_gateways": {
-        "keyword": ["automatic", "manual", "configure payment gateways","aamarpay","amarpay","authorize","autorize.net","btcpay","btc pay","binance","blockchain","cashmaal","checkout","coinbase commerce","coingate","coinpayments","flutterwave","instamojo","mercado pago","mollie","nmi","now payments","nowpayments","payeer","paypal","paystack","paytm","perfect money","perfectmoney","razorpay","skrill","sslcommerz","stripe","twocheckout","two checkout","2checkout"],
-        "title": "Payment Gateways",
-        "subtitle": "Configure automatic or manual payment gateways to accept payment from users.",
-        "icon": "las la-credit-card",
-        "route_name": "admin.gateway.automatic.index"
-    },
-    "withdrawals_methods": {
-        "keyword": [ "manual withdrawal", "payout", "payment withdrawal", "withdrawal options", "withdrawal settings", "payout methods", "payout settings", "configure withdrawals", "configure payouts"],
-        "title": "Withdrawals Methods",
-        "subtitle": "Setup manual withdrawal method so that users of the system can make payout requests through those methods.",
-        "icon": "la la-bank",
-        "route_name": "admin.withdraw.method.index"
-    },
     "seo_configuration": {
         "keyword": ["SEO", "meta title", "meta description", "meta keywords","optimization", "meta tags", "SEO configuration"],
         "title": "SEO Configuration",
@@ -62,20 +48,6 @@
         "icon": "las la-list",
         "route_name": "admin.frontend.manage.pages"
     },
-    "kyc_setting": {
-        "keyword": ["KYC", "verification","kyc verification", "identity verification", "KYC settings", "client verification", "KYC configuration","customer verification"],
-        "title": "KYC Setting",
-        "subtitle": "Configure the dynamic input field to collect information of your client if you need.",
-        "icon": "las la-user-check",
-        "route_name": "admin.kyc.setting"
-    },
-    "social_login_setting": {
-        "keyword": ["social login", "social media", "authentication", "social media login", "social media authentication","facebook login","google login","linkedin login"],
-        "title": "Social Login Setting",
-        "subtitle": "Provide the required information here to use the login system by social media.",
-        "icon": "las la-user-circle",
-        "route_name": "admin.setting.socialite.credentials"
-    },
     "language": {
         "keyword": ["language", "localize", "translation", "translate", "internationalization", "language settings", "localization settings", "translation settings", "configure languages", "configure localization"],
         "title": "Language",
@@ -90,13 +62,7 @@
         "icon": "las la-puzzle-piece",
         "route_name": "admin.extensions.index"
     },
-    "cron_job_setting": {
-        "keyword": ["cron job", "automate operations", "schedule", "automate", "tasks", "cron job settings", "task scheduling", "automation settings", "configure cron job", "configure tasks"],
-        "title": "Cron Job Setting",
-        "subtitle": "Configure cron job to automate some operations of the system.",
-        "icon": "las la-clock",
-        "route_name": "admin.cron.index"
-    },
+
     "policy_pages": {
         "keyword": ["privacy and policy", "terms and condition", "terms of service"],
         "title": "Policy Pages",
@@ -142,12 +108,5 @@
         "subtitle": "Insert the robots.txt content here to enhance bot web crawlers and instruct them on how to interact with certain areas of the website.",
         "icon": "las la-robot",
         "route_name": "admin.setting.robot"
-    },
-    "in_app_payment": {
-        "keyword": ["in app payment", "google pay", "payments", "mobile payments", "app transactions", "payment settings", "in-app payment settings", "mobile payment settings", "configure payments", "app transaction settings"],
-        "title": "In App Payment",
-        "subtitle": "Configure google pay to accept payments directly within your app.",
-        "icon": "lab la-google-play",
-        "route_name": "admin.setting.app.purchase"
     }
 }

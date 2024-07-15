@@ -17,12 +17,7 @@ class FileInfo
     */
 
     public function fileInfo(){
-        $data['withdrawVerify'] = [
-            'path'=>'assets/images/verify/withdraw'
-        ];
-        $data['depositVerify'] = [
-            'path'      =>'assets/images/verify/deposit'
-        ];
+
         $data['verify'] = [
             'path'      =>'assets/verify'
         ];
@@ -46,10 +41,7 @@ class FileInfo
             'path'      => 'assets/images/seo',
             'size'      => '1180x600',
         ];
-        $data['userProfile'] = [
-            'path'      =>'assets/images/user/profile',
-            'size'      =>'350x300',
-        ];
+
         $data['adminProfile'] = [
             'path'      =>'assets/admin/images/profile',
             'size'      =>'400x400',
@@ -57,9 +49,7 @@ class FileInfo
         $data['push'] = [
             'path'      =>'assets/images/push_notification',
         ];
-        $data['appPurchase'] = [
-            'path'      =>'assets/in_app_purchase_config',
-        ];
+
         $data['maintenance'] = [
             'path'      =>'assets/images/maintenance',
             'size'      =>'660x325',
@@ -68,14 +58,7 @@ class FileInfo
             'path' => 'assets/images/language',
             'size' => '50x50'
         ];
-        $data['gateway'] = [
-            'path' => 'assets/images/gateway',
-            'size' => ''
-        ];
-        $data['withdrawMethod'] = [
-            'path' => 'assets/images/withdraw_method',
-            'size' => ''
-        ];
+
         $data['pushConfig'] = [
             'path'      => 'assets/admin',
         ];

@@ -23,34 +23,34 @@ class SupportTicketController extends Controller
     public function tickets()
     {
         $pageTitle = 'Support Tickets';
-        $items = SupportTicket::searchable(['name','subject','ticket'])->orderBy('id','desc')->with('user')->paginate(getPaginate());
+        $items = SupportTicket::searchable(['name','subject','ticket'])->orderBy('id','desc')->paginate(getPaginate());
         return view('admin.support.tickets', compact('items', 'pageTitle'));
     }
 
     public function pendingTicket()
     {
         $pageTitle = 'Pending Tickets';
-        $items = SupportTicket::searchable(['name','subject','ticket'])->pending()->orderBy('id','desc')->with('user')->paginate(getPaginate());
+        $items = SupportTicket::searchable(['name','subject','ticket'])->pending()->orderBy('id','desc')->paginate(getPaginate());
         return view('admin.support.tickets', compact('items', 'pageTitle'));
     }
 
     public function closedTicket()
     {
         $pageTitle = 'Closed Tickets';
-        $items = SupportTicket::searchable(['name','subject','ticket'])->closed()->orderBy('id','desc')->with('user')->paginate(getPaginate());
+        $items = SupportTicket::searchable(['name','subject','ticket'])->closed()->orderBy('id','desc')->paginate(getPaginate());
         return view('admin.support.tickets', compact('items', 'pageTitle'));
     }
 
     public function answeredTicket()
     {
         $pageTitle = 'Answered Tickets';
-        $items = SupportTicket::searchable(['name','subject','ticket'])->orderBy('id','desc')->with('user')->answered()->paginate(getPaginate());
+        $items = SupportTicket::searchable(['name','subject','ticket'])->orderBy('id','desc')->answered()->paginate(getPaginate());
         return view('admin.support.tickets', compact('items', 'pageTitle'));
     }
 
     public function ticketReply($id)
     {
-        $ticket = SupportTicket::with('user')->where('id', $id)->firstOrFail();
+        $ticket = SupportTicket::where('id', $id)->firstOrFail();
         $pageTitle = 'Reply Ticket';
         $messages = SupportMessage::with('ticket','admin','attachments')->where('support_ticket_id', $ticket->id)->orderBy('id','desc')->get();
         return view('admin.support.reply', compact('ticket', 'messages', 'pageTitle'));

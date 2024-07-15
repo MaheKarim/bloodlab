@@ -6,13 +6,12 @@ use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Lib\CurlRequest;
 use App\Models\AdminNotification;
-use App\Models\Deposit;
-use App\Models\Transaction;
-use App\Models\User;
-use App\Models\UserLogin;
-use App\Models\Withdrawal;
+use App\Models\Advertisement;
+use App\Models\Blood;
+use App\Models\City;
+use App\Models\Donor;
+use App\Models\Location;
 use App\Rules\FileTypeValidate;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,195 +21,18 @@ class AdminController extends Controller
     public function dashboard()
     {
         $pageTitle = 'Dashboard';
+        $blood = Blood::count();
+        $city = City::count();
+        $locations = Location::count();
+        $ads = Advertisement::count();
+        $donor['all'] = Donor::count();
+        $donor['pending'] = Donor::where('status', 0)->count();
+        $donor['approved'] = Donor::where('status', 1)->count();
+        $donor['banned'] = Donor::where('status', 0)->count();
+        $donors = Donor::orderBy('id', 'DESC')->with('blood', 'location')->limit(8)->get();
 
-        // User Info
-        $widget['total_users']             = User::count();
-        $widget['verified_users']          = User::active()->count();
-        $widget['email_unverified_users']  = User::emailUnverified()->count();
-        $widget['mobile_unverified_users'] = User::mobileUnverified()->count();
-
-
-        // user Browsing, Country, Operating Log
-        $userLoginData = UserLogin::where('created_at', '>=', Carbon::now()->subDays(30))->get(['browser', 'os', 'country']);
-
-        $chart['user_browser_counter'] = $userLoginData->groupBy('browser')->map(function ($item, $key) {
-            return collect($item)->count();
-        });
-        $chart['user_os_counter'] = $userLoginData->groupBy('os')->map(function ($item, $key) {
-            return collect($item)->count();
-        });
-        $chart['user_country_counter'] = $userLoginData->groupBy('country')->map(function ($item, $key) {
-            return collect($item)->count();
-        })->sort()->reverse()->take(5);
-
-
-        $deposit['total_deposit_amount']        = Deposit::successful()->sum('amount');
-        $deposit['total_deposit_pending']       = Deposit::pending()->count();
-        $deposit['total_deposit_rejected']      = Deposit::rejected()->count();
-        $deposit['total_deposit_charge']        = Deposit::successful()->sum('charge');
-
-        $withdrawals['total_withdraw_amount']   = Withdrawal::approved()->sum('amount');
-        $withdrawals['total_withdraw_pending']  = Withdrawal::pending()->count();
-        $withdrawals['total_withdraw_rejected'] = Withdrawal::rejected()->count();
-        $withdrawals['total_withdraw_charge']   = Withdrawal::approved()->sum('charge');
-
-        return view('admin.dashboard', compact('pageTitle', 'widget', 'chart','deposit','withdrawals'));
+        return view('admin.dashboard', compact('pageTitle', 'blood', 'city', 'locations', 'ads', 'donor', 'donors'));
     }
-
-
-
-
-    public function depositAndWithdrawReport(Request $request) {
-
-        $diffInDays = Carbon::parse($request->start_date)->diffInDays(Carbon::parse($request->end_date));
-
-        $groupBy = $diffInDays > 30 ? 'months' : 'days';
-        $format = $diffInDays > 30 ? '%M-%Y'  : '%d-%M-%Y';
-
-        if ($groupBy == 'days') {
-            $dates = $this->getAllDates($request->start_date, $request->end_date);
-        } else {
-            $dates = $this->getAllMonths($request->start_date, $request->end_date);
-        }
-        $deposits = Deposit::successful()
-            ->whereDate('created_at', '>=', $request->start_date)
-            ->whereDate('created_at', '<=', $request->end_date)
-            ->selectRaw('SUM(amount) AS amount')
-            ->selectRaw("DATE_FORMAT(created_at, '{$format}') as created_on")
-            ->latest()
-            ->groupBy('created_on')
-            ->get();
-
-
-        $withdrawals = Withdrawal::approved()
-            ->whereDate('created_at', '>=', $request->start_date)
-            ->whereDate('created_at', '<=', $request->end_date)
-            ->selectRaw('SUM(amount) AS amount')
-            ->selectRaw("DATE_FORMAT(created_at, '{$format}') as created_on")
-            ->latest()
-            ->groupBy('created_on')
-            ->get();
-
-        $data = [];
-
-        foreach ($dates as $date) {
-            $data[] = [
-                'created_on' => $date,
-                'deposits' => getAmount($deposits->where('created_on', $date)->first()?->amount ?? 0),
-                'withdrawals' => getAmount($withdrawals->where('created_on', $date)->first()?->amount ?? 0)
-            ];
-        }
-
-        $data = collect($data);
-
-        // Monthly Deposit & Withdraw Report Graph
-        $report['created_on']   = $data->pluck('created_on');
-        $report['data']     = [
-            [
-                'name' => 'Deposited',
-                'data' => $data->pluck('deposits')
-            ],
-            [
-                'name' => 'Withdrawn',
-                'data' => $data->pluck('withdrawals')
-            ]
-        ];
-
-        return response()->json($report);
-    }
-
-    public function transactionReport(Request $request) {
-
-        $diffInDays = Carbon::parse($request->start_date)->diffInDays(Carbon::parse($request->end_date));
-
-        $groupBy = $diffInDays > 30 ? 'months' : 'days';
-        $format = $diffInDays > 30 ? '%M-%Y'  : '%d-%M-%Y';
-
-        if ($groupBy == 'days') {
-            $dates = $this->getAllDates($request->start_date, $request->end_date);
-        } else {
-            $dates = $this->getAllMonths($request->start_date, $request->end_date);
-        }
-
-        $plusTransactions   = Transaction::where('trx_type','+')
-            ->whereDate('created_at', '>=', $request->start_date)
-            ->whereDate('created_at', '<=', $request->end_date)
-            ->selectRaw('SUM(amount) AS amount')
-            ->selectRaw("DATE_FORMAT(created_at, '{$format}') as created_on")
-            ->latest()
-            ->groupBy('created_on')
-            ->get();
-
-        $minusTransactions  = Transaction::where('trx_type','-')
-            ->whereDate('created_at', '>=', $request->start_date)
-            ->whereDate('created_at', '<=', $request->end_date)
-            ->selectRaw('SUM(amount) AS amount')
-            ->selectRaw("DATE_FORMAT(created_at, '{$format}') as created_on")
-            ->latest()
-            ->groupBy('created_on')
-            ->get();
-
-
-        $data = [];
-
-        foreach ($dates as $date) {
-            $data[] = [
-                'created_on' => $date,
-                'credits' => getAmount($plusTransactions->where('created_on', $date)->first()?->amount ?? 0),
-                'debits' => getAmount($minusTransactions->where('created_on', $date)->first()?->amount ?? 0)
-            ];
-        }
-
-        $data = collect($data);
-
-        // Monthly Deposit & Withdraw Report Graph
-        $report['created_on']   = $data->pluck('created_on');
-        $report['data']     = [
-            [
-                'name' => 'Plus Transactions',
-                'data' => $data->pluck('credits')
-            ],
-            [
-                'name' => 'Minus Transactions',
-                'data' => $data->pluck('debits')
-            ]
-        ];
-
-        return response()->json($report);
-    }
-
-
-    private function getAllDates($startDate, $endDate) {
-        $dates = [];
-        $currentDate = new \DateTime($startDate);
-        $endDate = new \DateTime($endDate);
-
-        while ($currentDate <= $endDate) {
-            $dates[] = $currentDate->format('d-F-Y');
-            $currentDate->modify('+1 day');
-        }
-
-        return $dates;
-    }
-
-    private function  getAllMonths($startDate, $endDate) {
-        if ($endDate > now()) {
-            $endDate = now()->format('Y-m-d');
-        }
-
-        $startDate = new \DateTime($startDate);
-        $endDate = new \DateTime($endDate);
-
-        $months = [];
-
-        while ($startDate <= $endDate) {
-            $months[] = $startDate->format('F-Y');
-            $startDate->modify('+1 month');
-        }
-
-        return $months;
-    }
-
 
     public function profile()
     {
@@ -271,13 +93,12 @@ class AdminController extends Controller
     }
 
     public function notifications(){
-        $notifications = AdminNotification::orderBy('id','desc')->with('user')->paginate(getPaginate());
+        $notifications = AdminNotification::orderBy('id','desc')->paginate(getPaginate());
         $hasUnread = AdminNotification::where('is_read',Status::NO)->exists();
         $hasNotification = AdminNotification::exists();
         $pageTitle = 'Notifications';
         return view('admin.notifications',compact('pageTitle','notifications','hasUnread','hasNotification'));
     }
-
 
     public function notificationRead($id){
         $notification = AdminNotification::findOrFail($id);

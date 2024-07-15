@@ -6,6 +6,7 @@ use App\Constants\Status;
 use App\Lib\Searchable;
 use App\Models\AdminNotification;
 use App\Models\Deposit;
+use App\Models\Donor;
 use App\Models\Frontend;
 use App\Models\SupportTicket;
 use App\Models\User;
@@ -54,22 +55,16 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('admin.partials.sidenav', function ($view) {
             $view->with([
-                'bannedUsersCount'           => User::banned()->count(),
-                'emailUnverifiedUsersCount' => User::emailUnverified()->count(),
-                'mobileUnverifiedUsersCount'   => User::mobileUnverified()->count(),
-                'kycUnverifiedUsersCount'   => User::kycUnverified()->count(),
-                'kycPendingUsersCount'   => User::kycPending()->count(),
-                'pendingTicketCount'         => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
-                'pendingDepositsCount'    => Deposit::pending()->count(),
-                'pendingWithdrawCount'    => Withdrawal::pending()->count(),
-                'updateAvailable'    => version_compare(gs('available_version'),systemDetails()['version'],'>') ? 'v'.gs('available_version') : false,
+                'pending_ticket_count' => SupportTicket::whereIN('status', [0,2])->count(),
+                'pending_donor_count'  => Donor::where('status', 0)->count(),
+                'pendingTicketCount'   => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
+                'updateAvailable'      => version_compare(gs('available_version'),systemDetails()['version'],'>') ? 'v'.gs('available_version') : false,
             ]);
         });
 
         view()->composer('admin.partials.topnav', function ($view) {
             $view->with([
-                'adminNotifications' => AdminNotification::where('is_read', Status::NO)->with('user')->orderBy('id', 'desc')->take(10)->get(),
-                'adminNotificationCount' => AdminNotification::where('is_read', Status::NO)->count(),
+                'adminNotificationCount'    => AdminNotification::where('is_read', Status::NO)->count(),
             ]);
         });
 

@@ -25,11 +25,7 @@
                                     </td>
 
                                     <td>
-                                        @if($item->user_id)
-                                        <a href="{{ route('admin.users.detail', $item->user_id)}}"> {{@$item->user->fullname}}</a>
-                                        @else
-                                            <p class="fw-bold"> {{$item->name}}</p>
-                                        @endif
+                                         <p class="fw-bold"> {{$item->name}}</p>
                                     </td>
                                     <td>
                                         @php echo $item->statusBadge; @endphp

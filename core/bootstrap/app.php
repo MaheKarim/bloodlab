@@ -58,7 +58,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
             'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
             'can' => \Illuminate\Auth\Middleware\Authorize::class,
-            'auth' => Authenticate::class,
             'guest' => RedirectIfAuthenticated::class,
             'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
             'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
@@ -68,10 +67,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => RedirectIfNotAdmin::class,
             'admin.guest' => RedirectIfAdmin::class,
 
-            'check.status' => CheckStatus::class,
             'demo' => Demo::class,
-            'kyc' => KycMiddleware::class,
-            'registration.complete' => RegistrationStep::class,
             'maintenance' => MaintenanceMode::class,
         ]);
 

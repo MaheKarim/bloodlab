@@ -55,25 +55,6 @@
                             <p>@lang('You have') {{ $adminNotificationCount }} @lang('unread notification')</p>
                         @endif
                     </div>
-                    <div class="dropdown-menu__body @if(blank($adminNotifications)) d-flex justify-content-center align-items-center @endif">
-                        @forelse($adminNotifications as $notification)
-                            <a href="{{ route('admin.notification.read',$notification->id) }}"
-                                class="dropdown-menu__item">
-                                <div class="navbar-notifi">
-                                    <div class="navbar-notifi__right">
-                                        <h6 class="notifi__title">{{ __($notification->title) }}</h6>
-                                        <span class="time"><i class="far fa-clock"></i>
-                                            {{ diffForHumans($notification->created_at) }}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        @empty
-                        <div class="empty-notification text-center">
-                            <img src="{{ getImage('assets/images/empty_list.png') }}" alt="empty">
-                            <p class="mt-3">@lang('No unread notification found')</p>
-                        </div>
-                        @endforelse
-                    </div>
                     <div class="dropdown-menu__footer">
                         <a href="{{ route('admin.notifications') }}"
                             class="view-all-message">@lang('View all notifications')</a>
