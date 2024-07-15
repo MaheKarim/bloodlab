@@ -50,116 +50,12 @@ Route::middleware('admin')->group(function () {
         Route::get('download-attachments/{file_hash}', 'downloadAttachment')->name('download.attachment');
     });
 
-    // Users Manager
-    Route::controller('ManageUsersController')->name('users.')->prefix('users')->group(function(){
-        Route::get('/', 'allUsers')->name('all');
-        Route::get('active', 'activeUsers')->name('active');
-        Route::get('banned', 'bannedUsers')->name('banned');
-        Route::get('email-verified', 'emailVerifiedUsers')->name('email.verified');
-        Route::get('email-unverified', 'emailUnverifiedUsers')->name('email.unverified');
-        Route::get('mobile-unverified', 'mobileUnverifiedUsers')->name('mobile.unverified');
-        Route::get('kyc-unverified', 'kycUnverifiedUsers')->name('kyc.unverified');
-        Route::get('kyc-pending', 'kycPendingUsers')->name('kyc.pending');
-        Route::get('mobile-verified', 'mobileVerifiedUsers')->name('mobile.verified');
-        Route::get('with-balance', 'usersWithBalance')->name('with.balance');
-
-        Route::get('detail/{id}', 'detail')->name('detail');
-        Route::get('kyc-data/{id}', 'kycDetails')->name('kyc.details');
-        Route::post('kyc-approve/{id}', 'kycApprove')->name('kyc.approve');
-        Route::post('kyc-reject/{id}', 'kycReject')->name('kyc.reject');
-        Route::post('update/{id}', 'update')->name('update');
-        Route::post('add-sub-balance/{id}', 'addSubBalance')->name('add.sub.balance');
-        Route::get('send-notification/{id}', 'showNotificationSingleForm')->name('notification.single');
-        Route::post('send-notification/{id}', 'sendNotificationSingle')->name('notification.single');
-        Route::get('login/{id}', 'login')->name('login');
-        Route::post('status/{id}', 'status')->name('status');
-
-        Route::get('send-notification', 'showNotificationAllForm')->name('notification.all');
-        Route::post('send-notification', 'sendNotificationAll')->name('notification.all.send');
-        Route::get('list', 'list')->name('list');
-        Route::get('count-by-segment/{methodName}', 'countBySegment')->name('segment.count');
-        Route::get('notification-log/{id}', 'notificationLog')->name('notification.log');
-    });
-
     // Subscriber
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function(){
         Route::get('/', 'index')->name('index');
         Route::get('send-email', 'sendEmailForm')->name('send.email');
         Route::post('remove/{id}', 'remove')->name('remove');
         Route::post('send-email', 'sendEmail')->name('send.email');
-    });
-
-    // Deposit Gateway
-    Route::name('gateway.')->prefix('gateway')->group(function(){
-        // Automatic Gateway
-        Route::controller('AutomaticGatewayController')->prefix('automatic')->name('automatic.')->group(function(){
-            Route::get('/', 'index')->name('index');
-            Route::get('edit/{alias}', 'edit')->name('edit');
-            Route::post('update/{code}', 'update')->name('update');
-            Route::post('remove/{id}', 'remove')->name('remove');
-            Route::post('status/{id}', 'status')->name('status');
-        });
-
-
-        // Manual Methods
-        Route::controller('ManualGatewayController')->prefix('manual')->name('manual.')->group(function(){
-            Route::get('/', 'index')->name('index');
-            Route::get('new', 'create')->name('create');
-            Route::post('new', 'store')->name('store');
-            Route::get('edit/{alias}', 'edit')->name('edit');
-            Route::post('update/{id}', 'update')->name('update');
-            Route::post('status/{id}', 'status')->name('status');
-        });
-    });
-
-
-    // DEPOSIT SYSTEM
-    Route::controller('DepositController')->prefix('deposit')->name('deposit.')->group(function(){
-        Route::get('all/{user_id?}', 'deposit')->name('list');
-        Route::get('pending/{user_id?}', 'pending')->name('pending');
-        Route::get('rejected/{user_id?}', 'rejected')->name('rejected');
-        Route::get('approved/{user_id?}', 'approved')->name('approved');
-        Route::get('successful/{user_id?}', 'successful')->name('successful');
-        Route::get('initiated/{user_id?}', 'initiated')->name('initiated');
-        Route::get('details/{id}', 'details')->name('details');
-        Route::post('reject', 'reject')->name('reject');
-        Route::post('approve/{id}', 'approve')->name('approve');
-
-    });
-
-
-    // WITHDRAW SYSTEM
-    Route::name('withdraw.')->prefix('withdraw')->group(function(){
-
-        Route::controller('WithdrawalController')->name('data.')->group(function(){
-            Route::get('pending/{user_id?}', 'pending')->name('pending');
-            Route::get('approved/{user_id?}', 'approved')->name('approved');
-            Route::get('rejected/{user_id?}', 'rejected')->name('rejected');
-            Route::get('all/{user_id?}', 'all')->name('all');
-            Route::get('details/{id}', 'details')->name('details');
-            Route::post('approve', 'approve')->name('approve');
-            Route::post('reject', 'reject')->name('reject');
-        });
-
-
-        // Withdraw Method
-        Route::controller('WithdrawMethodController')->prefix('method')->name('method.')->group(function(){
-            Route::get('/', 'methods')->name('index');
-            Route::get('create', 'create')->name('create');
-            Route::post('create', 'store')->name('store');
-            Route::get('edit/{id}', 'edit')->name('edit');
-            Route::post('edit/{id}', 'update')->name('update');
-            Route::post('status/{id}', 'status')->name('status');
-        });
-    });
-
-    // Report
-    Route::controller('ReportController')->prefix('report')->name('report.')->group(function(){
-        Route::get('transaction/{user_id?}', 'transaction')->name('transaction');
-        Route::get('login/history', 'loginHistory')->name('login.history');
-        Route::get('login/ipHistory/{ip}', 'loginIpHistory')->name('login.ipHistory');
-        Route::get('notification/history', 'notificationHistory')->name('notification.history');
-        Route::get('email/detail/{id}', 'emailDetails')->name('email.details');
     });
 
 
@@ -199,10 +95,6 @@ Route::middleware('admin')->group(function () {
         Route::get('general-setting', 'general')->name('setting.general');
         Route::post('general-setting', 'generalUpdate');
 
-        Route::get('setting/social/credentials', 'socialiteCredentials')->name('setting.socialite.credentials');
-        Route::post('setting/social/credentials/update/{key}', 'updateSocialiteCredential')->name('setting.socialite.credentials.update');
-        Route::post('setting/social/credentials/status/{key}', 'updateSocialiteCredentialStatus')->name('setting.socialite.credentials.status.update');
-
         //configuration
         Route::get('setting/system-configuration','systemConfiguration')->name('setting.system.configuration');
         Route::post('setting/system-configuration','systemConfigurationSubmit');
@@ -228,34 +120,6 @@ Route::middleware('admin')->group(function () {
         //maintenance_mode
         Route::get('maintenance-mode','maintenanceMode')->name('maintenance.mode');
         Route::post('maintenance-mode','maintenanceModeSubmit');
-
-        //In app purchase
-        Route::get('in-app-purchase','inAppPurchase')->name('setting.app.purchase');
-        Route::post('in-app-purchase','inAppPurchaseConfigure');
-        Route::get('in-app-purchase/file/download','inAppPurchaseFileDownload')->name('setting.app.purchase.file.download');
-
-    });
-
-
-    Route::controller('CronConfigurationController')->name('cron.')->prefix('cron')->group(function () {
-        Route::get('index', 'cronJobs')->name('index');
-        Route::post('store', 'cronJobStore')->name('store');
-        Route::post('update', 'cronJobUpdate')->name('update');
-        Route::post('delete/{id}', 'cronJobDelete')->name('delete');
-        Route::get('schedule', 'schedule')->name('schedule');
-        Route::post('schedule/store', 'scheduleStore')->name('schedule.store');
-        Route::post('schedule/status/{id}', 'scheduleStatus')->name('schedule.status');
-        Route::get('schedule/pause/{id}', 'schedulePause')->name('schedule.pause');
-        Route::get('schedule/logs/{id}', 'scheduleLogs')->name('schedule.logs');
-        Route::post('schedule/log/resolved/{id}', 'scheduleLogResolved')->name('schedule.log.resolved');
-        Route::post('schedule/log/flush/{id}', 'logFlush')->name('log.flush');
-    });
-
-
-    //KYC setting
-    Route::controller('KycController')->group(function(){
-        Route::get('kyc-setting','setting')->name('kyc.setting');
-        Route::post('kyc-setting','settingUpdate');
     });
 
     //Notification Setting
