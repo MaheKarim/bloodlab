@@ -1,0 +1,1 @@
+ALTER TABLE `gateways` ADD UNIQUE(`code`);
