@@ -51,8 +51,34 @@
         "keyword": ["Manage Donor", "Donor management", "Donor list", "Donor activity"],
         "title": "Manage Donor",
         "icon": "las la-user-friends",
-        "route_name": "admin.donor.index",
-        "menu_active": "admin.donor.*"
+        "counters": ["pendingDonorCount"],
+        "menu_active": "admin.donor.*",
+        "submenu": [{
+                "keyword": ["Manage Donor", "Donor management", "Donor list", "Donor activity"],
+                "title": "All Donor",
+                "route_name": "admin.donor.index",
+                "menu_active": "admin.donor.*"
+            },
+            {
+                "keyword": ["Pending Donor", "Donor management", "Donor list", "Donor activity"],
+                "title": "Pending Donor",
+                "route_name": "admin.donor.pending",
+                "menu_active": "admin.donor.pending",
+                "counter": "pendingDonorCount"
+            },
+            {
+                "keyword": ["Approved Donor", "Donor management", "Donor list", "Donor activity"],
+                "title": "Approved Donor",
+                "route_name": "admin.donor.approved",
+                "menu_active": "admin.donor.approved"
+            },
+            {
+                "keyword": ["Banned Donor", "Donor management", "Donor list", "Donor activity"],
+                "title": "Banned Donor",
+                "route_name": "admin.donor.banned",
+                "menu_active": "admin.donor.banned"
+            }
+        ]
     },
     "support_ticket": {
         "title": "Support Ticket",

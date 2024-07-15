@@ -55,8 +55,7 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('admin.partials.sidenav', function ($view) {
             $view->with([
-                'pending_ticket_count' => SupportTicket::whereIN('status', [0,2])->count(),
-                'pending_donor_count'  => Donor::where('status', 0)->count(),
+                'pendingDonorCount'  => Donor::where('status', Status::PENDING)->count(),
                 'pendingTicketCount'   => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
                 'updateAvailable'      => version_compare(gs('available_version'),systemDetails()['version'],'>') ? 'v'.gs('available_version') : false,
             ]);
