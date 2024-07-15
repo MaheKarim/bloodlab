@@ -47,6 +47,13 @@
         "route_name": "admin.blood-group.index",
         "menu_active": "admin.blood-group.*"
     },
+    "manage_donor": {
+        "keyword": ["Manage Donor", "Donor management", "Donor list", "Donor activity"],
+        "title": "Manage Donor",
+        "icon": "las la-user-friends",
+        "route_name": "admin.donor.index",
+        "menu_active": "admin.donor.*"
+    },
     "support_ticket": {
         "title": "Support Ticket",
         "icon": "la la-ticket",

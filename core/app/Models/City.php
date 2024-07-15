@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     use GlobalStatus;
-    public function location()
+    public function locations()
     {
         return $this->hasMany(Location::class);
     }

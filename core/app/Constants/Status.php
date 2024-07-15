@@ -10,8 +10,10 @@ class Status{
     const YES = 1;
     const NO = 0;
 
-    const VERIFIED = 1;
     const UNVERIFIED = 0;
+    const VERIFIED = 1;
+
+    const BANNED = 2;
 
 
     CONST TICKET_OPEN = 0;

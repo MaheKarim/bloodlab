@@ -71,6 +71,24 @@ Route::middleware('admin')->group(function () {
         Route::post('status/{id}', 'status')->name('status');
     });
 
+    // Manage Donor
+    Route::controller('ManageDonorController')->prefix('donor')->name('donor.')->group(function(){
+        Route::get('list', 'index')->name('index');
+        Route::get('pending', 'pending')->name('pending');
+        Route::get('approved', 'approved')->name('approved');
+        Route::get('banned', 'banned')->name('banned');
+        Route::get('create/{id?}', 'create')->name('create');
+        Route::get('edit/{id?}', 'edit')->name('edit');
+        Route::post('store/{id?}', 'store')->name('store');
+//        Route::post('update/{id}', 'update')->name('update');
+        Route::post('approved/status', 'approvedStatus')->name('approved.status');
+        Route::post('banned/status', 'bannedStatus')->name('banned.status');
+        Route::get('search', 'search')->name('search');
+        Route::get('blood/search', 'donorBloodSearch')->name('blood.search');
+        Route::post('featured/list/include', 'featuredInclude')->name('featured.include');
+        Route::post('featured/list/remove', 'featuredNotInclude')->name('featured.remove');
+    });
+
     // Subscriber
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function(){
         Route::get('/', 'index')->name('index');

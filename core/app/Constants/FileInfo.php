@@ -41,13 +41,9 @@ class FileInfo
             'path'      => 'assets/images/seo',
             'size'      => '1180x600',
         ];
-
         $data['adminProfile'] = [
             'path'      =>'assets/admin/images/profile',
             'size'      =>'400x400',
-        ];
-        $data['push'] = [
-            'path'      =>'assets/images/push_notification',
         ];
 
         $data['maintenance'] = [
@@ -58,9 +54,13 @@ class FileInfo
             'path' => 'assets/images/language',
             'size' => '50x50'
         ];
-
         $data['pushConfig'] = [
             'path'      => 'assets/admin',
+        ];
+
+        $data['donor'] = [
+            'path'      => 'assets/images/donor',
+            'size'      => '356x412'
         ];
         return $data;
 	}
