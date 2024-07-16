@@ -92,7 +92,14 @@
                 $('.cookies-card').addClass('d-none');
             });
         });
-
+        let disableSubmission = false;
+        $('.disableSubmission').on('submit',function(e){
+            if (disableSubmission) {
+                e.preventDefault()
+            }else{
+                disableSubmission = true;
+            }
+        });
         setTimeout(function(){
             $('.cookies-card').removeClass('hide')
         },2000);

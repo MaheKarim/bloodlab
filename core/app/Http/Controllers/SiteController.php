@@ -242,11 +242,13 @@ class SiteController extends Controller
             'message' => 'required|max:500'
         ]);
         $donor = Donor::findOrFail($request->donor_id);
+
         notify($donor, 'DONOR_CONTACT',[
             'name' => $request->name,
             'email' => $request->email,
             'message' => $request->message
-        ]);
+        ], ['email']);
+
         $notify[] = ['success', 'Request has been submitted'];
         return back()->withNotify($notify);
     }
@@ -331,6 +333,13 @@ class SiteController extends Controller
         $donor->save();
         $notify[] = ['success', 'Your Requested Submitted'];
         return back()->withNotify($notify);
+    }
+
+    public function footerMenu($slug)
+    {
+        $data = Frontend::where('slug', $slug)->where('data_keys', 'policy_pages.element')->firstOrFail();
+        $pageTitle =  $data->data_values->title;
+        return view( 'Template::menu', compact('data', 'pageTitle'));
     }
 
 }

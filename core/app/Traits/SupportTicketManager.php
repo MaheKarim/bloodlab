@@ -200,9 +200,8 @@ trait SupportTicketManager
             ]);
         }
 
-        return view("Template::$this->userType" . '.support.view', compact('myTicket', 'messages', 'pageTitle', 'user', 'layout'));
+        return view('Template::support_view', compact('myTicket', 'messages', 'pageTitle', 'user', 'layout'));
     }
-
 
     public function replyTicket(Request $request, $id)
     {

@@ -50,8 +50,8 @@ Route::controller('SiteController')->group(function () {
 
     Route::get('apply/donor', 'applyDonor')->name('apply.donor');
     Route::post('apply/donor/store', 'applyDonorStore')->name('apply.donor.store');
-
     Route::get('menu/{slug}', 'footerMenu')->name('footer.menu');
+
     Route::get('add/{id}', 'adclicked')->name('add.clicked');
     Route::post('subscribe', 'subscribe')->name('subscribe');
 });

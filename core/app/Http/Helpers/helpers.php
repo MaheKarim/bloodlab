@@ -213,8 +213,6 @@ function notify($user, $templateName, $shortCodes = null, $sendVia = null, $crea
 {
     $globalShortCodes = [
         'site_name' => gs('site_name'),
-        'site_currency' => gs('cur_text'),
-        'currency_symbol' => gs('cur_sym'),
     ];
 
     if (gettype($user) == 'array') {

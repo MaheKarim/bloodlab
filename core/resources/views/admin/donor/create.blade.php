@@ -12,7 +12,7 @@
                                     <div class="image-upload">
                                         <div class="thumb">
                                             <div class="avatar-edit">
-                                                <x-image-uploader name="image" type="donor" class="w-100" image="{{ @$donor->image }}"/>
+                                                <x-image-uploader name="image" type="donor" class="w-100" image="{{ @$donor->image }}" :required="false"/>
                                             </div>
                                         </div>
                                     </div>

@@ -135,21 +135,19 @@ class ManageDonorController extends Controller
         return back()->withNotify($notify);
     }
 
-    public function store(Request $request, $id=0)
+    public function store(Request $request, $id = 0)
     {
         $imgValidation = $id ? 'nullable' : 'required';
 
-        $request->validate([
+        $validationRules = [
             'name' => 'required|max:80',
-            'email' => 'required|email|max:60|unique:donors,email',
-            'phone' => 'required|max:40|unique:donors,phone',
             'city_id' => 'required|exists:cities,id',
             'location_id' => 'required|exists:locations,id',
             'blood_id' => 'required|exists:bloods,id',
             'gender' => 'required|in:1,2',
             'religion' => 'required|max:40',
             'profession' => 'required|max:80',
-            'donate' => 'required|integer',
+            'total_donate' => 'required|integer',
             'address' => 'required|max:255',
             'details' => 'required',
             'birth_date' => 'required|date',
@@ -158,15 +156,21 @@ class ManageDonorController extends Controller
             'twitter' => 'required',
             'linkedinIn' => 'required',
             'instagram' => 'required',
-            'image'       => ["$imgValidation", 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
-        ]);
+            'image' => [$imgValidation, 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
+        ];
+
         if ($id) {
             $donor = Donor::findOrFail($id);
-            $notification = 'updated';
+            $validationRules['email'] = 'required|email|max:60|unique:donors,email,' . $id;
+            $validationRules['phone'] = 'required|max:40|unique:donors,phone,' . $id;
         } else {
             $donor = new Donor();
-            $notification        = 'added';
+            $validationRules['email'] = 'required|email|max:60|unique:donors,email';
+            $validationRules['phone'] = 'required|max:40|unique:donors,phone';
         }
+
+        $request->validate($validationRules);
+
         $donor->name = $request->name;
         $donor->email = $request->email;
         $donor->phone = $request->phone;
@@ -179,7 +183,7 @@ class ManageDonorController extends Controller
         $donor->address = $request->address;
         $donor->details = $request->details;
         $donor->total_donate = $request->total_donate;
-        $donor->birth_date =  $request->birth_date;
+        $donor->birth_date = $request->birth_date;
         $donor->last_donate = $request->last_donate;
         $socialMedia = [
             'facebook' => $request->facebook,
@@ -191,7 +195,7 @@ class ManageDonorController extends Controller
 
         if ($request->hasFile('image')) {
             try {
-                $old            = $donor->image;
+                $old = $donor->image;
                 $donor->image = fileUploader($request->image, getFilePath('donor'), getFileSize('donor'), $old);
             } catch (\Exception $e) {
                 $notify[] = ['error', 'Could not upload your image'];
@@ -200,10 +204,11 @@ class ManageDonorController extends Controller
         }
         $donor->status = $request->status ? Status::ENABLE : Status::DISABLE;
         $donor->save();
+
+        $notification = $id ? 'updated' : 'added';
         $notify[] = ['success', "Donor $notification successfully"];
         return back()->withNotify($notify);
     }
-
     public function edit($id=0)
     {
         $pageTitle = "Donor Update";
