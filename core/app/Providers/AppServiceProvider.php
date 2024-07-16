@@ -8,6 +8,8 @@ use App\Models\AdminNotification;
 use App\Models\Deposit;
 use App\Models\Donor;
 use App\Models\Frontend;
+use App\Models\Language;
+use App\Models\Page;
 use App\Models\SupportTicket;
 use App\Models\User;
 use App\Models\Withdrawal;
@@ -50,6 +52,8 @@ class AppServiceProvider extends ServiceProvider
         $viewShare['activeTemplate'] = $activeTemplate;
         $viewShare['activeTemplateTrue'] = activeTemplate(true);
         $viewShare['emptyMessage'] = 'Data not found';
+        $viewShare['language'] = Language::all();
+        $viewShare['pages'] = Page::where('tempname',$activeTemplate)->where('slug','!=','home')->get();
         view()->share($viewShare);
 
 

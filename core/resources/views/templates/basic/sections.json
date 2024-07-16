@@ -5,34 +5,23 @@
         "name": "Banner Section",
         "content": {
             "images":{
-                "image":{
-                    "size":"500x500",
-                    "thumb":"100x100"
+                "background_image":{
+                    "size":"1920x1280"
                 }
             },
-            "heading": "text",
-            "subheading": "text"
+            "heading": "text"
         }
     },
-    "feature": {
+    "breadcrumb": {
         "builder": true,
-        "name": "Feature Section",
+        "no_selection":true,
+        "name": "Breadcrumb Section",
         "content": {
-            "heading": "text",
-            "subheading": "text"
-        },
-        "element": {
-            "title": "text",
-            "description": "textarea",
-            "feature_icon": "icon",
-            "select":{
-                "name":"trx_type",
-                "options":{
-                  "deposit":"Deposit",
-                  "withdraw":"Withdraw"
+            "images":{
+                "background_image":{
+                    "size":"1920x1440"
                 }
-            },
-            "modal": false
+            }
         }
     },
     "about": {
@@ -40,92 +29,48 @@
         "name": "About Us",
         "content": {
             "images":{
-                "background_image":{
-                    "size":"500x500",
-                    "thumb":"100x100"
-                },
                 "about_image":{
-                    "size":"500x500",
-                    "thumb":"100x100"
+                    "size":"992x661"
                 }
             },
             "heading": "text",
-            "subheading": "text",
-            "description": "textarea",
-            "about_icon": "icon"
-        }
-    },
-    "service": {
-        "builder": true,
-        "name": "Service Section",
-        "content": {
-            "select":{
-                "name":"trx_type",
-                "options":{
-                  "deposit":"Deposit",
-                  "withdraw":"Withdraw"
-                }
-            },
-            "heading": "text",
-            "subheading": "text"
-        },
-        "element": {
-            "select":{
-                "name":"trx_type",
-                "options":{
-                  "deposit":"Deposit",
-                  "withdraw":"Withdraw"
-                }
-            },
-            "service_icon": "icon",
-            "title": "text",
-            "description": "textarea",
-            "modal": false
-        }
-    },
-    "counter": {
-        "builder": true,
-        "name": "Counter Section",
-        "content": {
-            "heading": "text",
-            "subheading": "text"
+            "sub_heading": "text",
+            "video_link" : "text"
         },
         "element": {
             "title": "text",
-            "counter_digit": "text",
             "sub_title": "text",
-            "counter_icon": "icon",
-            "counter_icon_2": "icon",
-            "modal": false
+            "about_icon": "icon",
+            "modal": true
         }
     },
-    "policy_pages": {
+    "blood": {
         "builder": true,
-        "no_selection":true,
-        "name": "Policy Pages",
-        "hide_builder":true,
-        "element": {
-            "title": "text",
-            "slug":"title",
-            "details": "textarea-nic",
-            "modal": false,
-            "seo":true
-        }
-    },
-    "register_disable": {
-        "builder": true,
-        "no_selection":true,
-        "name": "Registration Disable",
+        "name": "Blood Section",
         "content": {
             "images":{
-                "image":{
-                    "size":"280x280"
+                "background_image":{
+                    "size":"1920x389"
                 }
             },
-            "heading": "text",
-            "subheading":"text",
-            "button_name":"text",
-            "button_url":"text"
+            "heading": "text"
+        }
+    },
+    "overview": {
+        "builder": true,
+        "name": "Overview Section",
+        "content": {
+            "images":{
+                "background_image":{
+                    "size":"1920x1282"
+                }
+            },
+            "heading": "text"
+        },
+        "element": {
+            "title": "text",
+            "overview_icon": "icon",
+            "modal": true
         }
     },
     "faq": {
@@ -133,12 +78,116 @@
         "name": "FAQ Section",
         "content": {
             "heading": "text",
-            "subheading": "text"
+            "sub_heading": "text"
         },
         "element": {
-            "question": "text",
+            "title": "text",
             "answer": "textarea",
-            "icon":"icon",
+            "modal": true
+        }
+    },
+    "donor": {
+        "builder": true,
+        "name": "Top Donor",
+        "content": {
+            "images":{
+                "background_image":{
+                    "size":"1920x596"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text"
+        }
+    },
+
+    "latest_donor": {
+        "builder": true,
+        "name": "Latest Donor",
+        "content": {
+            "images":{
+                "background_image":{
+                    "size":"1920x596"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text"
+        }
+    },
+
+    "featured_donor": {
+        "builder": true,
+        "name": "Featured Donor",
+        "content": {
+            "images":{
+                "background_image":{
+                    "size":"1920x596"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text"
+        }
+    },
+
+    "how_it_work": {
+        "builder": true,
+        "name": "How It Work",
+        "content": {
+            "images":{
+                "background_image":{
+                    "size":"1920x1440"
+                }
+            },
+            "heading": "text"
+        },
+        "element": {
+            "title": "text",
+            "icon": "icon",
+            "modal": true
+        }
+    },
+    "policy_pages": {
+        "builder": true,
+        "no_selection":true,
+        "name": "Policy Pages",
+        "element": {
+            "title": "text",
+            "details": "textarea-nic",
+            "modal": false
+        }
+    },
+    "patner": {
+        "builder": true,
+        "name": "Patner Section",
+        "content": {
+            "heading": "text",
+            "sub_heading": "text"
+        },
+        "element": {
+            "images":{
+                "background_image":{
+                    "size":"255x241"
+                }
+            },
+            "modal": true
+        }
+    },
+    "testimonial": {
+        "builder": true,
+        "name": "Testimonial Section",
+        "content": {
+            "images":{
+                "background_image":{
+                    "size":"1920x1280"
+                }
+            },
+            "heading": "text",
+            "sub_heading": "text"
+        },
+        "element": {
+            "name" : "text",
+            "testimonial" : "textarea",
+            "rating" : "text",
+            "donor_count" : "text",
             "modal": true
         }
     },
@@ -147,28 +196,17 @@
         "name": "Blog Section",
         "content": {
             "heading": "text",
-            "subheading": "text"
+            "sub_heading": "text"
         },
         "element": {
             "images":{
-                "image":{
-                    "size":"728x465",
-                    "thumb":"120x80"
+                "blog_image":{
+                    "size":"728x465"
                 }
             },
             "title": "text",
-            "slug":"title",
-            "description": "textarea-nic",
-            "modal": false,
-            "seo":true
-        }
-    },
-    "subscribe": {
-        "builder": true,
-        "name": "Subscribe Section",
-        "content": {
-            "heading": "text",
-            "subheading": "text"
+            "description_nic": "textarea-nic",
+            "modal": false
         }
     },
     "social_icon": {
@@ -187,24 +225,36 @@
         "no_selection": true,
         "name": "Contact Us",
         "content": {
+            "images":{
+                "background_image":{
+                    "size":"1920x389"
+                }
+            },
             "title": "text",
-            "short_details": "text",
             "email_address": "text",
             "contact_details": "text",
             "contact_number": "text",
             "latitude": "text",
-            "longitude": "text",
-            "website_footer": "textarea-nic"
+            "longitude": "text"
         }
     },
-    "kyc": {
+    "footer": {
         "builder": true,
         "no_selection": true,
-        "name": "KYC Content",
+        "name": "Footer Section",
         "content": {
-            "required": "text",
-            "pending": "text",
-            "reject": "text"
+            "images":{
+                "background_image":{
+                    "size":"1920x921"
+                }
+            },
+            "title": "text",
+            "btn_name": "text",
+            "btn_url": "text",
+            "first_count_digits": "text",
+            "first_count_title": "text",
+            "second_count_digits": "text",
+            "second_count_title": "text"
         }
     }
 }

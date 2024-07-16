@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Constants\Status;
 use App\Models\AdminNotification;
+use App\Models\Blood;
+use App\Models\City;
+use App\Models\Donor;
 use App\Models\Frontend;
 use App\Models\Language;
+use App\Models\Location;
 use App\Models\Page;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
@@ -26,7 +30,10 @@ class SiteController extends Controller
         $sections = Page::where('tempname',activeTemplate())->where('slug','/')->first();
         $seoContents = $sections->seo_content;
         $seoImage = @$seoContents->image ? getImage(getFilePath('seo') . '/' . @$seoContents->image, getFileSize('seo')) : null;
-        return view('Template::home', compact('pageTitle','sections','seoContents','seoImage'));
+        $bloods = Blood::where('status', Status::ENABLE)->select('id', 'name')->get();
+        $cities = City::where('status', Status::ENABLE)->select('id', 'name')->get();
+
+        return view('Template::home', compact('pageTitle','sections','seoContents','seoImage', 'bloods', 'cities'));
     }
 
     public function pages($slug)
@@ -172,6 +179,87 @@ class SiteController extends Controller
         }
         $maintenance = Frontend::where('data_keys','maintenance.data')->first();
         return view('Template::maintenance',compact('pageTitle','maintenance'));
+    }
+
+    public function donor()
+    {
+        $pageTitle = "All Donor";
+        $emptyMessage = "No data found";
+        $bloods = Blood::where('status', Status::ENABLE)->select('id', 'name')->get();
+        $cities = City::where('status', Status::ENABLE)->select('id', 'name')->with('locations')->get();
+        $donors = Donor::where('status', Status::ENABLE)->with('blood', 'location')->paginate(getPaginate());
+        return view('Template::donor', compact('pageTitle','emptyMessage', 'donors', 'cities', 'bloods'));
+    }
+
+    public function donorDetails($slug, $id)
+    {
+        $pageTitle = "Donor Details";
+        $donor = Donor::where('status',Status::ENABLE)->where('id', decrypt($id))->firstOrFail();
+        return view('Template::donor_details', compact('pageTitle', 'donor'));
+    }
+
+    public function donorSearch(Request $request)
+    {
+        $request->validate([
+            'location_id' => 'nullable|exists:locations,id',
+            'city_id' => 'nullable|exists:cities,id',
+            'blood_id' => 'nullable|exists:bloods,id',
+            'gender' => 'nullable|in:1,2'
+        ]);
+        $locations = Location::where('status', Status::ENABLE)->select('id', 'name')->get();
+        $bloods = Blood::where('status', Status::ENABLE)->select('id', 'name')->get();
+        $cities = City::where('status', Status::ENABLE)->select('id', 'name')->get();
+        $pageTitle = "Donor Search";
+        $emptyMessage = "No data found";
+        $locationId = $request->location_id;
+        $cityId = $request->city_id;
+        $bloodId = $request->blood_id;
+        $gender = $request->gender;
+        $donors = Donor::where('status', Status::ENABLE);
+        if($request->blood_id){
+            $donors = $donors->where('blood_id', $request->blood_id);
+        }
+        if($request->city_id){
+            $donors = $donors->where('city_id', $request->city_id);
+        }
+        if($request->location_id){
+            $donors = $donors->where('location_id', $request->location_id);
+        }
+        if($request->gender){
+            $donors = $donors->where('gender', $request->gender);
+        }
+        $donors = $donors->with('blood', 'location')->paginate(getPaginate());
+        return view('Template::donor', compact('pageTitle','emptyMessage', 'donors', 'cities', 'locations', 'bloods', 'locationId', 'cityId', 'bloodId', 'gender'));
+    }
+
+    public function contactWithDonor(Request $request)
+    {
+        $request->validate([
+            'donor_id' => 'required|exists:donors,id',
+            'name' => 'required|max:80',
+            'email' => 'required|max:80',
+            'message' => 'required|max:500'
+        ]);
+        $donor = Donor::findOrFail($request->donor_id);
+        notify($donor, 'DONOR_CONTACT',[
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message
+        ]);
+        $notify[] = ['success', 'Request has been submitted'];
+        return back()->withNotify($notify);
+    }
+
+    public function bloodGroup($slug, $id)
+    {
+        $blood = Blood::where('status', Status::ENABLE)->where('id', decrypt($id))->firstOrFail();
+        $pageTitle = $blood->name." Blood Group Donor";
+        $emptyMessage = "No data found";
+        $bloods = Blood::where('status', Status::ENABLE)->select('id', 'name')->get();
+        $cities = City::where('status', Status::ENABLE)->select('id', 'name')->get();
+        $locations = Location::where('status', Status::ENABLE)->select('id', 'name')->get();
+        $donors = Donor::where('status',Status::ENABLE)->where('blood_id', $blood->id)->with('blood', 'locations')->paginate(getPaginate());
+        return view( 'Template::donor', compact('pageTitle','emptyMessage', 'donors', 'bloods', 'cities', 'locations'));
     }
 
 }

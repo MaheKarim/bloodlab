@@ -6,10 +6,8 @@
                 <div class="card-body p-0">
                     <div class="table-responsive--md  table-responsive">
                         <table class="table table--light style--two custom-data-table" id="table">
-
                             <thead>
                             <tr>
-
                                 <th>@lang('Name')</th>
                                 <th>@lang('Type')</th>
                                 <th>@lang('Size')</th>
@@ -22,7 +20,7 @@
                             </thead>
                             <tbody>
                             @forelse($advertisements as $k=> $advertisement)
-                                <tr id={{ 'row_' . $advertisement->id }}>
+                                <tr>
                                     <td>
                                         @if ($advertisement->type == \App\Constants\Status::IMAGE)
                                             <div class="user">
