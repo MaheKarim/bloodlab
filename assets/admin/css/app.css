@@ -8303,3 +8303,60 @@ label.required:after {
 .dropdown-menu__body::-webkit-scrollbar-thumb {
   background-color: rgb(7 18 81 / 40%);
 }
+.image-upload .thumb .profilePicPreview {
+  width: 100%;
+  height: 310px;
+  display: block;
+  border: 3px solid #f1f1f1;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background-size: cover !important;
+  background-position: top;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-upload .thumb .profilePicPreview.logoPicPrev {
+  background-size: contain !important;
+  background-position: center;
+}
+
+.image-upload .thumb .profilePicUpload {
+  font-size: 0;
+  opacity: 0;
+}
+
+.image-upload .thumb .avatar-edit label {
+  text-align: center;
+  line-height: 45px;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 25px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.16);
+  transition: all 0.3s;
+}
+
+.image-upload .thumb .avatar-edit label:hover {
+  transform: translateY(-3px);
+}
+
+.image-upload .thumb .profilePicPreview .remove-image {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  text-align: center;
+  width: 55px;
+  height: 55px;
+  font-size: 24px;
+  border-radius: 50%;
+  background-color: #df1c1c;
+  color: #fff;
+  display: none;
+}
+
+.image-upload .thumb .profilePicPreview.has-image .remove-image {
+  display: block;
+}

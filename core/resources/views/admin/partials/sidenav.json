@@ -80,6 +80,13 @@
             }
         ]
     },
+    "manage_advertisement": {
+        "keyword": ["Manage Advertisement", "Advertisement management", "Advertisement list", "Advertisement activity"],
+        "title": "Advertisement",
+        "icon": "las la-ad",
+        "route_name": "admin.advertisement.index",
+        "menu_active": "admin.advertisement.*"
+    },
     "support_ticket": {
         "title": "Support Ticket",
         "icon": "la la-ticket",

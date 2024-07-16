@@ -2,6 +2,7 @@
 
 use App\Constants\Status;
 use App\Lib\GoogleAuthenticator;
+use App\Models\Advertisement;
 use App\Models\Extension;
 use App\Models\Frontend;
 use App\Models\GeneralSetting;
@@ -46,7 +47,6 @@ function getNumber($length = 8)
     }
     return $randomString;
 }
-
 
 function activeTemplate($asset = false) {
     $template = session('template') ?? gs('active_template');
@@ -132,7 +132,6 @@ function showAmount($amount, $decimal = 2, $separate = true, $exceptZeros = fals
     return $printAmount;
 }
 
-
 function removeElement($array, $value)
 {
     return array_diff($array, (is_array($value) ? $value : array($value)));
@@ -148,25 +147,21 @@ function keyToTitle($text)
     return ucfirst(preg_replace("/[^A-Za-z0-9 ]/", ' ', $text));
 }
 
-
 function titleToKey($text)
 {
     return strtolower(str_replace(' ', '_', $text));
 }
-
 
 function strLimit($title = null, $length = 10)
 {
     return Str::limit($title, $length);
 }
 
-
 function getIpInfo()
 {
     $ipInfo = ClientInfo::ipInfo();
     return $ipInfo;
 }
-
 
 function osBrowser()
 {
@@ -462,7 +457,6 @@ function isHtml($string)
     }
 }
 
-
 function convertToReadableSize($size) {
     preg_match('/^(\d+)([KMG])$/', $size, $matches);
     $size = (int)$matches[1];
@@ -483,11 +477,26 @@ function convertToReadableSize($size) {
     return $size.$unit;
 }
 
-
 function frontendImage($sectionName, $image, $size = null,$seo = false)
 {
     if ($seo) {
         return getImage('assets/images/frontend/' . $sectionName . '/seo/' . $image, $size);
     }
     return getImage('assets/images/frontend/' . $sectionName . '/' . $image, $size);
+}
+
+function showAd($size){
+    $ad = Advertisement::where('size', $size)->where('status',  Status::ENABLE)->inRandomOrder()->first();
+
+    if($ad){
+        $ad->impression += 1;
+        $ad->save();
+        if($ad->type == 'image'){
+            $html = '<a href="'.route('adRedirect', encrypt($ad->id)).'" target="_blank"><img src="'.getImage(getFilePath('advertisement').'/'.$ad->value, $size).'"></a>';
+            echo $html;
+            return true;
+        }
+        return $ad->value;
+    }
+    return false;
 }

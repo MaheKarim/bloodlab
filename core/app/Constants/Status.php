@@ -6,9 +6,11 @@ class Status{
 
     const ENABLE = 1;
     const DISABLE = 0;
-
+    const IMAGE=1;
+    const SCRIPT=2;
     const PENDING=0;
     const APPROVED=1;
+
     const YES = 1;
     const NO = 0;
 

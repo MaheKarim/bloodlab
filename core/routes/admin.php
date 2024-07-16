@@ -89,6 +89,15 @@ Route::middleware('admin')->group(function () {
         Route::post('featured/list/remove', 'featuredNotInclude')->name('featured.remove');
     });
 
+    //Advertisement
+    Route::controller('AdvertisementController')->prefix('advertisement')->name('advertisement.')->group(function(){
+        Route::get('', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
+    });
+
     // Subscriber
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function(){
         Route::get('/', 'index')->name('index');

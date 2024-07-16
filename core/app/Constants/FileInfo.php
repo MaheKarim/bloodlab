@@ -45,7 +45,6 @@ class FileInfo
             'path'      =>'assets/admin/images/profile',
             'size'      =>'400x400',
         ];
-
         $data['maintenance'] = [
             'path'      =>'assets/images/maintenance',
             'size'      =>'660x325',
@@ -57,10 +56,12 @@ class FileInfo
         $data['pushConfig'] = [
             'path'      => 'assets/admin',
         ];
-
         $data['donor'] = [
             'path'      => 'assets/images/donor',
             'size'      => '356x412'
+        ];
+        $data['advertisement'] = [
+            'path' => 'assets/images/advertisement',
         ];
         return $data;
 	}
