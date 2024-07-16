@@ -13,6 +13,7 @@ use App\Models\Location;
 use App\Models\Page;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
+use App\Rules\FileTypeValidate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -260,6 +261,76 @@ class SiteController extends Controller
         $locations = Location::where('status', Status::ENABLE)->select('id', 'name')->get();
         $donors = Donor::where('status',Status::ENABLE)->where('blood_id', $blood->id)->with('blood', 'locations')->paginate(getPaginate());
         return view( 'Template::donor', compact('pageTitle','emptyMessage', 'donors', 'bloods', 'cities', 'locations'));
+    }
+
+    public function applyDonor()
+    {
+        $pageTitle = "Apply as a Donor";
+        $cities = City::where('status', Status::ENABLE)->select('id', 'name')->with('locations')->get();
+        $bloods = Blood::where('status', Status::ENABLE)->select('id', 'name')->get();
+
+        return view('Template::apply_donor',compact('pageTitle', 'bloods', 'cities'));
+    }
+
+    public function applyDonorStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:80',
+            'email' => 'required|email|max:60|unique:donors,email',
+            'phone' => 'required|max:40|unique:donors,phone',
+            'city' => 'required|exists:cities,id',
+            'location' => 'required|exists:locations,id',
+            'blood' => 'required|exists:bloods,id',
+            'gender' => 'required|in:1,2',
+            'religion' => 'required|max:40',
+            'profession' => 'required|max:80',
+            'donate' => 'required|integer',
+            'address' => 'required|max:255',
+            'details' => 'required',
+            'birth_date' => 'required|date',
+            'last_donate' => 'required|date',
+            'facebook' => 'required',
+            'twitter' => 'required',
+            'linkedinIn' => 'required',
+            'instagram' => 'required',
+            'image' => ['required', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
+        ]);
+        $donor = new Donor();
+        $donor->name = $request->name;
+        $donor->email = $request->email;
+        $donor->phone = $request->phone;
+        $donor->city_id = $request->city;
+        $donor->blood_id = $request->blood;
+        $donor->location_id = $request->location;
+        $donor->gender = $request->gender;
+        $donor->religion = $request->religion;
+        $donor->profession = $request->profession;
+        $donor->address = $request->address;
+        $donor->details = $request->details;
+        $donor->total_donate = $request->donate;
+        $donor->birth_date =  $request->birth_date;
+        $donor->last_donate = $request->last_donate;
+        $socialMedia = [
+            'facebook' => $request->facebook,
+            'twitter' => $request->twitter,
+            'linkedinIn' => $request->linkedinIn,
+            'instagram' => $request->instagram
+        ];
+        $donor->socialMedia = $socialMedia;
+
+        if ($request->hasFile('image')) {
+            try {
+                $old            = $donor->image;
+                $filename = fileUploader($request->image, getFilePath('donor'), getFileSize('donor'), $old);
+            } catch (\Exception $exp) {
+                $notify[] = ['error', 'Image could not be uploaded.'];
+                return back()->withNotify($notify);
+            }
+            $donor->image = $filename;
+        }
+        $donor->save();
+        $notify[] = ['success', 'Your Requested Submitted'];
+        return back()->withNotify($notify);
     }
 
 }

@@ -2,22 +2,7 @@
     $footer = getContent('footer.content', true);
     $contact = getContent('contact_us.content', true);
     $policys = getContent('policy_pages.element', false);
-    $cookie = App\Models\Frontend::where('data_keys','cookie.data')->first();
 @endphp
-
-@if(!session('cookie_accepted'))
-    <div class="cookie__wrapper">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-between">
-                <p class="txt my-2">
-                    @php echo @$cookie->data_values->description @endphp
-                    <a href="{{ @$cookie->data_values->link }}" target="_blank">@lang('Read Policy')</a>
-                </p>
-                <a href="javascript:void(0)" class="btn btn--base my-2 policy">@lang('Accept')</a>
-            </div>
-        </div>
-    </div>
-@endif
 
 <footer class="footer img-overlay bg_img" style="background-image: url({{getImage('assets/images/frontend/footer/'. @$footer->data_values->background_image, '1920x921')}});">
     <div class="footer__top">
@@ -78,7 +63,7 @@
                             <li><a href="{{route('contact')}}">@lang('Support Center')</a></li>
                             <li><a href="{{route('apply.donor')}}">@lang('Apply as a Donor')</a></li>
                             @foreach($policys as $policy)
-                                <li><a href="{{route('footer.menu', [slug($policy->data_values->title), $policy->id])}}">{{__($policy->data_values->title)}}</a></li>
+                                <li><a href="{{route('footer.menu', slug($policy->data_values->title))}}">{{__($policy->data_values->title)}}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -141,17 +126,6 @@
                 }
             });
 
-            $('.policy').on('click',function(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.get('{{route('cookie.accept')}}', function(response){
-                    $('.cookie__wrapper').addClass('d-none');
-                    notify('success', response);
-                });
-            });
         })();
     </script>
 @endpush

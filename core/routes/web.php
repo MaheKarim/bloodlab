@@ -47,9 +47,11 @@ Route::controller('SiteController')->group(function () {
     Route::get('donor/search', 'donorSearch')->name('donor.search');
     Route::post('donor/contact', 'contactWithDonor')->name('donor.contact');
     Route::get('blood/donor/{slug}/{id}', 'bloodGroup')->name('blood.group.donor');
+
     Route::get('apply/donor', 'applyDonor')->name('apply.donor');
-    Route::post('apply/donor/store', 'applyDonorstore')->name('apply.donor.store');
-    Route::get('menu/{slug}/{id}', 'footerMenu')->name('footer.menu');
+    Route::post('apply/donor/store', 'applyDonorStore')->name('apply.donor.store');
+
+    Route::get('menu/{slug}', 'footerMenu')->name('footer.menu');
     Route::get('add/{id}', 'adclicked')->name('add.clicked');
     Route::post('subscribe', 'subscribe')->name('subscribe');
 });

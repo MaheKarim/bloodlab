@@ -42,7 +42,6 @@ class GeneralSettingController extends Controller
         $general->paginate_number = $request->paginate_number;
         $general->base_color = str_replace('#','',$request->base_color);
         $general->secondary_color = str_replace('#','',$request->secondary_color);
-        $general->currency_format = $request->currency_format;
         $general->save();
 
         $timezoneFile = config_path('timezone.php');
