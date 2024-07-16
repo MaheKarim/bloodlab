@@ -11,9 +11,6 @@
                                 <div class="form-group">
                                     <div class="image-upload">
                                         <div class="thumb">
-                                            <div class="avatar-preview">
-                                                <div class="profilePicPreview" ></div>
-                                            </div>
                                             <div class="avatar-edit">
                                                 <x-image-uploader name="image" type="donor" class="w-100" image="{{ @$donor->image }}"/>
                                             </div>

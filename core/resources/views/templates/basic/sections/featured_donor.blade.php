@@ -24,7 +24,7 @@
                     <div class="donor-card has--link">
                         <a href="{{route('donor.details', [slug($donor->name), encrypt($donor->id)])}}" class="item--link"></a>
                         <div class="donor-card__thumb">
-                            <img src="{{getImage('assets/images/donor/'. $donor->image, imagePath()['donor']['size'])}}" alt="@lang('image')">
+                            <img src="{{getImage('assets/images/donor/'. $donor->image, getFileSize('donor'))}}" alt="@lang('image')">
                         </div>
                         <div class="donor-card__content">
                             <h6 class="donor-card__name">{{__($donor->name)}}</h6>

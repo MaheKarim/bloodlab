@@ -484,19 +484,24 @@ function frontendImage($sectionName, $image, $size = null,$seo = false)
     }
     return getImage('assets/images/frontend/' . $sectionName . '/' . $image, $size);
 }
-
+function impressionCount($id)
+{
+    $item = Advertisement::where('id',$id)->first();
+    $item->impression +=1;
+    $item->save();
+}
 function showAd($size){
-    $ad = Advertisement::where('size', $size)->where('status',  Status::ENABLE)->inRandomOrder()->first();
-
-    if($ad){
-        $ad->impression += 1;
-        $ad->save();
-        if($ad->type == 'image'){
-            $html = '<a href="'.route('adRedirect', encrypt($ad->id)).'" target="_blank"><img src="'.getImage(getFilePath('advertisement').'/'.$ad->value, $size).'"></a>';
-            echo $html;
-            return true;
+    $ad = Advertisement::where('status',1)->where('size', $size)->inRandomOrder()->first();
+    if ($ad) {
+        if ($ad->type == 1) {
+            impressionCount($ad->id);
+            return  '<a  target="_blank" href="'.route('add.clicked',encrypt($ad->id)).'" class="d-block bonus"><img src="'.getImage('assets/images/advertisement/'.$ad->image).'" alt="image"></a>';
         }
-        return $ad->value;
+        if($ad->type == 2) {
+            impressionCount($ad->id);
+            return "<div class='dynamicScript' data-id=".encrypt($ad->id).">".$ad->script."</div>";
+        }
+    } else {
+        return '';
     }
-    return false;
 }
