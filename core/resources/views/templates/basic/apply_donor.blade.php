@@ -5,6 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+
                     <form method="POST" action="{{route('apply.donor.store')}}" class="contact-form bg-white p-sm-5 p-3 rounded-3 position-relative" enctype="multipart/form-data">
                         @csrf
                         <h5 class="mb-3">@lang('Personal Information')</h5>

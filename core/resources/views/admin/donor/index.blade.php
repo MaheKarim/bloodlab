@@ -24,7 +24,7 @@
                                 <tr>
                                     <td>
                                         <span>{{__($donor->name)}}</span><br>
-                                        <span>{{__(@$donor->profession)}}</span>
+                                        <span>{{__(Str::limit(@$donor->profession, 20))}}</span>
                                     </td>
                                     <td>
                                         <span>{{__(@$donor->email)}}</span><br>
@@ -117,8 +117,8 @@
                         <p>@lang('Are you sure to approved this donor?')</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn--secondary" data-bs-dismiss="modal">@lang('Close')</button>
-                        <button type="submit" class="btn btn--success">@lang('Confirm')</button>
+                        <button type="button" class="btn btn-sm btn--dark" data-bs-dismiss="modal">@lang('Close')</button>
+                        <button type="submit" class="btn btn-sm btn--primary">@lang('Confirm')</button>
                     </div>
                 </form>
             </div>
@@ -144,8 +144,8 @@
                         <p>@lang('Are you sure to banned this donor?')</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn--secondary" data-bs-dismiss="modal">@lang('Close')</button>
-                        <button type="submit" class="btn btn--success">@lang('Confirm')</button>
+                        <button type="button" class="btn btn-sm btn--dark" data-bs-dismiss="modal">@lang('Close')</button>
+                        <button type="submit" class="btn btn-sm btn--primary">@lang('Confirm')</button>
                     </div>
                 </form>
             </div>
@@ -171,8 +171,8 @@
                         <p>@lang('Are you sure include this donor featured list?')</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn--danger" data-bs-dismiss="modal">@lang('Close')</button>
-                        <button type="submit" class="btn btn--primary">@lang('Confirm')</button>
+                        <button type="button" class="btn btn--dark btn-sm" data-bs-dismiss="modal">@lang('Close')</button>
+                        <button type="submit" class="btn btn--primary btn-sm">@lang('Confirm')</button>
                     </div>
                 </form>
             </div>
@@ -197,8 +197,8 @@
                         <p>@lang('Are you sure remove this donor featured list?')</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn--danger" data-bs-dismiss="modal">@lang('Close')</button>
-                        <button type="submit" class="btn btn--success">@lang('Confirm')</button>
+                        <button type="button" class="btn btn--dark btn-sm" data-bs-dismiss="modal">@lang('Close')</button>
+                        <button type="submit" class="btn btn--primary btn-sm">@lang('Confirm')</button>
                     </div>
                 </form>
             </div>

@@ -19,6 +19,7 @@ use App\Rules\FileTypeValidate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 
 
 class SiteController extends Controller
@@ -49,7 +50,6 @@ class SiteController extends Controller
         return view('Template::pages', compact('pageTitle','sections','seoContents','seoImage'));
     }
 
-
     public function contact()
     {
         $pageTitle = "Contact Us";
@@ -59,7 +59,6 @@ class SiteController extends Controller
         $seoImage = @$seoContents->image ? getImage(getFilePath('seo') . '/' . @$seoContents->image, getFileSize('seo')) : null;
         return view('Template::contact',compact('pageTitle','user','sections','seoContents','seoImage'));
     }
-
 
     public function contactSubmit(Request $request)
     {
@@ -339,13 +338,14 @@ class SiteController extends Controller
 
     public function subscribe(Request $request)
     {
-         $validator = $request->validate([
-            'email' => 'required|email',
-        ]);
+         try{
+             $validatedData = $request->validate([
+                 'email' => 'required|email',
+             ]);
+         }catch(Exception $e){
+             return response()->json($e->errors());
+         }
 
-        if($validator->fails()) {
-            return response()->json($validator->errors());
-        }
         $if_exist = Subscriber::where('email', $request->email)->first();
         if (!$if_exist) {
             $subscriber = new Subscriber();

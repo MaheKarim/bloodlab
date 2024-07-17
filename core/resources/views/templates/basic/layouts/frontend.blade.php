@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue.'css/color.php') }}?color={{ gs('base_color') }}&secondColor={{ gs('secondary_color') }}">
 
 </head>
+@php echo loadExtension('google-analytics') @endphp
 <body>
 @stack('fbComment')
 <div class="scroll-to-top">
@@ -50,7 +51,7 @@
 
     $cookie = App\Models\Frontend::where('data_keys','cookie.data')->first();
 @endphp
-@if(!session('cookie_accepted'))
+
     @if(($cookie->data_values->status == Status::ENABLE) && !\Cookie::get('gdpr_cookie'))
         <!-- cookies dark version start -->
         <div class="cookies-card text-center hide">
@@ -64,7 +65,7 @@
         </div>
         <!-- cookies dark version end -->
     @endif
-@endif
+
 
 @include($activeTemplate . 'partials.footer')
 <!-- Optional JavaScript -->
@@ -79,6 +80,12 @@
 <script src="{{asset($activeTemplateTrue.'js/app.js')}}"></script>
 
 @stack('script-lib')
+
+@php echo loadExtension('tawk-chat') @endphp
+
+@include('partials.notify')
+
+
 @stack('script')
 
 <script>

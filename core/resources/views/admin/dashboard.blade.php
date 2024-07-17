@@ -110,7 +110,7 @@
                             <tr>
                                 <td>
                                     <span>{{__($donor->name)}}</span><br>
-                                    <span>{{__(@$donor->profession)}}</span>
+                                    <span>{{__(Str::limit(@$donor->profession, 20))}}</span>
                                 </td>
                                 <td>
                                     <span>{{__(@$donor->email)}}</span><br>
