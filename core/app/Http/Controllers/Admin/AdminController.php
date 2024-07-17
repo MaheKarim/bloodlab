@@ -26,10 +26,10 @@ class AdminController extends Controller
         $locations = Location::count();
         $ads = Advertisement::count();
         $donor['all'] = Donor::count();
-        $donor['pending'] = Donor::where('status', 0)->count();
-        $donor['approved'] = Donor::where('status', 1)->count();
-        $donor['banned'] = Donor::where('status', 0)->count();
-        $donors = Donor::orderBy('id', 'DESC')->with('blood', 'location')->limit(8)->get();
+        $donor['pending'] = Donor::where('status', Status::PENDING)->count();
+        $donor['approved'] = Donor::where('status', Status::ENABLE)->count();
+        $donor['banned'] = Donor::where('status', Status::PENDING)->count();
+        $donors = Donor::latest()->with('blood', 'location')->limit(10)->get();
 
         return view('admin.dashboard', compact('pageTitle', 'blood', 'city', 'locations', 'ads', 'donor', 'donors'));
     }

@@ -232,7 +232,7 @@
 
 @push('breadcrumb-plugins')
     <button class="btn btn-sm btn-outline--primary __advertisement"><i
-            class="las la-plus"></i>@lang('New Advertisement')</button>
+            class="las la-plus"></i>@lang('Add New Advertisement')</button>
 @endpush
 
 @push('style')

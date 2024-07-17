@@ -66,17 +66,17 @@
                                     </td>
                                     <td>
                                         @if($donor->status == 2)
-                                            <a href="javascript:void(0)" class="btn btn-outline--success ml-1 approved text--white" data-toggle="tooltip" data-original-title="@lang('Approve')" data-id="{{$donor->id}}"><i class="las la-check">
+                                            <a href="javascript:void(0)" class="btn btn-outline--success ml-1 approved text--white btn-sm" data-toggle="tooltip" data-original-title="@lang('Approve')" data-id="{{$donor->id}}"><i class="las la-check">
                                                 </i> @lang('Approve')</a>
                                         @elseif($donor->status == 1)
-                                            <a href="javascript:void(0)" class="btn btn-outline--danger ml-1 cancel" data-toggle="tooltip" data-original-title="@lang('Banned')" data-id="{{$donor->id}}"><i class="las la-times"></i>
+                                            <a href="javascript:void(0)" class="btn btn-outline--danger ml-1 cancel btn-sm" data-toggle="tooltip" data-original-title="@lang('Banned')" data-id="{{$donor->id}}"><i class="las la-times"></i>
                                             @lang('Banned')
                                             </a>
                                         @elseif($donor->status == 0)
                                             <a href="javascript:void(0)" class="btn btn-outline--success ml-1 approved" data-toggle="tooltip" data-original-title="@lang('Approve')" data-id="{{$donor->id}}"><i class="las la-check"></i></a>
                                             <a href="javascript:void(0)" class="btn btn-outline--danger ml-1 cancel" data-toggle="tooltip" data-original-title="@lang('Banned')" data-id="{{$donor->id}}"><i class="las la-times"></i></a>
                                         @endif
-                                        <a href="{{route('admin.donor.edit', $donor->id)}}" class="btn btn-outline--primary ml-1"><i class="las la-pen"></i> @lang('Edit')
+                                        <a href="{{route('admin.donor.edit', $donor->id)}}" class="btn btn-outline--primary btn-sm ml-1"><i class="las la-pen"></i> @lang('Edit')
                                         </a>
                                     </td>
                                 </tr>
@@ -104,7 +104,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">@lang('Approval Confirmation')</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -117,7 +117,7 @@
                         <p>@lang('Are you sure to approved this donor?')</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn--secondary" data-dismiss="modal">@lang('Close')</button>
+                        <button type="button" class="btn btn--secondary" data-bs-dismiss="modal">@lang('Close')</button>
                         <button type="submit" class="btn btn--success">@lang('Confirm')</button>
                     </div>
                 </form>
@@ -171,8 +171,8 @@
                         <p>@lang('Are you sure include this donor featured list?')</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn--danger" data-dismiss="modal">@lang('Close')</button>
-                        <button type="submit" class="btn btn--success">@lang('Confirm')</button>
+                        <button type="button" class="btn btn--danger" data-bs-dismiss="modal">@lang('Close')</button>
+                        <button type="submit" class="btn btn--primary">@lang('Confirm')</button>
                     </div>
                 </form>
             </div>

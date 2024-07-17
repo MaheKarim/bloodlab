@@ -207,7 +207,7 @@
 @endsection
 
 @push('breadcrumb-plugins')
-    <a href="{{route('admin.donor.index')}}" class="btn btn-sm btn--primary box--shadow1 text--small"><i class="las la-angle-double-left"></i>@lang('Go Back')</a>
+    <x-back route="{{ route('admin.donor.index') }}" />
 @endpush
 @push('style-lib')
     <link rel="stylesheet" href="{{ asset('assets/admin/css/daterangepicker.css') }}">

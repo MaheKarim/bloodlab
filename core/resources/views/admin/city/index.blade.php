@@ -102,6 +102,6 @@
 @push('breadcrumb-plugins')
     <button class="btn btn-sm btn-outline--primary float-sm-end cuModalBtn"
             data-modal_title="@lang('Create New City')" type="button">
-        <i class="las la-plus"></i>@lang('Add new city')
+        <i class="las la-plus"></i>@lang('Add New City')
     </button>
 @endpush
