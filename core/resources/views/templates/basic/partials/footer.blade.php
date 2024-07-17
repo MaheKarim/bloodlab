@@ -40,9 +40,10 @@
                     <div class="footer-widget">
                         <a href="{{route('home')}}" class="footer-logo"><img src="{{getImage(getFilePath('logoIcon') .'/logo.png')}}" alt="@lang('logo')"></a>
                         <p class="mt-3">{{__(@$footer->data_values->title)}}</p>
-                        <form class="subscribe-form mt-4">
+                        <form class="subscribe-form mt-4 ">
+                            @csrf
                             <input type="email" name="email" id="emailSub" class="form--control" placeholder="@lang('Enter email address')">
-                            <button type="button" class="subscribe-btn"><i class="lab la-telegram-plane"></i></button>
+                            <button type="submit" class="subscribe-btn"><i class="lab la-telegram-plane"></i></button>
                         </form>
                     </div>
                 </div>
@@ -63,7 +64,7 @@
                             <li><a href="{{route('contact')}}">@lang('Support Center')</a></li>
                             <li><a href="{{route('apply.donor')}}">@lang('Apply as a Donor')</a></li>
                             @foreach($policys as $policy)
-                                <li><a href="{{route('footer.menu', slug($policy->data_values->title))}}">{{__($policy->data_values->title)}}</a></li>
+                                <li><a href="{{route('policy.pages', slug($policy->data_values->title))}}">{{__($policy->data_values->title)}}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -122,7 +123,7 @@
                     });
                 }
                 else{
-                    notify('error', "Please Input Your Email");
+                    // notify('error', "Please Input Your Email");
                 }
             });
 

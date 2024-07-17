@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constants\Status;
 use App\Models\AdminNotification;
+use App\Models\Advertisement;
 use App\Models\Blood;
 use App\Models\City;
 use App\Models\Donor;
@@ -11,6 +12,7 @@ use App\Models\Frontend;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Page;
+use App\Models\Subscriber;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
 use App\Rules\FileTypeValidate;
@@ -115,6 +117,7 @@ class SiteController extends Controller
         return view('Template::policy',compact('policy','pageTitle','seoContents','seoImage'));
     }
 
+
     public function changeLanguage($lang = null)
     {
         $language = Language::where('code', $lang)->first();
@@ -130,7 +133,6 @@ class SiteController extends Controller
         $seoImage = @$seoContents->image ? frontendImage('blog',$seoContents->image,getFileSize('seo'),true) : null;
         return view('Template::blog_details',compact('blog','pageTitle','seoContents','seoImage'));
     }
-
 
     public function cookieAccept(){
         Cookie::queue('gdpr_cookie',gs('site_name') , 43200);
@@ -261,7 +263,8 @@ class SiteController extends Controller
         $bloods = Blood::where('status', Status::ENABLE)->select('id', 'name')->get();
         $cities = City::where('status', Status::ENABLE)->select('id', 'name')->get();
         $locations = Location::where('status', Status::ENABLE)->select('id', 'name')->get();
-        $donors = Donor::where('status',Status::ENABLE)->where('blood_id', $blood->id)->with('blood', 'locations')->paginate(getPaginate());
+        $donors = Donor::where('status', Status::ENABLE)->where('blood_id', $blood->id)->with('blood', 'locations')->paginate(getPaginate());
+
         return view( 'Template::donor', compact('pageTitle','emptyMessage', 'donors', 'bloods', 'cities', 'locations'));
     }
 
@@ -335,11 +338,32 @@ class SiteController extends Controller
         return back()->withNotify($notify);
     }
 
-    public function footerMenu($slug)
+    public function adClicked($id)
     {
-        $data = Frontend::where('slug', $slug)->where('data_keys', 'policy_pages.element')->firstOrFail();
-        $pageTitle =  $data->data_values->title;
-        return view( 'Template::menu', compact('data', 'pageTitle'));
+        $ads = Advertisement::where('id', decrypt($id))->firstOrFail();
+        $ads->click +=1;
+        $ads->save();
+        return redirect($ads->redirect_url);
+    }
+
+    public function subscribe(Request $request)
+    {
+         $validator = $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        $if_exist = Subscriber::where('email', $request->email)->first();
+        if (!$if_exist) {
+            $subscriber = new Subscriber();
+            $subscriber->email = $request->email;
+            $subscriber->save();
+            return response()->json(['success' => 'Subscribed Successfully']);
+        } else {
+            return response()->json(['error' => 'Already Subscribed']);
+        }
     }
 
 }

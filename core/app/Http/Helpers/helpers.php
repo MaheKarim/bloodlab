@@ -63,8 +63,9 @@ function siteLogo($type = null) {
     $name = $type ? "/logo_$type.png" : '/logo.png';
     return getImage(getFilePath('logoIcon') . $name);
 }
-function siteFavicon() {
-    return getImage(getFilePath('logoIcon'). '/favicon.png');
+function siteFavicon($type=null) {
+    $name = $type ? "/favicon_$type.png" : '/favicon.png';
+    return getImage(getFilePath('logoIcon'). $name);
 }
 
 function loadReCaptcha()

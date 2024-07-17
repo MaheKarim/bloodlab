@@ -81,7 +81,9 @@ class GeneralSettingController extends Controller
     {
         $request->validate([
             'logo' => ['image',new FileTypeValidate(['jpg','jpeg','png'])],
+            'logo_dark' => ['image',new FileTypeValidate(['jpg','jpeg','png'])],
             'favicon' => ['image',new FileTypeValidate(['png'])],
+            'favicon_dark' => ['image',new FileTypeValidate(['png'])],
         ]);
         $path = getFilePath('logoIcon');
         if ($request->hasFile('logo')) {
@@ -92,6 +94,17 @@ class GeneralSettingController extends Controller
                 return back()->withNotify($notify);
             }
         }
+        if ($request->hasFile('logo_dark')) {
+            try {
+                fileUploader($request->logo_dark,
+                    $path,
+                    filename:'logo_dark.png');
+            } catch (\Exception $exp) {
+                $notify[] = ['error', 'Couldn\'t upload the dark logo'];
+                return back()->withNotify($notify);
+            }
+        }
+
 
         if ($request->hasFile('favicon')) {
             try {
@@ -101,6 +114,18 @@ class GeneralSettingController extends Controller
                 return back()->withNotify($notify);
             }
         }
+
+        if ($request->hasFile('favicon_dark')) {
+            try {
+                fileUploader($request->favicon_dark,
+                    $path,
+                    filename:'favicon_dark.png');
+            } catch (\Exception $exp) {
+                $notify[] = ['error', 'Couldn\'t upload the dark favicon'];
+                return back()->withNotify($notify);
+            }
+        }
+
         $notify[] = ['success', 'Logo & favicon updated successfully'];
         return back()->withNotify($notify);
     }

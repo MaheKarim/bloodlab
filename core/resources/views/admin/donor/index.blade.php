@@ -209,7 +209,7 @@
 @push('breadcrumb-plugins')
     <a href="{{ route('admin.donor.create') }}" class="btn btn-sm btn-outline--primary float-sm-end"
             data-modal_title="@lang('Add New Donor')" type="button">
-        <i class="las la-plus"></i>@lang('Add new donor')
+        <i class="las la-plus"></i>@lang('Add New Donor')
     </a>
 @endpush
 @push('script')
