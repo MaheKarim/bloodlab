@@ -207,6 +207,18 @@
     <x-confirmation-modal/>
 @endsection
 @push('breadcrumb-plugins')
+    <form action="{{route('admin.donor.blood.search')}}" method="GET">
+        <div class="input-group">
+            <select class="form-control" name="blood_id">
+                <option>----@lang('Select Blood')----</option>
+                @foreach($bloods as $blood)
+                    <option value="{{$blood->id}}" @if(@$bloodId == $blood->id) selected @endif>{{__($blood->name)}}</option>
+                @endforeach
+            </select>
+            <button class="btn btn--primary input-group-text" type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    <x-search-form  />
     <a href="{{ route('admin.donor.create') }}" class="btn btn-sm btn-outline--primary float-sm-end"
             data-modal_title="@lang('Add New Donor')" type="button">
         <i class="las la-plus"></i>@lang('Add New Donor')

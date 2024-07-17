@@ -253,7 +253,7 @@ class SiteController extends Controller
         $bloods = Blood::where('status', Status::ENABLE)->select('id', 'name')->get();
         $cities = City::where('status', Status::ENABLE)->select('id', 'name')->get();
         $locations = Location::where('status', Status::ENABLE)->select('id', 'name')->get();
-        $donors = Donor::where('status', Status::ENABLE)->where('blood_id', $blood->id)->with('blood', 'locations')->paginate(getPaginate());
+        $donors = Donor::where('status', Status::ENABLE)->where('blood_id', $blood->id)->with('blood', 'location')->paginate(getPaginate());
 
         return view( 'Template::donor', compact('pageTitle','emptyMessage', 'donors', 'bloods', 'cities', 'locations'));
     }

@@ -80,10 +80,8 @@ Route::middleware('admin')->group(function () {
         Route::get('create/{id?}', 'create')->name('create');
         Route::get('edit/{id?}', 'edit')->name('edit');
         Route::post('store/{id?}', 'store')->name('store');
-//        Route::post('update/{id}', 'update')->name('update');
         Route::post('approved/status', 'approvedStatus')->name('approved.status');
         Route::post('banned/status', 'bannedStatus')->name('banned.status');
-        Route::get('search', 'search')->name('search');
         Route::get('blood/search', 'donorBloodSearch')->name('blood.search');
         Route::post('featured/list/include', 'featuredInclude')->name('featured.include');
         Route::post('featured/list/remove', 'featuredNotInclude')->name('featured.remove');

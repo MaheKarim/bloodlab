@@ -19,7 +19,7 @@
                     <select class="select" name="city_id">
                         <option value="" disabled="" selected="">@lang('Select One')</option>
                         @foreach($cities as $city)
-                            <option value="{{$city->id}}" data-locations="{{json_encode($city->location)}}">{{__($city->name)}}</option>
+                            <option value="{{$city->id}}" data-locations="{{json_encode($city->locations)}}">{{__($city->name)}}</option>
                         @endforeach
                     </select>
                 </div>

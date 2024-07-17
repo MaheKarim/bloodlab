@@ -16,7 +16,7 @@ class ManageDonorController extends Controller
     public function index()
     {
         $pageTitle = 'Manage Donor';
-        $donors = Donor::latest()->with('blood', 'location')->paginate(getPaginate());
+        $donors = Donor::latest()->with('blood', 'location')->searchable(['name'])->paginate(getPaginate());
         $bloods = Blood::where('status', Status::ENABLE)->get();
 
         return view('admin.donor.index', compact('pageTitle', 'donors', 'bloods'));
@@ -76,16 +76,6 @@ class ManageDonorController extends Controller
         return view('admin.donor.index', compact('pageTitle', 'emptyMessage', 'donors', 'bloods', 'bloodId'));
     }
 
-    public function search(Request $request)
-    {
-        $pageTitle = "Donor Search";
-        $emptyMessage = "No data found";
-        $search = $request->search;
-        $bloods = Blood::where('status', 1)->select('id', 'name')->get();
-        $donors = Donor::where('name', 'like', "%$search%")->latest()->with('blood', 'location')->paginate(getPaginate());
-        return view('admin.donor.index', compact('pageTitle', 'emptyMessage', 'donors', 'bloods', 'search'));
-    }
-
     public function approvedStatus(Request $request)
     {
         $request->validate([
@@ -109,7 +99,6 @@ class ManageDonorController extends Controller
         $notify[] = ['success', 'Donor has been canceled'];
         return back()->withNotify($notify);
     }
-
 
     public function featuredInclude(Request $request)
     {
