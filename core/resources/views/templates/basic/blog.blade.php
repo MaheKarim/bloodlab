@@ -21,13 +21,13 @@
                             <div class="col-lg-6">
                                 <div class="blog-post">
                                     <div class="blog-post__thumb">
-                                        <a href="{{ route('blog.details',[$blog->id,slug($blog->data_values->title)]) }}" class="d-block"><img src="{{getImage('assets/images/frontend/blog/'. @$blog->data_values->blog_image, '728x465')}}" alt="@lang('image1')"></a>
+                                        <a href="{{ route('blog.details',[$blog->id,slug($blog->data_values->title)]) }}" class="d-block"><img src="{{getImage('assets/images/frontend/blog/'. @$blog->data_values->image, '728x465')}}" alt="@lang('image1')"></a>
                                     </div>
                                     <div class="blog-post__content">
                                         <ul class="blog-post__meta">
                                             <li>{{showDateTime($blog->created_at, 'd M Y')}}</li>
                                         </ul>
-                                        <h5 class="blog-post__title mt-3"><a href="{{ route('blog.details',slug($blog->data_values->title)) }}">{{str_limit($blog->data_values->title, 70)}}</a></h5>
+                                        <h5 class="blog-post__title mt-3"><a href="{{ route('blog.details',slug($blog->data_values->title)) }}">{{ Str::limit($blog->data_values->title, 70) }}</a></h5>
                                     </div>
                                 </div>
                             </div>

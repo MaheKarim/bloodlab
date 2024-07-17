@@ -117,21 +117,12 @@ class SiteController extends Controller
         return view('Template::policy',compact('policy','pageTitle','seoContents','seoImage'));
     }
 
-
     public function changeLanguage($lang = null)
     {
         $language = Language::where('code', $lang)->first();
         if (!$language) $lang = 'en';
         session()->put('lang', $lang);
         return back();
-    }
-
-    public function blogDetails($slug){
-        $blog = Frontend::where('slug',$slug)->where('data_keys','blog.element')->firstOrFail();
-        $pageTitle = $blog->data_values->title;
-        $seoContents = $blog->seo_content;
-        $seoImage = @$seoContents->image ? frontendImage('blog',$seoContents->image,getFileSize('seo'),true) : null;
-        return view('Template::blog_details',compact('blog','pageTitle','seoContents','seoImage'));
     }
 
     public function cookieAccept(){
@@ -364,6 +355,23 @@ class SiteController extends Controller
         } else {
             return response()->json(['error' => 'Already Subscribed']);
         }
+    }
+
+    public function blog(){
+        $pageTitle = "Blog";
+        $blogs = Frontend::where('data_keys','blog.element')->paginate(9);
+        $sections = Page::where('tempname',activeTemplate())->where('slug','blog')->first();
+
+        return view('Template::blog',compact('blogs','pageTitle', 'sections'));
+    }
+
+    public function blogDetails($slug){
+        $blogs = Frontend::where('data_keys','blog.element')->latest()->limit(6)->get();
+        $blog = Frontend::where('slug', $slug)->where('data_keys','blog.element')->firstOrFail();
+        $pageTitle = $blog->data_values->title;
+        $seoContents = $blog->seo_content;
+        $seoImage = @$seoContents->image ? frontendImage('blog',$seoContents->image,getFileSize('seo'),true) : null;
+        return view('Template::blog_details',compact('blog','blogs','pageTitle','seoContents','seoImage'));
     }
 
 }

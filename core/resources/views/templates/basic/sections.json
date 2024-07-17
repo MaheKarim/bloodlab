@@ -196,17 +196,19 @@
         "name": "Blog Section",
         "content": {
             "heading": "text",
-            "sub_heading": "text"
+            "subheading": "text"
         },
         "element": {
             "images":{
-                "blog_image":{
+                "image":{
                     "size":"728x465"
                 }
             },
             "title": "text",
-            "description_nic": "textarea-nic",
-            "modal": false
+            "slug":"title",
+            "description": "textarea-nic",
+            "modal": false,
+            "seo":true
         }
     },
     "social_icon": {
