@@ -27,7 +27,7 @@
         <div class="col-xxl-3 col-sm-6">
             <x-widget
                 style="6"
-                link="{{route('admin.donor.approved')}}"
+                link="{{route('admin.donor.banned')}}"
                 icon="las la-user-slash"
                 title="Total Banned Donor"
                 value="{{ $donor['banned'] }}"
@@ -37,7 +37,7 @@
         <div class="col-xxl-3 col-sm-6">
             <x-widget
                 style="6"
-                link="{{ route('admin.donor.banned') }}"
+                link="{{ route('admin.donor.approved') }}"
                 icon="las la-user-plus"
                 title="Total Approved Donor"
                 value="{{ $donor['approved'] }}"
@@ -80,7 +80,7 @@
         <div class="col-xxl-3 col-sm-6">
             <x-widget
                 style="6"
-                link="#"
+                link="{{ route('admin.advertisement.index') }}"
                 title="Total Advertisement"
                 icon="las la-ad"
                 value="{{__($ads)}}"

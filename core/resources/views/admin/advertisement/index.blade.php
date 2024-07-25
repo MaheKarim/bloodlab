@@ -22,7 +22,7 @@
                             @forelse($advertisements as $k=> $advertisement)
                                 <tr>
                                     <td>
-                                        @if ($advertisement->type == \App\Constants\Status::IMAGE)
+                                        @if ($advertisement->type == Status::IMAGE)
                                             <div class="user">
                                                 <div class="thumb">
                                                     <a href="{{getImage(getFilePath('advertisement').'/'. $advertisement->image)}}" target="__blank">
@@ -113,16 +113,16 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="font-weight-bold required">@lang('Ad Name')</label>
-                                    <input type="text" name="name" class="form-control" required value="{{ @$advertisement ? @$advertisement->name : old('name') }}">
+                                    <input type="text" name="name" class="form-control name" value="{{ old('name') }}">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="font-weight-bold required">@lang('Advertisement Type') </label>
-                                    <select class="form-control select2" name="type">
+                                    <select class="form-control select2" name="type" id="type">
                                         <option value="" selected disabled>@lang('---Please Select One ---')</option>
-                                        <option value="image" @if(@$advertisement->type === \App\Constants\Status::IMAGE) selected @endif>@lang('Image')</option>
-                                        <option value="script" @if(@$advertisement->type === \App\Constants\Status::SCRIPT) selected @endif>@lang('Script')</option>
+                                        <option value="image" @selected(old('type'=== Status::IMAGE))>@lang('Image')</option>
+                                        <option value="script" @selected(old('type')=== Status::SCRIPT)>@lang('Script')</option>
                                     </select>
                                 </div>
                             </div>
@@ -167,8 +167,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="" class="font-weight-bold">@lang('Redirect Url') <strong
-                                            class="text-danger">*</strong> </label>
+                                    <label for="" class="font-weight-bold required">@lang('Redirect Url')</label>
                                     <input type="text" class="form-control" name="redirect_url"
                                            placeholder="@lang('Redirect Url')">
                                 </div>
@@ -262,9 +261,9 @@
                 modal.find("#modalLabel").text("@lang('Add Advertisement')")
 
                 // Reset form fields
-                modal.find('form')[0].reset();
+                modal.find('form').trigger('reset');
+
                 modal.find('select[name=type]').prop('disabled', false);
-                modal.find('select[name=name]').val('');
                 modal.find('.profilePicPreview').css('background-image', 'none');
 
                 $(modal).find('#__image').css('display', 'none');
@@ -403,26 +402,6 @@
                 }
             });
 
-            function resetAdvertisementModal() {
-                let modal = $("#modal");
-                modal.find("#modalLabel").text("@lang('Add Advertisement')");
-
-                // Reset form fields
-                modal.find('form')[0].reset();
-                modal.find('select[name=type]').prop('disabled', false);
-                modal.find('select[name=name]').val('');
-                modal.find('.profilePicPreview').css('background-image', 'none');
-
-                $(modal).find('#__image').css('display', 'none');
-                $(modal).find('#__script').css('display', 'none');
-                $(modal).find('#btn-save').text("@lang('Submit')");
-                modal.find('.statusGroup').hide();
-
-                // Reset action to default (for new advertisement)
-                modal.find('form').attr('action', "{{ route('admin.advertisement.store') }}");
-
-                modal.modal('show');
-            }
 
         })(jQuery);
     </script>

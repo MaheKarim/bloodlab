@@ -12,7 +12,6 @@
                                 <th>@lang('Name - Profession')</th>
                                 <th>@lang('Email - Phone')</th>
                                 <th>@lang('Blood Group - Location')</th>
-                                <th>@lang('Gender - Age')</th>
                                 <th>@lang('Featured Donor')</th>
                                 <th>@lang('Status')</th>
                                 <th>@lang('Last Update')</th>
@@ -34,10 +33,7 @@
                                         <span>{{__($donor->blood->name)}}</span><br>
                                         <span>{{__($donor->location->name)}}</span>
                                     </td>
-                                    <td>
-                                        <span>@if($donor->gender == 1) @lang('Male') @else @lang('Female') @endif</span><br>
-                                        <span>{{Carbon\Carbon::parse($donor->birth_date)->age}} @lang('Years')</span>
-                                    </td>
+
                                     <td>
                                         @if($donor->featured == 1)
                                             <span class="badge badge--success">@lang('Included')</span>
