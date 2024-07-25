@@ -12,11 +12,60 @@
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-4 col-sm-3 text-sm-end text-center">
-                    <select class="language-select langSel">
-                        @foreach($language as $item)
-                            <option value="{{$item->code}}" @if(session('lang') == $item->code) selected  @endif>{{ __($item->name) }}</option>
-                        @endforeach
-                    </select>
+                    <div class="header-lang">
+                        <div class="custom--dropdown">
+                            <div class="custom--dropdown__selected dropdown-list__item">
+                                <a href="http://bitlab.test/change/en" class="thumb">
+                                    <img src="http://bitlab.test/assets/images/language/660b94fa876ac1712035066.png" alt="image">
+                                    <span class="text"> English</span>
+                                </a>
+                            </div>
+                            <ul class="dropdown-list">
+                                <li class="dropdown-list__item langSel selected" data-value="en">
+                                    <a href="http://bitlab.test/change/en" class="thumb">
+                                        <img src="http://bitlab.test/assets/images/language/660b94fa876ac1712035066.png" alt="image">
+                                        <span class="text"> English</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-list__item langSel" data-value="bn">
+                                    <a href="http://bitlab.test/change/bn" class="thumb">
+                                        <img src="http://bitlab.test/assets/images/language/669391c2d13271720947138.png" alt="image">
+                                        <span class="text"> Bengali</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+{{--                    <select class="language-select langSel">--}}
+{{--                        @foreach($language as $item)--}}
+{{--                            <option value="{{$item->code}}" @if(session('lang') == $item->code) selected  @endif>{{ __($item->name) }}</option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+
+{{--                    @if (gs('multi_language'))--}}
+{{--                        @php--}}
+{{--                            $language = App\Models\Language::all();--}}
+{{--                            $selectLang = $language->where('code', session('lang'))->first();--}}
+{{--                        @endphp--}}
+{{--                        <div class="custom--dropdown">--}}
+{{--                            <div class="custom--dropdown__selected dropdown-list__item">--}}
+{{--                                <div class="thumb">--}}
+{{--                                    <img src="{{ getImage(getFilePath('language') . '/' . $selectLang->image, getFileSize('language')) }}" alt="@lang('image')">--}}
+{{--                                </div>--}}
+{{--                                <span class="text"> {{ __(@$selectLang->name) }} </span>--}}
+{{--                            </div>--}}
+{{--                            <ul class="dropdown-list">--}}
+{{--                                @foreach ($language as $item)--}}
+{{--                                    <li class="dropdown-list__item langSel  @if (session('lang') == $item->code) selected @endif" data-value="{{ $item->code }}">--}}
+{{--                                        <a href="{{ route('lang', $item->code) }}" class="thumb">--}}
+{{--                                            <img src="{{ getImage(getFilePath('language') . '/' . $item->image, getFileSize('language')) }}" alt="@lang('image')">--}}
+{{--                                            <span class="text"> {{ __($item->name) }}</span>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                @endforeach--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
                 </div>
             </div>
         </div>

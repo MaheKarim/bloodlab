@@ -250,3 +250,44 @@ $('.volunteer-slider').slick({
     }
   ]
 });
+
+$.each($('input, select, textarea'), function (i, element) {
+
+  if (element.hasAttribute('required')) {
+    $(element).closest('.form-group').find('label').first().addClass('required');
+  }
+
+});
+
+
+/*==================== custom dropdown select js ====================*/ /*==================== custom dropdown select js ====================*/
+$('.custom--dropdown > .custom--dropdown__selected').on('click', function () {
+  $(this).parent().toggleClass('open');
+});
+$('.custom--dropdown > .dropdown-list > .dropdown-list__item').on('click', function () {
+  $('.custom--dropdown > .dropdown-list > .dropdown-list__item').removeClass('selected');
+  $(this).addClass('selected').parent().parent().removeClass('open').children('.custom--dropdown__selected').html($(this).html());
+});
+$(document).on('keyup', function (evt) {
+  if ((evt.keyCode || evt.which) === 27) {
+    $('.custom--dropdown').removeClass('open');
+  }
+});
+$(document).on('click', function (evt) {
+  if ($(evt.target).closest(".custom--dropdown > .custom--dropdown__selected").length === 0) {
+    $('.custom--dropdown').removeClass('open');
+  }
+});
+
+/*=============== custom dropdown select js end =================*/
+
+/*=============== custom dropdown select js end =================*/
+var inputElements = $('input,select,textarea');
+
+$.each(inputElements, function (index, element) {
+  element = $(element);
+  if (!element.hasClass('profilePicUpload') && (!element.attr('id')) && element.attr('type') != 'hidden') {
+    element.closest('.form-group').find('label').attr('for',element.attr('name'));
+    element.attr('id',element.attr('name'))
+  }
+});

@@ -112,14 +112,14 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="font-weight-bold required">@lang('Ad name')</label>
-                                    <input type="text" name="name" class="form-control" required value="{{ $advertisement ? $advertisement->name : old('name') }}">
+                                    <label class="font-weight-bold required">@lang('Ad Name')</label>
+                                    <input type="text" name="name" class="form-control" required value="{{ @$advertisement ? @$advertisement->name : old('name') }}">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="font-weight-bold required">@lang('Advertisement Type') </label>
-                                    <select class="form-control" name="type">
+                                    <select class="form-control select2" name="type">
                                         <option value="" selected disabled>@lang('---Please Select One ---')</option>
                                         <option value="image" @if(@$advertisement->type === \App\Constants\Status::IMAGE) selected @endif>@lang('Image')</option>
                                         <option value="script" @if(@$advertisement->type === \App\Constants\Status::SCRIPT) selected @endif>@lang('Script')</option>
@@ -129,9 +129,8 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <div class="image-size">
-                                        <label for="" class="font-weight-bold">@lang('Size') <strong
-                                                class="text-danger">*</strong></label>
-                                        <select class="form-control" name="size">
+                                        <label for="" class="font-weight-bold required" >@lang('Size') </label>
+                                        <select class="form-control select2" name="size">
                                             <option value="" selected>@lang('---Please Select One ----')</option>
                                             <option value="220x474">@lang('220X474')</option>
                                             <option value="220x303">@lang('220X303')</option>

@@ -32,4 +32,7 @@ class Status{
     const USER_ACTIVE = 1;
     const USER_BAN = 0;
 
+    const MALE=1;
+    const FEMALE=2;
+
 }

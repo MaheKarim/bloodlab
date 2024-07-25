@@ -14,21 +14,13 @@
                     <form method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row justify-content-center">
-                            <div class="form-group col-md-3 col-sm-6">
+                            <div class="form-group col-md-6 col-sm-6">
                                 <label> @lang('Logo')</label>
                                 <x-image-uploader name="logo" :imagePath="siteLogo() . '?' . time()" :size="false" class="w-100" id="uploadLogo" :required="false" dark="false" />
                             </div>
-                            <div class="form-group col-md-3 col-sm-6">
-                                <label> @lang('Logo Dark')</label>
-                                <x-image-uploader name="logo_dark" :imagePath="siteLogo('dark') . '?' . time()" :size="false" class="w-100" id="uploadLogo" :required="false" dark="true" />
-                            </div>
-                            <div class="form-group col-md-3 col-sm-6">
+                            <div class="form-group col-md-6 col-sm-6">
                                 <label> @lang('Favicon')</label>
                                 <x-image-uploader name="favicon" :imagePath="siteFavicon() . '?' . time()" :size="false" class="w-100" id="uploadFavicon" :required="false" />
-                            </div>
-                            <div class="form-group col-md-3 col-sm-6">
-                                <label> @lang('Favicon Dark')</label>
-                                <x-image-uploader name="favicon_dark" :imagePath="siteFavicon('dark') . '?' . time()" :size="false" class="w-100" id="uploadFavicon" :required="false" dark="true" />
                             </div>
                         </div>
                         <button type="submit" class="btn btn--primary w-100 h-45">@lang('Submit')</button>

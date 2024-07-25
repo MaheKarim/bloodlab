@@ -60,8 +60,8 @@
                                     <label for="gender" class="font-weight-bold">@lang('Gender')</label>
                                     <select name="gender" id="gender" class="form-control form-control-lg select2" required="">
                                         <option value="" selected="" disabled="">@lang('Select One')</option>
-                                        <option value="1" @if(@$donor->gender == 1) selected @endif>@lang('Male')</option>
-                                        <option value="2" @if(@$donor->gender == 2) selected @endif>@lang('Female')</option>
+                                        <option value="1" @if(@$donor->gender == Status::MALE) selected @endif>@lang('Male')</option>
+                                        <option value="2" @if(@$donor->gender == Status::FEMALE) selected @endif>@lang('Female')</option>
                                     </select>
                                 </div>
                             </div>
@@ -213,8 +213,8 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/daterangepicker.css') }}">
 @endpush
 @push('script-lib')
-    <script src="{{ asset('assets/admin/js/moment.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/daterangepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/moment.min.js') }}"></script>
 @endpush
 @push('script')
     <script>
@@ -243,32 +243,6 @@
             });
             $('select[name=location_id]').html(html);
         }
-
-        $(document).ready(function() {
-            $('input[name="birth_date"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                autoUpdateInput: true,
-                locale: {
-                    format: 'YYYY-MM-DD'
-                },
-                startDate: "{{ $donor ? $donor->birth_date : old('birth_date') }}"
-            }, function(chosen_date) {
-                $('input[name="birth_date"]').val(chosen_date.format('YYYY-MM-DD'));
-            });
-
-            $('input[name="last_donate"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                autoUpdateInput: true,
-                locale: {
-                    format: 'YYYY-MM-DD'
-                },
-                startDate: "{{ $donor ? $donor->last_donate : old('last_donate') }}"
-            }, function(chosen_date) {
-                $('input[name="last_donate"]').val(chosen_date.format('YYYY-MM-DD'));
-            });
-        });
     </script>
 @endpush
 
