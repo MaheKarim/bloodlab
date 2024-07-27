@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 27, 2024 at 10:47 AM
+-- Generation Time: Jul 25, 2024 at 10:54 AM
 -- Server version: 8.0.30
--- PHP Version: 8.3.3
+-- PHP Version: 8.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `laramin`
+-- Database: `bloodlab`
 --
 
 -- --------------------------------------------------------
@@ -68,7 +68,7 @@ CREATE TABLE `admin_notifications` (
 --
 
 INSERT INTO `admin_notifications` (`id`, `user_id`, `title`, `is_read`, `click_url`, `created_at`, `updated_at`) VALUES
-(1, 0, 'Undefined variable $header', 0, '#', '2024-05-29 01:31:20', '2024-05-29 01:31:20');
+(1, 0, 'A new contact message has been submitted', 1, '/admin/ticket/view/37', '2024-07-25 01:13:24', '2024-07-25 01:44:36');
 
 -- --------------------------------------------------------
 
@@ -103,155 +103,167 @@ INSERT INTO `admin_password_resets` (`id`, `email`, `token`, `status`, `created_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cron_jobs`
+-- Table structure for table `advertisements`
 --
 
-CREATE TABLE `cron_jobs` (
+CREATE TABLE `advertisements` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alias` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `action` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cron_schedule_id` int NOT NULL DEFAULT '0',
-  `next_run` datetime DEFAULT NULL,
-  `last_run` datetime DEFAULT NULL,
-  `is_running` tinyint(1) NOT NULL DEFAULT '1',
-  `is_default` tinyint(1) NOT NULL DEFAULT '1',
+  `name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `click` int NOT NULL DEFAULT '0',
+  `impression` int NOT NULL DEFAULT '0',
+  `type` tinyint(1) DEFAULT '0' COMMENT 'Banner : 1, Script : 2',
+  `size` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redirect_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `script` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` tinyint(1) DEFAULT '0' COMMENT 'Enable : 1, Disable : 2',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `cron_jobs`
+-- Dumping data for table `advertisements`
 --
 
-INSERT INTO `cron_jobs` (`id`, `name`, `alias`, `action`, `url`, `cron_schedule_id`, `next_run`, `last_run`, `is_running`, `is_default`, `created_at`, `updated_at`) VALUES
-(4, 'Three Month', 'three_month', NULL, 'https://facebook.com/', 3, '2024-06-28 10:36:16', '2024-06-27 10:36:16', 1, 0, '2024-05-06 04:46:06', '2024-06-27 04:36:16');
+INSERT INTO `advertisements` (`id`, `name`, `click`, `impression`, `type`, `size`, `redirect_url`, `image`, `script`, `status`, `created_at`, `updated_at`) VALUES
+(2, 'ads1', 1, 73, 1, '220x474', 'https://viserlab.com/', '669634fd5d6621721119997.png', NULL, 1, '2024-07-16 02:53:17', '2024-07-17 08:10:02'),
+(3, 'ad2', 0, 21, 1, '220x303', 'https://viserlab.com/', '6696374e6c28c1721120590.png', NULL, 1, '2024-07-16 03:03:10', '2024-07-17 08:10:02'),
+(4, 'ads3', 0, 57, 1, '220x474', 'https://viserlab.com/category/php-scripts', '6696378d395991721120653.png', NULL, 1, '2024-07-16 03:04:13', '2024-07-17 08:10:02'),
+(5, 'ads4', 0, 56, 1, '220x474', 'https://codecanyon.net/user/viserlab', '669637d0dbdcc1721120720.png', NULL, 1, '2024-07-16 03:05:20', '2024-07-17 08:10:02'),
+(6, 'ads5', 0, 0, 1, '220x467', 'https://codecanyon.net/user/viserlab', '66963800b0dba1721120768.png', NULL, 1, '2024-07-16 03:06:08', '2024-07-16 03:06:08'),
+(7, 'ads6', 0, 12, 1, '220x315', 'https://viserlab.com/', '6696382d623f71721120813.png', NULL, 1, '2024-07-16 03:06:53', '2024-07-17 08:10:02'),
+(8, 'ads7', 0, 0, 1, '220x467', 'https://viserlab.com/support', '6696389220cc51721120914.png', NULL, 1, '2024-07-16 03:08:34', '2024-07-16 03:08:34'),
+(9, 'ads8', 0, 0, 1, '220x467', 'https://viserlab.com/support', '669638bc362bf1721120956.png', NULL, 1, '2024-07-16 03:09:16', '2024-07-16 03:09:16'),
+(10, 'ads9', 2, 19, 1, '820x213', 'https://viserlab.com/', '669638e55089b1721120997.png', NULL, 1, '2024-07-16 03:09:57', '2024-07-17 08:10:05'),
+(11, 'ads10', 0, 15, 1, '820x213', 'https://viserlab.com/', '669639008bf5e1721121024.png', NULL, 1, '2024-07-16 03:10:24', '2024-07-18 00:50:29'),
+(12, 'ads11', 2, 89, 1, '416x554', 'https://viserlab.com/', '6696392226cd71721121058.png', NULL, 1, '2024-07-16 03:10:58', '2024-07-25 01:18:35');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cron_job_logs`
+-- Table structure for table `bloods`
 --
 
-CREATE TABLE `cron_job_logs` (
+CREATE TABLE `bloods` (
   `id` bigint UNSIGNED NOT NULL,
-  `cron_job_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `start_at` datetime DEFAULT NULL,
-  `end_at` datetime DEFAULT NULL,
-  `duration` int UNSIGNED NOT NULL DEFAULT '0',
-  `error` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0' COMMENT 'Enable : 1 Disable : 0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `cron_job_logs`
+-- Dumping data for table `bloods`
 --
 
-INSERT INTO `cron_job_logs` (`id`, `cron_job_id`, `start_at`, `end_at`, `duration`, `error`, `created_at`, `updated_at`) VALUES
-(1, 4, '2024-06-27 10:36:16', '2024-06-27 10:36:16', 0, NULL, '2024-06-27 04:36:16', '2024-06-27 04:36:16');
+INSERT INTO `bloods` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'A+', 1, '2024-07-15 06:14:49', '2024-07-15 06:14:53'),
+(2, 'A-', 1, '2024-07-15 06:14:58', '2024-07-15 06:17:32'),
+(3, 'B+', 1, '2024-07-15 06:15:02', '2024-07-15 06:17:29'),
+(4, 'B-', 1, '2024-07-15 06:15:07', '2024-07-15 06:17:35'),
+(5, 'O+', 1, '2024-07-15 06:15:13', '2024-07-15 06:17:27'),
+(6, 'O-', 1, '2024-07-15 06:15:17', '2024-07-15 06:17:12'),
+(7, 'hh Bombay+', 0, '2024-07-15 06:15:28', '2024-07-17 01:03:04'),
+(8, 'AB+', 1, '2024-07-15 06:15:56', '2024-07-15 06:17:10'),
+(9, 'Ab-', 1, '2024-07-15 06:16:01', '2024-07-15 06:17:07');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cron_schedules`
+-- Table structure for table `cache`
 --
 
-CREATE TABLE `cron_schedules` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `interval` int UNSIGNED NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE `cache` (
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `cron_schedules`
---
-
-INSERT INTO `cron_schedules` (`id`, `name`, `interval`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Hourly', 3600, 1, '2024-03-13 23:34:09', '2024-05-06 04:45:32'),
-(3, 'Daily', 86400, 1, '2024-05-06 04:46:39', '2024-05-06 04:46:39');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `deposits`
+-- Table structure for table `cache_locks`
 --
 
-CREATE TABLE `deposits` (
-  `id` bigint UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `method_code` int UNSIGNED NOT NULL DEFAULT '0',
-  `amount` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `method_currency` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `charge` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `rate` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `final_amount` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `detail` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `btc_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `btc_wallet` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `trx` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_try` int NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1=>success, 2=>pending, 3=>cancel',
-  `from_api` tinyint(1) NOT NULL DEFAULT '0',
-  `admin_feedback` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `success_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `failed_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_cron` int DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+CREATE TABLE `cache_locks` (
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `deposits`
---
-
-INSERT INTO `deposits` (`id`, `user_id`, `method_code`, `amount`, `method_currency`, `charge`, `rate`, `final_amount`, `detail`, `btc_amount`, `btc_wallet`, `trx`, `payment_try`, `status`, `from_api`, `admin_feedback`, `success_url`, `failed_url`, `last_cron`, `created_at`, `updated_at`) VALUES
-(1, 2, 5001, '100.00000000', 'USD', '2.00000000', '1.00000000', '102.00000000', NULL, '0', '', 'N9PRN244Z3MK', 0, 1, 0, NULL, NULL, NULL, 0, '2024-05-14 22:23:31', '2024-03-20 22:23:31'),
-(2, 1, 510, '10.00000000', 'BTC', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', 'QCVZDSCKNBTW', 0, 0, 0, NULL, NULL, NULL, 0, '2024-03-28 05:30:30', '2024-03-28 05:30:30'),
-(3, 1, 103, '10.00000000', 'USD', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', 'JCYQP8KWYX5H', 0, 0, 0, NULL, '/user/deposit', '/user/deposit', 0, '2024-04-02 05:40:55', '2024-04-02 05:40:55'),
-(4, 1, 114, '10.00000000', 'USD', '1.00000000', '1.00000000', '11.00000000', NULL, '0', '', '2CRFPWP68CQX', 0, 0, 0, NULL, '/user/deposit', '/user/deposit', 0, '2024-04-02 05:41:50', '2024-04-02 05:41:50'),
-(5, 3, 1000, '100.00000000', 'USD', '2.00000000', '1.00000000', '102.00000000', '[{\"name\":\"Full Name\",\"type\":\"text\",\"value\":\"ff\"},{\"name\":\"NID\",\"type\":\"file\",\"value\":\"2024\\/04\\/22\\/66263b426a65f1713781570.jpg\"}]', '0', '', 'WXUCEWCY724E', 0, 3, 0, 'Test rejection', '/user/deposit/history', '/user/deposit/history', 0, '2024-04-22 04:26:02', '2024-05-08 07:02:57'),
-(6, 3, 125, '10.00000000', 'BDT', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', '6XE99QNEWOCH', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-04-22 08:11:08', '2024-04-22 08:11:08'),
-(7, 1, 125, '10.00000000', 'BDT', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', '4VUMG965O27S', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-04-25 06:55:27', '2024-04-25 06:55:27'),
-(8, 1, 109, '10.00000000', 'USD', '1.00000000', '1.00000000', '11.00000000', NULL, '0', '', 'EKTMS9CRV7ZT', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-04-25 07:42:15', '2024-04-25 07:42:15'),
-(9, 1, 509, '10.00000000', 'USD', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', 'QFTC88TNVU31', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-04-27 07:15:40', '2024-04-27 07:15:40'),
-(10, 1, 111, '10.00000000', 'USD', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', 'CEFK5ADW85NR', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-05-03 22:53:27', '2024-05-03 22:53:27'),
-(11, 1, 1000, '100.00000000', 'USD', '2.00000000', '1.00000000', '102.00000000', '[{\"name\":\"Full Name\",\"type\":\"text\",\"value\":\"Jesse Vaughn\"},{\"name\":\"NID\",\"type\":\"file\",\"value\":\"2024\\/05\\/04\\/6635bfd0c90651714798544.jpg\"}]', '0', '', 'H24XSZ51VXZA', 0, 1, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-05-03 22:55:37', '2024-05-08 07:02:35'),
-(12, 1, 125, '10.00000000', 'BDT', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', 'FAOU5K6GNJR1', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-05-04 23:50:28', '2024-05-04 23:50:28'),
-(13, 1, 1000, '100.00000000', 'USD', '2.00000000', '1.00000000', '102.00000000', NULL, '0', '', 'PIVPU9WDDCYN', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-05-05 05:58:47', '2024-05-05 05:58:47'),
-(14, 1, 1000, '330.00000000', 'USD', '4.30000000', '1.00000000', '334.30000000', NULL, '0', '', 'CVMES3JRYJKM', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-05-05 07:14:39', '2024-05-05 07:14:39'),
-(15, 1, 122, '10.00000000', 'USD', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', '7LORGREP41UA', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-05-07 07:41:21', '2024-05-07 07:41:21'),
-(16, 1, 1000, '100.00000000', 'USD', '2.00000000', '1.00000000', '102.00000000', NULL, '0', '', 'I64EQDJ4WL45', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-05-08 03:47:18', '2024-05-08 03:47:18'),
-(17, 1, 1000, '100.00000000', 'USD', '2.00000000', '1.00000000', '102.00000000', '[{\"name\":\"First Name\",\"type\":\"text\",\"value\":\"Sonya\"},{\"name\":\"Last Name\",\"type\":\"text\",\"value\":\"Potts\"},{\"name\":\"Bank Name\",\"type\":\"text\",\"value\":\"Patrick Cooley\"},{\"name\":\"Transaction Number\",\"type\":\"text\",\"value\":\"378\"},{\"name\":\"Screenshot\",\"type\":\"file\",\"value\":\"2024\\/05\\/16\\/6645b307dfab11715843847.png\"}]', '0', '', '71Y93YDAU3XN', 0, 2, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-05-16 01:17:18', '2024-05-16 01:17:29'),
-(18, 1, 113, '10.00000000', 'USD', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', 'HW6VL2DXXWUG', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-05-19 05:14:05', '2024-05-19 05:14:05'),
-(19, 1, 121, '10.00000000', 'USD', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', 'NJ1HF5XINZQO', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-06-24 05:11:35', '2024-06-24 05:11:35'),
-(20, 1, 121, '10.00000000', 'USD', '1.10000000', '1.00000000', '11.10000000', NULL, '0', '', 'TAWZJMZI5KJL', 0, 0, 0, NULL, '/user/deposit/history', '/user/deposit/history', 0, '2024-06-24 05:15:27', '2024-06-24 05:15:27');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `device_tokens`
+-- Table structure for table `cities`
 --
 
-CREATE TABLE `device_tokens` (
+CREATE TABLE `cities` (
   `id` bigint UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `is_app` tinyint(1) NOT NULL DEFAULT '0',
-  `token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `name` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0' COMMENT 'Enable : 1, Disable : 0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `device_tokens`
+-- Dumping data for table `cities`
 --
 
-INSERT INTO `device_tokens` (`id`, `user_id`, `is_app`, `token`, `created_at`, `updated_at`) VALUES
-(1, 1, 0, 'fNyQ9JG3nDM6RrjQ4FYjSu:APA91bFf5fr9oxo2qN-9OnBUc8yDS6By0ivqtfmakYaR1xlmhUkIrhMbFDGF2RnUBcCyU4gUhA63Iv-mfllC7s43dmdR-ML4jj_GkgDHu1e0pX0Ks94zZBXrCvCOrX83jI4i6XtqqN7X', '2024-05-29 00:53:48', '2024-05-29 00:53:48');
+INSERT INTO `cities` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Khulna', 0, '2024-07-15 05:34:21', '2024-07-17 07:04:44'),
+(2, 'Jamalpur', 0, '2024-07-15 06:03:13', '2024-07-17 07:04:42'),
+(3, 'Florida', 1, '2024-07-17 07:02:49', '2024-07-17 07:02:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `donors`
+--
+
+CREATE TABLE `donors` (
+  `id` bigint UNSIGNED NOT NULL,
+  `featured` tinyint(1) DEFAULT '0',
+  `name` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `blood_id` int DEFAULT NULL,
+  `city_id` int DEFAULT NULL,
+  `location_id` int DEFAULT NULL,
+  `religion` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profession` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_donate` int NOT NULL DEFAULT '0',
+  `gender` tinyint DEFAULT '0' COMMENT 'Male : 1, Female : 2',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT 'Pending : 0, Approved : 1, Banned : 2',
+  `birth_date` date DEFAULT NULL,
+  `last_donate` date DEFAULT NULL,
+  `socialMedia` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `donors`
+--
+
+INSERT INTO `donors` (`id`, `featured`, `name`, `blood_id`, `city_id`, `location_id`, `religion`, `email`, `phone`, `profession`, `details`, `image`, `address`, `total_donate`, `gender`, `status`, `birth_date`, `last_donate`, `socialMedia`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Alana Mathis', 8, 2, 3, 'Christian', 'tasydeken@mail.com', '+1 (147) 451-1214', 'Scuba Driver', 'Do qui et maxime nis', '669539b9c74ec1721055673.jpg', 'South FL', 18, 2, 1, '1992-03-11', '2006-09-23', '{\"facebook\":\"xatypehe\",\"twitter\":\"midacys\",\"linkedinIn\":\"lemewybohy\",\"instagram\":\"cuvivarav\"}', '2024-07-15 09:01:15', '2024-07-17 07:08:45'),
+(2, 1, 'Henry Boobly', 1, 3, 5, 'Muslim', 'rashedadnaan@gmail.com', '01303062727', 'Software Developer', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '6697c40b342e91721222155.png', 'USA, FL', 12, 2, 1, '1997-10-10', '2024-07-17', '{\"facebook\":\"fb.com\\/viserlab\",\"twitter\":\"x.com\\/viserlab\",\"linkedinIn\":\"linkedin.com\\/viserlab\",\"instagram\":\"instagram.com\\/viserlab\"}', '2024-07-16 06:59:27', '2024-07-17 07:15:55'),
+(3, 1, 'Billie Knight', 6, 2, 3, 'Christian', 'xunon@mail.com', '+1 (485) 514-2203', 'Consequat Occaecat', 'Blanditiis rerum ali Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '6697bdffcf5251721220607.png', 'Delectus qui natus blanditiis dolor qui architecto', 35, 2, 1, '1997-06-14', '2024-01-29', '{\"facebook\":\"Distinctio\",\"twitter\":\"Provident\",\"linkedinIn\":\"Facilis\",\"instagram\":\"Eos\"}', '2024-07-17 06:50:07', '2024-07-17 07:08:59'),
+(4, 1, 'Carla Floyd', 5, 1, 1, 'Dolor voluptas sit consectetur et volup', 'nepydireta@mail.com', '+1 (338) 267-2976', 'Similique', 'Deserunt amet iure Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '6697bed3b9d011721220819.png', 'Est at rerum culpa ea ut culpa culpa', 100, 2, 1, '1982-11-04', '1997-10-10', '{\"facebook\":\"Non ducimus sunt qu\",\"twitter\":\"Ex molestiae illum\",\"linkedinIn\":\"Possimus officia ve\",\"instagram\":\"Minus magni veniam\"}', '2024-07-17 06:53:39', '2024-07-17 07:08:53'),
+(5, 1, 'Dahlia Bradshaw', 8, 3, 6, 'Omnis officia', 'zasenux@mail.com', '+1 (361) 744-8054', 'Quisquam', 'Labore labore ad qui Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '6697c1a2a835e1721221538.png', 'Quibusdam est id iste aut in', 89, 2, 1, '1997-10-10', '2024-08-03', '{\"facebook\":\"Id consequatur exer\",\"twitter\":\"Reprehenderit esse\",\"linkedinIn\":\"Sit velit nulla ut\",\"instagram\":\"Culpa optio verita\"}', '2024-07-17 07:05:38', '2024-07-17 07:08:32'),
+(6, 1, 'Carissa Coleman', 2, 3, 4, 'Soluta ill', 'nelyfyw@mail.com', '+1 (924) 508-1794', 'Officia', 'Vitae pariatur Aliq Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Enim tortor at auctor urna nunc. Consectetur libero id faucibus nisl tincidunt eget nullam. Cras pulvinar mattis nunc sed blandit libero volutpat sed. Fusce id velit ut tortor pretium viverra suspendisse potenti nullam. Enim facilisis gravida neque convallis a cras. Cras semper auctor neque vitae. In fermentum et sollicitudin ac orci phasellus. Ac tortor dignissim convallis aenean et tortor at risus viverra. Diam sit amet nisl suscipit adipiscing bibendum est ultricies integer. Scelerisque felis imperdiet proin fermentum leo vel orci porta. Dictum at tempor commodo ullamcorper. Faucibus vitae aliquet nec ullamcorper sit. Orci sagittis eu volutpat odio facilisis mauris sit amet. Tempor orci eu lobortis elementum nibh. Risus ultricies tristique nulla aliquet enim tortor at. Placerat in egestas erat imperdiet. Ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia. Cras fermentum odio eu feugiat pretium nibh ipsum.', '6697c1ea6662a1721221610.png', 'Culpa fuga Voluptas unde beatae', 58, 1, 1, '1997-04-10', '2018-09-16', '{\"facebook\":\"Voluptate aliquid it\",\"twitter\":\"Voluptatibus magni m\",\"linkedinIn\":\"Voluptatibus non cor\",\"instagram\":\"Voluptas ut qui illo\"}', '2024-07-17 07:06:50', '2024-07-17 07:08:56'),
+(7, 1, 'Harrison Alford', 2, 3, 6, 'Non eveniet ut atque voluptas doloremqu', 'turodip@mail.com', '+1 (133) 647-4348', 'Proident', 'Minim cupidatat aut Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '6697c3141b2131721221908.png', 'Irure adipisci aut quo accusantium non illum excepteur porro officiis quisquam totam eos est enim', 31, 1, 1, '1995-09-17', '2024-04-20', '{\"facebook\":\"Amet dolorum at lib\",\"twitter\":\"Quos dolorem Nam qui\",\"linkedinIn\":\"Autem eiusmod incidi\",\"instagram\":\"Praesentium nihil cu\"}', '2024-07-17 07:11:48', '2024-07-17 07:20:19'),
+(8, 1, 'Aaron Stuart', 8, 3, 4, 'Temporibus', 'gypehu@mail.com', '+1 (123) 653-5075', 'Aliquam', 'Laborum blanditiis Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '6697c3655b0571721221989.png', 'Aliquam sed praesentium natus eaque ut', 60, 2, 1, '1985-07-18', '2008-08-11', '{\"facebook\":\"Qui accusantium rem\",\"twitter\":\"Dignissimos eveniet\",\"linkedinIn\":\"Culpa sapiente magn\",\"instagram\":\"Sed facere aut sit l\"}', '2024-07-17 07:13:09', '2024-07-17 07:20:16'),
+(9, 1, 'Rae Hartman', 3, 3, 6, 'Omni', 'zynoxosaxa@mail.com', '+1 (459) 992-9384', 'Mxercitation magna', 'Numquam sit ipsam Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '6697c49b472c11721222299.png', 'Sit nobis consequuntur sit nisi sunt culpa quibusdam est sed exercitationem maiores omnis sunt enim atque nesciunt sed dolor', 7, 1, 1, '1974-06-09', '2024-10-20', '{\"facebook\":\"Commodo molestiae am\",\"twitter\":\"Laboriosam dolorem\",\"linkedinIn\":\"Veniam eos assumend\",\"instagram\":\"Nam aut dolor non qu\"}', '2024-07-17 07:18:19', '2024-07-17 07:20:13'),
+(10, 1, 'Keane Guerra', 4, 3, 4, 'Commodo', 'pewaguwu@mail.com', '+1 (401) 211-9221', 'Exercitationem', 'Autem mollitia delen Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '6697c4cfcec861721222351.png', 'Iure quam at quia alias quasi eius repellendus Duis porro minus nulla', 72, 1, 1, '1999-12-29', '2024-12-24', '{\"facebook\":\"Vel ad dolor saepe o\",\"twitter\":\"Nisi proident cupid\",\"linkedinIn\":\"Magnam pariatur Ess\",\"instagram\":\"Exercitationem omnis\"}', '2024-07-17 07:19:11', '2024-07-17 07:20:11'),
+(11, 0, 'Fletcher Wiley', 8, 3, 6, 'Earum modi ullam in omnis iste voluptate', 'bemyneki@mail.com', '+1 (242) 159-7006', 'Eius officia labore culpa est esse eum nostrud ut qui quasi adipisicing ducimus', 'Tenetur eveniet eni', '6697c9c942fa61721223625.png', 'Voluptas nesciunt suscipit dolorem voluptates aliquip sed quidem', 44, 2, 2, '2011-08-08', '1977-12-23', '{\"facebook\":\"Aut nisi distinctio\",\"twitter\":\"Porro pariatur Exce\",\"linkedinIn\":\"Ut eaque accusantium\",\"instagram\":\"Omnis veniam unde e\"}', '2024-07-17 07:40:25', '2024-07-17 07:55:28'),
+(12, 1, 'Dieter Whitney', 8, 3, 5, 'Voluptate', 'recobyru@mail.com', '+1 (653) 923-3704', 'Pilot', 'Dolores enim vitae e', '6697d11eb1a2f1721225502.png', 'Cupiditate rerum eum proident nulla officiis veritatis repudiandae', 41, 1, 1, '1989-05-23', '2024-01-17', '{\"facebook\":\"Ad deserunt et minim\",\"twitter\":\"At dolore eveniet a\",\"linkedinIn\":\"Velit dolorem aut c\",\"instagram\":\"Laboris minus beatae\"}', '2024-07-17 07:45:16', '2024-07-25 04:40:57'),
+(13, 0, 'Howard Riggs', 1, 3, 5, 'Vel recusandae Quisquam sit recusandae', 'suhe@mail.com', '+1 (369) 437-2619', 'Eum at sapiente nisi eius', 'Duis fugiat lorem o', '6697cb2ea6f5c1721223982.png', 'Quod perspiciatis molestias animi in quis enim voluptas accusantium cupidatat eum est accusantium', 35, 2, 2, '2018-09-18', '2022-03-21', '{\"facebook\":\"Fugit natus ab inci\",\"twitter\":\"Occaecat cillum vel\",\"linkedinIn\":\"Molestiae non qui re\",\"instagram\":\"Eveniet odio ad dui\"}', '2024-07-17 07:46:22', '2024-07-17 07:55:33'),
+(14, 1, 'Philip Dean', 3, 3, 5, 'Inventore', 'cybicaty@mail.com', '+1 (274) 285-3209', 'Facere maiores', 'Vel rerum explicabo', '6697ce1567bd71721224725.jpg', 'Quis vel dolore inventore et odio sed aliquam eos unde aliqua Rerum eos sunt id asperiores esse consectetur', 65, 1, 1, '2021-02-26', '1992-11-05', '{\"facebook\":\"Labore aliquam facer\",\"twitter\":\"Totam amet labore e\",\"linkedinIn\":\"Repellendus Maiores\",\"instagram\":\"Enim odit nihil ut t\"}', '2024-07-17 07:58:45', '2024-07-25 04:40:51'),
+(15, 0, 'Upton Wise', 9, 3, 5, 'Bahai', 'gedijiviki@mail.com', '+1 (795) 145-9715', 'Ex Cadet', 'Mollitia reprehender Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '6697cea3604a31721224867.png', 'Officiis mollit necessitatibus laboriosam iste dicta qui distinctio Est dignissimos est et qui', 14, 1, 1, '1994-03-11', '2022-05-02', '{\"facebook\":\"Labore nobis eaque a\",\"twitter\":\"At voluptatem sequi\",\"linkedinIn\":\"Illum id Nam cillum\",\"instagram\":\"Pariatur Labore hic\"}', '2024-07-17 08:01:07', '2024-07-25 04:51:26');
 
 -- --------------------------------------------------------
 
@@ -283,6 +295,22 @@ INSERT INTO `extensions` (`id`, `act`, `name`, `description`, `image`, `script`,
 (3, 'custom-captcha', 'Custom Captcha', 'Just put any random string', 'customcaptcha.png', NULL, '{\"random_key\":{\"title\":\"Random String\",\"value\":\"SecureString\"}}', 'na', 0, '2019-10-18 11:16:05', '2022-10-12 17:02:43'),
 (4, 'google-analytics', 'Google Analytics', 'Key location is shown bellow', 'google_analytics.png', '<script async src=\"https://www.googletagmanager.com/gtag/js?id={{measurement_id}}\"></script>\n                <script>\n                  window.dataLayer = window.dataLayer || [];\n                  function gtag(){dataLayer.push(arguments);}\n                  gtag(\"js\", new Date());\n                \n                  gtag(\"config\", \"{{measurement_id}}\");\n                </script>', '{\"measurement_id\":{\"title\":\"Measurement ID\",\"value\":\"------\"}}', 'ganalytics.png', 0, NULL, '2021-05-03 22:19:12'),
 (5, 'fb-comment', 'Facebook Comment ', 'Key location is shown bellow', 'Facebook.png', '<div id=\"fb-root\"></div><script async defer crossorigin=\"anonymous\" src=\"https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0&appId={{app_key}}&autoLogAppEvents=1\"></script>', '{\"app_key\":{\"title\":\"App Key\",\"value\":\"----\"}}', 'fb_com.png', 0, NULL, '2022-03-21 17:18:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -346,11 +374,11 @@ CREATE TABLE `frontends` (
 
 INSERT INTO `frontends` (`id`, `data_keys`, `data_values`, `seo_content`, `tempname`, `slug`, `created_at`, `updated_at`) VALUES
 (1, 'seo.data', '{\"seo_image\":\"1\",\"keywords\":[\"admin\",\"blog\",\"aaaa\",\"ddd\",\"aaa\"],\"description\":\"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit\",\"social_title\":\"Viserlab Limited\",\"social_description\":\"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit ff\",\"image\":\"663b443b5dd951715160123.jpg\"}', NULL, NULL, '', '2020-07-04 23:42:52', '2024-05-08 03:22:03'),
-(24, 'about.content', '{\"has_image\":\"1\",\"heading\":\"Latest News\",\"sub_heading\":\"Register New Account\",\"description\":\"fdg sdfgsdf g ggg\",\"about_icon\":\"<i class=\\\"las la-address-card\\\"><\\/i>\",\"background_image\":\"60951a84abd141620384388.png\",\"about_image\":\"5f9914e907ace1603867881.jpg\"}', NULL, 'basic', NULL, '2020-10-28 00:51:20', '2021-05-07 10:16:28'),
-(25, 'blog.content', '{\"heading\":\"Latest News\",\"subheading\":\"------\"}', NULL, 'basic', '', '2020-10-28 00:51:34', '2024-05-01 01:36:53'),
-(27, 'contact_us.content', '{\"title\":\"Auctor gravida vestibulu\",\"short_details\":\"55f55\",\"email_address\":\"5555f\",\"contact_details\":\"5555h\",\"contact_number\":\"5555a\",\"latitude\":\"5555h\",\"longitude\":\"5555s\",\"website_footer\":\"5555qqq\"}', NULL, 'basic', NULL, '2020-10-28 00:59:19', '2020-11-01 04:51:54'),
+(24, 'about.content', '{\"has_image\":\"1\",\"heading\":\"Why BloodLab\",\"sub_heading\":\"Omnis harum qui vel repudiandae officiis nemo perferendis libero soluta consequuntur culpa, laborum facere, fugiat totam ratione.\",\"video_link\":\"https:\\/\\/www.youtube.com\\/embed\\/WOb4cj7izpE\",\"about_image\":\"66965a2661e471721129510.jpg\"}', NULL, 'basic', '', '2020-10-28 00:51:20', '2024-07-16 05:31:50'),
+(25, 'blog.content', '{\"heading\":\"Latest News About\",\"subheading\":\"Hic tenetur nihil ex. Doloremque ipsa velit, ea molestias expedita sed voluptatem ex voluptatibus temporibus sequi\"}', NULL, 'basic', '', '2020-10-28 00:51:34', '2024-07-17 05:28:35'),
+(27, 'contact_us.content', '{\"has_image\":\"1\",\"title\":\"Get in touch for any kind of help and information\'s\",\"email_address\":\"demo@gmail.com\",\"contact_details\":\"Usa , New York\",\"contact_number\":\"44983456780\",\"latitude\":\"12\",\"longitude\":\"32\",\"background_image\":\"66965b85c4d8e1721129861.png\"}', NULL, 'basic', '', '2020-10-28 00:59:19', '2024-07-16 05:37:41'),
 (28, 'counter.content', '{\"heading\":\"Latest News\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\"}', NULL, 'basic', NULL, '2020-10-28 01:04:02', '2024-03-13 23:54:07'),
-(31, 'social_icon.element', '{\"title\":\"Facebook\",\"social_icon\":\"<i class=\\\"las la-expand\\\"><\\/i>\",\"url\":\"https:\\/\\/www.google.com\\/\"}', NULL, 'basic', NULL, '2020-11-12 04:07:30', '2021-05-12 05:56:59'),
+(31, 'social_icon.element', '{\"title\":\"Facebook\",\"social_icon\":\"<i class=\\\"fab fa-facebook\\\"><\\/i>\",\"url\":\"https:\\/\\/www.fb.com\\/\"}', NULL, 'basic', '', '2020-11-12 04:07:30', '2024-07-16 05:44:18'),
 (33, 'feature.content', '{\"heading\":\"asdf\",\"sub_heading\":\"asdf\"}', NULL, 'basic', NULL, '2021-01-03 23:40:54', '2021-01-03 23:40:55'),
 (34, 'feature.element', '{\"title\":\"asdf\",\"description\":\"asdf\",\"feature_icon\":\"asdf\"}', NULL, 'basic', NULL, '2021-01-03 23:41:02', '2021-01-03 23:41:02'),
 (35, 'service.element', '{\"trx_type\":\"withdraw\",\"service_icon\":\"<i class=\\\"las la-highlighter\\\"><\\/i>\",\"title\":\"asdfasdf\",\"description\":\"asdfasdfasdfasdf\"}', NULL, 'basic', NULL, '2021-03-06 01:12:10', '2021-03-06 01:12:10'),
@@ -359,140 +387,50 @@ INSERT INTO `frontends` (`id`, `data_keys`, `data_values`, `seo_content`, `tempn
 (42, 'policy_pages.element', '{\"title\":\"Privacy Policy\",\"details\":\"<h4>Introduction<\\/h4>\\r\\n        <p>\\r\\n            This Privacy Policy describes how we collects, uses, and discloses information, including personal information, in connection with your use of our website.\\r\\n        <\\/p>\\r\\n        <br \\/>\\r\\n        <h4>Information We Collect<\\/h4>\\r\\n        <p>We collect two main types of information on the Website:<\\/p>\\r\\n        <ul>\\r\\n            <li><p><strong>Personal Information: <\\/strong>This includes data that can identify you as an individual, such as your name, email address, phone number, or mailing address. We only collect this information when you voluntarily provide it to us, like signing up for a newsletter, contacting us through a form, or making a purchase.<\\/p><\\/li>\\r\\n            <li><p><strong>Non-Personal Information: <\\/strong>This data cannot be used to identify you directly. It includes details like your browser type, device type, operating system, IP address, browsing activity, and usage statistics. We collect this information automatically through cookies and other tracking technologies.<\\/p><\\/li>\\r\\n        <\\/ul>\\r\\n        <br \\/>\\r\\n        <h4>How We Use Information<\\/h4>\\r\\n        <p>The information we collect allows us to:<\\/p>\\r\\n        <ul>\\r\\n            <li>Operate and maintain the Website effectively.<\\/li>\\r\\n            <li>Send you newsletters or marketing communications, but only with your consent.<\\/li>\\r\\n            <li>Respond to your inquiries and fulfill your requests.<\\/li>\\r\\n            <li>Improve the Website and your user experience.<\\/li>\\r\\n            <li>Personalize your experience on the Website based on your browsing habits.<\\/li>\\r\\n            <li>Analyze how the Website is used to improve our services.<\\/li>\\r\\n            <li>Comply with legal and regulatory requirements.<\\/li>\\r\\n        <\\/ul>\\r\\n        <br \\/>\\r\\n        <h4>Sharing of Information<\\/h4>\\r\\n        <p>We may share your information with trusted third-party service providers who assist us in operating the Website and delivering our services. These providers are obligated by contract to keep your information confidential and use it only for the specific purposes we disclose it for.<\\/p>\\r\\n        <p>We will never share your personal information with any third parties for marketing purposes without your explicit consent.<\\/p>\\r\\n        <br \\/>\\r\\n        <h4>Data Retention<\\/h4>\\r\\n        <p>We retain your personal information only for as long as necessary to fulfill the purposes it was collected for. We may retain it for longer periods only if required or permitted by law.<\\/p>\\r\\n        <br \\/>\\r\\n        <h4>Security Measures<\\/h4>\\r\\n        <p>We take reasonable precautions to protect your information from unauthorized access, disclosure, alteration, or destruction. However, complete security cannot be guaranteed for any website or internet transmission.<\\/p>\\r\\n        <br \\/>\\r\\n        <h4>Changes to this Privacy Policy<\\/h4>\\r\\n        <p>We may update this Privacy Policy periodically. We will notify you of any changes by posting the revised policy on the Website. We recommend reviewing this policy regularly to stay informed of any updates.<\\/p>\\r\\n        <p><strong>Remember:<\\/strong>  This is a sample policy and may need adjustments to comply with specific laws and reflect your website\'s unique data practices. Consider consulting with a legal professional to ensure your policy is fully compliant.<\\/p>\"}', '{\"image\":null,\"description\":null,\"social_title\":null,\"social_description\":null,\"keywords\":null}', 'basic', 'privacy-policy', '2021-06-09 08:50:42', '2024-04-24 05:43:19'),
 (43, 'policy_pages.element', '{\"title\":\"Terms of Service\",\"details\":\"<h4>Introduction<\\/h4>\\r\\n        <p>\\r\\n            This Privacy Policy describes how we collects, uses, and discloses information, including personal information, in connection with your use of our website.\\r\\n        <\\/p>\\r\\n        <br \\/>\\r\\n        <h4>Information We Collect<\\/h4>\\r\\n        <p>We collect two main types of information on the Website:<\\/p>\\r\\n        <ul>\\r\\n            <li><p><strong>Personal Information: <\\/strong>This includes data that can identify you as an individual, such as your name, email address, phone number, or mailing address. We only collect this information when you voluntarily provide it to us, like signing up for a newsletter, contacting us through a form, or making a purchase.<\\/p><\\/li>\\r\\n            <li><p><strong>Non-Personal Information: <\\/strong>This data cannot be used to identify you directly. It includes details like your browser type, device type, operating system, IP address, browsing activity, and usage statistics. We collect this information automatically through cookies and other tracking technologies.<\\/p><\\/li>\\r\\n        <\\/ul>\\r\\n        <br \\/>\\r\\n        <h4>How We Use Information<\\/h4>\\r\\n        <p>The information we collect allows us to:<\\/p>\\r\\n        <ul>\\r\\n            <li>Operate and maintain the Website effectively.<\\/li>\\r\\n            <li>Send you newsletters or marketing communications, but only with your consent.<\\/li>\\r\\n            <li>Respond to your inquiries and fulfill your requests.<\\/li>\\r\\n            <li>Improve the Website and your user experience.<\\/li>\\r\\n            <li>Personalize your experience on the Website based on your browsing habits.<\\/li>\\r\\n            <li>Analyze how the Website is used to improve our services.<\\/li>\\r\\n            <li>Comply with legal and regulatory requirements.<\\/li>\\r\\n        <\\/ul>\\r\\n        <br \\/>\\r\\n        <h4>Sharing of Information<\\/h4>\\r\\n        <p>We may share your information with trusted third-party service providers who assist us in operating the Website and delivering our services. These providers are obligated by contract to keep your information confidential and use it only for the specific purposes we disclose it for.<\\/p>\\r\\n        <p>We will never share your personal information with any third parties for marketing purposes without your explicit consent.<\\/p>\\r\\n        <br \\/>\\r\\n        <h4>Data Retention<\\/h4>\\r\\n        <p>We retain your personal information only for as long as necessary to fulfill the purposes it was collected for. We may retain it for longer periods only if required or permitted by law.<\\/p>\\r\\n        <br \\/>\\r\\n        <h4>Security Measures<\\/h4>\\r\\n        <p>We take reasonable precautions to protect your information from unauthorized access, disclosure, alteration, or destruction. However, complete security cannot be guaranteed for any website or internet transmission.<\\/p>\\r\\n        <br \\/>\\r\\n        <h4>Changes to this Privacy Policy<\\/h4>\\r\\n        <p>We may update this Privacy Policy periodically. We will notify you of any changes by posting the revised policy on the Website. We recommend reviewing this policy regularly to stay informed of any updates.<\\/p>\\r\\n        <p><strong>Remember:<\\/strong>  This is a sample policy and may need adjustments to comply with specific laws and reflect your website\'s unique data practices. Consider consulting with a legal professional to ensure your policy is fully compliant.<\\/p>\"}', '{\"image\":\"6635d5d9618e71714804185.png\",\"description\":null,\"social_title\":null,\"social_description\":null,\"keywords\":null}', 'basic', 'terms-of-service', '2021-06-09 08:51:18', '2024-05-12 05:47:29'),
 (44, 'maintenance.data', '{\"description\":\"<div class=\\\"mb-5\\\" style=\\\"font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"text-align: center; font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif;\\\"><font color=\\\"#ff0000\\\">THE SITE IS UNDER MAINTENANCE<\\/font><\\/h3><p class=\\\"font-18\\\" style=\\\"color: rgb(111, 111, 111); text-align: center; margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">We\'re just tuning up a few things.We apologize for the inconvenience but Front is currently undergoing planned maintenance. Thanks for your patience.<\\/p><\\/div>\",\"image\":\"6603c203472ad1711522307.png\"}', NULL, NULL, NULL, '2020-07-04 23:42:52', '2024-03-27 06:51:47'),
-(52, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Exploring the Cryptocurrency Landscape: A Comprehensive Guide for Beginners.\",\"description\":\"Retirement planning is essential for ensuring financial security and peace of mind in your golden years. In this blog post, we discuss key retirement planning strategies, including setting retirement goals, estimating retirement expenses, maximizing retirement savings accounts, and creating a sustainable withdrawal plan. Whether you\'re decades away from retirement or nearing your retirement age, this guide will help you take proactive steps towards a financially secure future.<br \\/><br \\/>\\r\\n<h5>From setting clear retirement goals to estimating your future expenses and income needs<\\/h5>\\r\\n<div>we\'ll guide you through the process of creating a solid retirement plan tailored to your unique circumstances. Whether you\'re decades away from retirement or nearing your retirement age, this guide offers valuable insights to help you make informed decisions and take proactive steps towards achieving your retirement objectives.<br \\/><\\/div>\\r\\n<div><br \\/><\\/div>\\r\\n\\r\\n<blockquote style=\\\"font-style:italic;text-align:center;padding:20px;background:#d5d5d5;font-weight:500;font-size:18px;border-left:4px solid #687687;\\\">Aenean metus lectus at id. Morbi aliquet commodo a sodales eget. Eu justo ante nibh et a turpis, aliquam phasellus hymenaeos, imperdiet eget cras sociosqu, tincidunt a amet. Faucibus urna luctus, arcu ni<\\/blockquote>\\r\\n\\r\\n\\r\\n<h5>Planning for retirement doesn\'t end with accumulating savings<\\/h5>\\r\\n<div>It also involves developing a sustainable withdrawal strategy to ensure your funds last throughout your retirement years. We\'ll discuss key factors to consider when creating a withdrawal plan, such as your expected lifespan, inflation, and investment returns, to help you strike the right balance between enjoying your retirement lifestyle and preserving your financial security.<br \\/><\\/div>\\r\\n<div><br \\/><\\/div>\\r\\n<h5>Planning before starting<\\/h5>\\r\\n<div>Whether you\'re just starting your career, mid-career, or approaching retirement age, it\'s never too early or too late to begin planning for your future. Join us as we empower you with the knowledge and tools you need to take control of your retirement destiny and embark on the path towards a financially secure and fulfilling retirement.<br \\/><br \\/><h5>From setting clear retirement goals to estimating your future expenses and income needs<\\/h5><div>we\'ll guide you through the process of creating a solid retirement plan tailored to your unique circumstances. Whether you\'re decades away from retirement or nearing your retirement age, this guide offers valuable insights to help you make informed decisions and take proactive steps towards achieving your retirement objectives.<\\/div><\\/div>\",\"image\":\"662a19077e0ad1714034951.jpg\"}', '{\"image\":\"65ffcda2669481711263138.jpg\",\"description\":null,\"social_title\":\"test\",\"social_description\":null,\"keywords\":null}', 'basic', 'exploring-the-cryptocurrency-landscape-a-comprehensive-guide-for-beginners', '2024-03-24 06:52:04', '2024-05-01 03:55:15'),
 (55, 'counter.content', '{\"heading\":\"Latest Newsss\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\"}', NULL, 'basic', '', '2024-04-21 01:13:50', '2024-04-21 01:13:50'),
 (56, 'counter.content', '{\"heading\":\"Latest News\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\"}', NULL, 'basic', '', '2024-04-21 01:13:52', '2024-04-21 01:13:52'),
-(60, 'kyc.content', '{\"required\":\"Complete KYC to unlock the full potential of our platform! KYC helps us verify your identity and keep things secure. It is quick and easy just follow the on-screen instructions. Get started with KYC verification now!\",\"pending\":\"Your KYC verification is being reviewed. We might need some additional information. You will get an email update soon. In the meantime, explore our platform with limited features.\"}', NULL, 'basic', '', '2024-04-25 06:35:35', '2024-04-25 06:35:35'),
-(61, 'kyc.content', '{\"required\":\"Complete KYC to unlock the full potential of our platform! KYC helps us verify your identity and keep things secure. It is quick and easy just follow the on-screen instructions. Get started with KYC verification now!\",\"pending\":\"Your KYC verification is being reviewed. We might need some additional information. You will get an email update soon. In the meantime, explore our platform with limited features.\",\"reject\":\"We regret to inform you that the Know Your Customer (KYC) information provided has been reviewed and unfortunately, it has not met our verification standards.\"}', NULL, 'basic', '', '2024-04-25 06:40:29', '2024-04-25 06:40:29'),
-(62, 'blog.content', '{\"heading\":\"Latest News\",\"subheading\":\"------\"}', NULL, 'basic', '', '2024-04-30 07:31:30', '2024-04-30 07:31:30'),
-(64, 'banner.content', '{\"has_image\":\"1\",\"heading\":\"Latest News\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\",\"image\":\"6631dbf594eca1714543605.png\"}', NULL, 'basic', '', '2024-05-01 00:06:45', '2024-05-01 00:06:46'),
-(65, 'faq.element', '{\"question\":\"Commodo cupiditate i\",\"answer\":\"Aut vel quo unde est\",\"icon\":\"<i class=\\\"fab fa-accusoft\\\"><\\/i>\"}', NULL, 'basic', '', '2024-05-04 00:21:20', '2024-05-04 00:21:20'),
-(66, 'register_disable.content', '{\"has_image\":\"1\",\"heading\":\"Registration Currently Disabled\",\"subheading\":\"Page you are looking for doesn\'t exit or an other error occurred or temporarily unavailable.\",\"button_name\":\"Go to Home\",\"button_url\":\"#\",\"image\":\"663a0f20ecd0b1715080992.png\"}', NULL, 'basic', '', '2024-05-07 05:23:12', '2024-05-07 05:28:09');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gateways`
---
-
-CREATE TABLE `gateways` (
-  `id` bigint UNSIGNED NOT NULL,
-  `form_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `code` int DEFAULT NULL,
-  `name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alias` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NULL',
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=>enable, 2=>disable',
-  `gateway_parameters` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `supported_currencies` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `crypto` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: fiat currency, 1: crypto currency',
-  `extra` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `gateways`
---
-
-INSERT INTO `gateways` (`id`, `form_id`, `code`, `name`, `alias`, `image`, `status`, `gateway_parameters`, `supported_currencies`, `crypto`, `extra`, `description`, `created_at`, `updated_at`) VALUES
-(1, 0, 101, 'Paypal', 'Paypal', '663a38d7b455d1715091671.png', 1, '{\"paypal_email\":{\"title\":\"PayPal Email\",\"global\":true,\"value\":\"sb-owud61543012@business.example.com\"}}', '{\"AUD\":\"AUD\",\"BRL\":\"BRL\",\"CAD\":\"CAD\",\"CZK\":\"CZK\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"HKD\":\"HKD\",\"HUF\":\"HUF\",\"INR\":\"INR\",\"ILS\":\"ILS\",\"JPY\":\"JPY\",\"MYR\":\"MYR\",\"MXN\":\"MXN\",\"TWD\":\"TWD\",\"NZD\":\"NZD\",\"NOK\":\"NOK\",\"PHP\":\"PHP\",\"PLN\":\"PLN\",\"GBP\":\"GBP\",\"RUB\":\"RUB\",\"SGD\":\"SGD\",\"SEK\":\"SEK\",\"CHF\":\"CHF\",\"THB\":\"THB\",\"USD\":\"$\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:21:11'),
-(2, 0, 102, 'Perfect Money', 'PerfectMoney', '663a3920e30a31715091744.png', 1, '{\"passphrase\":{\"title\":\"ALTERNATE PASSPHRASE\",\"global\":true,\"value\":\"hR26aw02Q1eEeUPSIfuwNypXX\"},\"wallet_id\":{\"title\":\"PM Wallet\",\"global\":false,\"value\":\"\"}}', '{\"USD\":\"$\",\"EUR\":\"\\u20ac\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:22:24'),
-(3, 0, 103, 'Stripe Hosted', 'Stripe', '663a39861cb9d1715091846.png', 1, '{\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"sk_test_51I6GGiCGv1sRiQlEi5v1or9eR0HVbuzdMd2rW4n3DxC8UKfz66R4X6n4yYkzvI2LeAIuRU9H99ZpY7XCNFC9xMs500vBjZGkKG\"},\"publishable_key\":{\"title\":\"PUBLISHABLE KEY\",\"global\":true,\"value\":\"pk_test_51I6GGiCGv1sRiQlEOisPKrjBqQqqcFsw8mXNaZ2H2baN6R01NulFS7dKFji1NRRxuchoUTEDdB7ujKcyKYSVc0z500eth7otOM\"}}', '{\"USD\":\"USD\",\"AUD\":\"AUD\",\"BRL\":\"BRL\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"HKD\":\"HKD\",\"INR\":\"INR\",\"JPY\":\"JPY\",\"MXN\":\"MXN\",\"MYR\":\"MYR\",\"NOK\":\"NOK\",\"NZD\":\"NZD\",\"PLN\":\"PLN\",\"SEK\":\"SEK\",\"SGD\":\"SGD\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:24:06'),
-(4, 0, 104, 'Skrill', 'Skrill', '663a39494c4a91715091785.png', 1, '{\"pay_to_email\":{\"title\":\"Skrill Email\",\"global\":true,\"value\":\"merchant@skrill.com\"},\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"---\"}}', '{\"AED\":\"AED\",\"AUD\":\"AUD\",\"BGN\":\"BGN\",\"BHD\":\"BHD\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"CZK\":\"CZK\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"HKD\":\"HKD\",\"HRK\":\"HRK\",\"HUF\":\"HUF\",\"ILS\":\"ILS\",\"INR\":\"INR\",\"ISK\":\"ISK\",\"JOD\":\"JOD\",\"JPY\":\"JPY\",\"KRW\":\"KRW\",\"KWD\":\"KWD\",\"MAD\":\"MAD\",\"MYR\":\"MYR\",\"NOK\":\"NOK\",\"NZD\":\"NZD\",\"OMR\":\"OMR\",\"PLN\":\"PLN\",\"QAR\":\"QAR\",\"RON\":\"RON\",\"RSD\":\"RSD\",\"SAR\":\"SAR\",\"SEK\":\"SEK\",\"SGD\":\"SGD\",\"THB\":\"THB\",\"TND\":\"TND\",\"TRY\":\"TRY\",\"TWD\":\"TWD\",\"USD\":\"USD\",\"ZAR\":\"ZAR\",\"COP\":\"COP\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:23:05'),
-(5, 0, 105, 'PayTM', 'Paytm', '663a390f601191715091727.png', 1, '{\"MID\":{\"title\":\"Merchant ID\",\"global\":true,\"value\":\"DIY12386817555501617\"},\"merchant_key\":{\"title\":\"Merchant Key\",\"global\":true,\"value\":\"bKMfNxPPf_QdZppa\"},\"WEBSITE\":{\"title\":\"Paytm Website\",\"global\":true,\"value\":\"DIYtestingweb\"},\"INDUSTRY_TYPE_ID\":{\"title\":\"Industry Type\",\"global\":true,\"value\":\"Retail\"},\"CHANNEL_ID\":{\"title\":\"CHANNEL ID\",\"global\":true,\"value\":\"WEB\"},\"transaction_url\":{\"title\":\"Transaction URL\",\"global\":true,\"value\":\"https:\\/\\/pguat.paytm.com\\/oltp-web\\/processTransaction\"},\"transaction_status_url\":{\"title\":\"Transaction STATUS URL\",\"global\":true,\"value\":\"https:\\/\\/pguat.paytm.com\\/paytmchecksum\\/paytmCallback.jsp\"}}', '{\"AUD\":\"AUD\",\"ARS\":\"ARS\",\"BDT\":\"BDT\",\"BRL\":\"BRL\",\"BGN\":\"BGN\",\"CAD\":\"CAD\",\"CLP\":\"CLP\",\"CNY\":\"CNY\",\"COP\":\"COP\",\"HRK\":\"HRK\",\"CZK\":\"CZK\",\"DKK\":\"DKK\",\"EGP\":\"EGP\",\"EUR\":\"EUR\",\"GEL\":\"GEL\",\"GHS\":\"GHS\",\"HKD\":\"HKD\",\"HUF\":\"HUF\",\"INR\":\"INR\",\"IDR\":\"IDR\",\"ILS\":\"ILS\",\"JPY\":\"JPY\",\"KES\":\"KES\",\"MYR\":\"MYR\",\"MXN\":\"MXN\",\"MAD\":\"MAD\",\"NPR\":\"NPR\",\"NZD\":\"NZD\",\"NGN\":\"NGN\",\"NOK\":\"NOK\",\"PKR\":\"PKR\",\"PEN\":\"PEN\",\"PHP\":\"PHP\",\"PLN\":\"PLN\",\"RON\":\"RON\",\"RUB\":\"RUB\",\"SGD\":\"SGD\",\"ZAR\":\"ZAR\",\"KRW\":\"KRW\",\"LKR\":\"LKR\",\"SEK\":\"SEK\",\"CHF\":\"CHF\",\"THB\":\"THB\",\"TRY\":\"TRY\",\"UGX\":\"UGX\",\"UAH\":\"UAH\",\"AED\":\"AED\",\"GBP\":\"GBP\",\"USD\":\"USD\",\"VND\":\"VND\",\"XOF\":\"XOF\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:22:07'),
-(6, 0, 106, 'Payeer', 'Payeer', '663a38c9e2e931715091657.png', 1, '{\"merchant_id\":{\"title\":\"Merchant ID\",\"global\":true,\"value\":\"866989763\"},\"secret_key\":{\"title\":\"Secret key\",\"global\":true,\"value\":\"7575\"}}', '{\"USD\":\"USD\",\"EUR\":\"EUR\",\"RUB\":\"RUB\"}', 0, '{\"status\":{\"title\": \"Status URL\",\"value\":\"ipn.Payeer\"}}', NULL, '2019-09-14 13:14:22', '2024-05-07 08:20:57'),
-(7, 0, 107, 'PayStack', 'Paystack', '663a38fc814e91715091708.png', 1, '{\"public_key\":{\"title\":\"Public key\",\"global\":true,\"value\":\"pk_test_cd330608eb47970889bca397ced55c1dd5ad3783\"},\"secret_key\":{\"title\":\"Secret key\",\"global\":true,\"value\":\"sk_test_8a0b1f199362d7acc9c390bff72c4e81f74e2ac3\"}}', '{\"USD\":\"USD\",\"NGN\":\"NGN\"}', 0, '{\"callback\":{\"title\": \"Callback URL\",\"value\":\"ipn.Paystack\"},\"webhook\":{\"title\": \"Webhook URL\",\"value\":\"ipn.Paystack\"}}\r\n', NULL, '2019-09-14 13:14:22', '2024-05-07 08:21:48'),
-(9, 0, 109, 'Flutterwave', 'Flutterwave', '663a36c2c34d61715091138.png', 1, '{\"public_key\":{\"title\":\"Public Key\",\"global\":true,\"value\":\"----------------\"},\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"-----------------------\"},\"encryption_key\":{\"title\":\"Encryption Key\",\"global\":true,\"value\":\"------------------\"}}', '{\"BIF\":\"BIF\",\"CAD\":\"CAD\",\"CDF\":\"CDF\",\"CVE\":\"CVE\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"GHS\":\"GHS\",\"GMD\":\"GMD\",\"GNF\":\"GNF\",\"KES\":\"KES\",\"LRD\":\"LRD\",\"MWK\":\"MWK\",\"MZN\":\"MZN\",\"NGN\":\"NGN\",\"RWF\":\"RWF\",\"SLL\":\"SLL\",\"STD\":\"STD\",\"TZS\":\"TZS\",\"UGX\":\"UGX\",\"USD\":\"USD\",\"XAF\":\"XAF\",\"XOF\":\"XOF\",\"ZMK\":\"ZMK\",\"ZMW\":\"ZMW\",\"ZWD\":\"ZWD\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:12:18'),
-(10, 0, 110, 'RazorPay', 'Razorpay', '663a393a527831715091770.png', 1, '{\"key_id\":{\"title\":\"Key Id\",\"global\":true,\"value\":\"rzp_test_kiOtejPbRZU90E\"},\"key_secret\":{\"title\":\"Key Secret \",\"global\":true,\"value\":\"osRDebzEqbsE1kbyQJ4y0re7\"}}', '{\"INR\":\"INR\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:22:50'),
-(11, 0, 111, 'Stripe Storefront', 'StripeJs', '663a3995417171715091861.png', 1, '{\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"sk_test_51I6GGiCGv1sRiQlEi5v1or9eR0HVbuzdMd2rW4n3DxC8UKfz66R4X6n4yYkzvI2LeAIuRU9H99ZpY7XCNFC9xMs500vBjZGkKG\"},\"publishable_key\":{\"title\":\"PUBLISHABLE KEY\",\"global\":true,\"value\":\"pk_test_51I6GGiCGv1sRiQlEOisPKrjBqQqqcFsw8mXNaZ2H2baN6R01NulFS7dKFji1NRRxuchoUTEDdB7ujKcyKYSVc0z500eth7otOM\"}}', '{\"USD\":\"USD\",\"AUD\":\"AUD\",\"BRL\":\"BRL\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"HKD\":\"HKD\",\"INR\":\"INR\",\"JPY\":\"JPY\",\"MXN\":\"MXN\",\"MYR\":\"MYR\",\"NOK\":\"NOK\",\"NZD\":\"NZD\",\"PLN\":\"PLN\",\"SEK\":\"SEK\",\"SGD\":\"SGD\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:24:21'),
-(12, 0, 112, 'Instamojo', 'Instamojo', '663a384d54a111715091533.png', 1, '{\"api_key\":{\"title\":\"API KEY\",\"global\":true,\"value\":\"test_2241633c3bc44a3de84a3b33969\"},\"auth_token\":{\"title\":\"Auth Token\",\"global\":true,\"value\":\"test_279f083f7bebefd35217feef22d\"},\"salt\":{\"title\":\"Salt\",\"global\":true,\"value\":\"19d38908eeff4f58b2ddda2c6d86ca25\"}}', '{\"INR\":\"INR\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:18:53'),
-(13, 0, 501, 'Blockchain', 'Blockchain', '663a35efd0c311715090927.png', 1, '{\"api_key\":{\"title\":\"API Key\",\"global\":true,\"value\":\"55529946-05ca-48ff-8710-f279d86b1cc5\"},\"xpub_code\":{\"title\":\"XPUB CODE\",\"global\":true,\"value\":\"xpub6CKQ3xxWyBoFAF83izZCSFUorptEU9AF8TezhtWeMU5oefjX3sFSBw62Lr9iHXPkXmDQJJiHZeTRtD9Vzt8grAYRhvbz4nEvBu3QKELVzFK\"}}', '{\"BTC\":\"BTC\"}', 1, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:08:47'),
-(15, 0, 503, 'CoinPayments', 'Coinpayments', '663a36a8d8e1d1715091112.png', 1, '{\"public_key\":{\"title\":\"Public Key\",\"global\":true,\"value\":\"---------------------\"},\"private_key\":{\"title\":\"Private Key\",\"global\":true,\"value\":\"---------------------\"},\"merchant_id\":{\"title\":\"Merchant ID\",\"global\":true,\"value\":\"---------------------\"}}', '{\"BTC\":\"Bitcoin\",\"BTC.LN\":\"Bitcoin (Lightning Network)\",\"LTC\":\"Litecoin\",\"CPS\":\"CPS Coin\",\"VLX\":\"Velas\",\"APL\":\"Apollo\",\"AYA\":\"Aryacoin\",\"BAD\":\"Badcoin\",\"BCD\":\"Bitcoin Diamond\",\"BCH\":\"Bitcoin Cash\",\"BCN\":\"Bytecoin\",\"BEAM\":\"BEAM\",\"BITB\":\"Bean Cash\",\"BLK\":\"BlackCoin\",\"BSV\":\"Bitcoin SV\",\"BTAD\":\"Bitcoin Adult\",\"BTG\":\"Bitcoin Gold\",\"BTT\":\"BitTorrent\",\"CLOAK\":\"CloakCoin\",\"CLUB\":\"ClubCoin\",\"CRW\":\"Crown\",\"CRYP\":\"CrypticCoin\",\"CRYT\":\"CryTrExCoin\",\"CURE\":\"CureCoin\",\"DASH\":\"DASH\",\"DCR\":\"Decred\",\"DEV\":\"DeviantCoin\",\"DGB\":\"DigiByte\",\"DOGE\":\"Dogecoin\",\"EBST\":\"eBoost\",\"EOS\":\"EOS\",\"ETC\":\"Ether Classic\",\"ETH\":\"Ethereum\",\"ETN\":\"Electroneum\",\"EUNO\":\"EUNO\",\"EXP\":\"EXP\",\"Expanse\":\"Expanse\",\"FLASH\":\"FLASH\",\"GAME\":\"GameCredits\",\"GLC\":\"Goldcoin\",\"GRS\":\"Groestlcoin\",\"KMD\":\"Komodo\",\"LOKI\":\"LOKI\",\"LSK\":\"LSK\",\"MAID\":\"MaidSafeCoin\",\"MUE\":\"MonetaryUnit\",\"NAV\":\"NAV Coin\",\"NEO\":\"NEO\",\"NMC\":\"Namecoin\",\"NVST\":\"NVO Token\",\"NXT\":\"NXT\",\"OMNI\":\"OMNI\",\"PINK\":\"PinkCoin\",\"PIVX\":\"PIVX\",\"POT\":\"PotCoin\",\"PPC\":\"Peercoin\",\"PROC\":\"ProCurrency\",\"PURA\":\"PURA\",\"QTUM\":\"QTUM\",\"RES\":\"Resistance\",\"RVN\":\"Ravencoin\",\"RVR\":\"RevolutionVR\",\"SBD\":\"Steem Dollars\",\"SMART\":\"SmartCash\",\"SOXAX\":\"SOXAX\",\"STEEM\":\"STEEM\",\"STRAT\":\"STRAT\",\"SYS\":\"Syscoin\",\"TPAY\":\"TokenPay\",\"TRIGGERS\":\"Triggers\",\"TRX\":\" TRON\",\"UBQ\":\"Ubiq\",\"UNIT\":\"UniversalCurrency\",\"USDT\":\"Tether USD (Omni Layer)\",\"USDT.BEP20\":\"Tether USD (BSC Chain)\",\"USDT.ERC20\":\"Tether USD (ERC20)\",\"USDT.TRC20\":\"Tether USD (Tron/TRC20)\",\"VTC\":\"Vertcoin\",\"WAVES\":\"Waves\",\"XCP\":\"Counterparty\",\"XEM\":\"NEM\",\"XMR\":\"Monero\",\"XSN\":\"Stakenet\",\"XSR\":\"SucreCoin\",\"XVG\":\"VERGE\",\"XZC\":\"ZCoin\",\"ZEC\":\"ZCash\",\"ZEN\":\"Horizen\"}', 1, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:11:52'),
-(16, 0, 504, 'CoinPayments Fiat', 'CoinpaymentsFiat', '663a36b7b841a1715091127.png', 1, '{\"merchant_id\":{\"title\":\"Merchant ID\",\"global\":true,\"value\":\"6515561\"}}', '{\"USD\":\"USD\",\"AUD\":\"AUD\",\"BRL\":\"BRL\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"CLP\":\"CLP\",\"CNY\":\"CNY\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"HKD\":\"HKD\",\"INR\":\"INR\",\"ISK\":\"ISK\",\"JPY\":\"JPY\",\"KRW\":\"KRW\",\"NZD\":\"NZD\",\"PLN\":\"PLN\",\"RUB\":\"RUB\",\"SEK\":\"SEK\",\"SGD\":\"SGD\",\"THB\":\"THB\",\"TWD\":\"TWD\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:12:07'),
-(17, 0, 505, 'Coingate', 'Coingate', '663a368e753381715091086.png', 1, '{\"api_key\":{\"title\":\"API Key\",\"global\":true,\"value\":\"6354mwVCEw5kHzRJ6thbGo-N\"}}', '{\"USD\":\"USD\",\"EUR\":\"EUR\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:11:26'),
-(18, 0, 506, 'Coinbase Commerce', 'CoinbaseCommerce', '663a367e46ae51715091070.png', 1, '{\"api_key\":{\"title\":\"API Key\",\"global\":true,\"value\":\"c47cd7df-d8e8-424b-a20a\"},\"secret\":{\"title\":\"Webhook Shared Secret\",\"global\":true,\"value\":\"55871878-2c32-4f64-ab66\"}}', '{\"USD\":\"USD\",\"EUR\":\"EUR\",\"JPY\":\"JPY\",\"GBP\":\"GBP\",\"AUD\":\"AUD\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"CNY\":\"CNY\",\"SEK\":\"SEK\",\"NZD\":\"NZD\",\"MXN\":\"MXN\",\"SGD\":\"SGD\",\"HKD\":\"HKD\",\"NOK\":\"NOK\",\"KRW\":\"KRW\",\"TRY\":\"TRY\",\"RUB\":\"RUB\",\"INR\":\"INR\",\"BRL\":\"BRL\",\"ZAR\":\"ZAR\",\"AED\":\"AED\",\"AFN\":\"AFN\",\"ALL\":\"ALL\",\"AMD\":\"AMD\",\"ANG\":\"ANG\",\"AOA\":\"AOA\",\"ARS\":\"ARS\",\"AWG\":\"AWG\",\"AZN\":\"AZN\",\"BAM\":\"BAM\",\"BBD\":\"BBD\",\"BDT\":\"BDT\",\"BGN\":\"BGN\",\"BHD\":\"BHD\",\"BIF\":\"BIF\",\"BMD\":\"BMD\",\"BND\":\"BND\",\"BOB\":\"BOB\",\"BSD\":\"BSD\",\"BTN\":\"BTN\",\"BWP\":\"BWP\",\"BYN\":\"BYN\",\"BZD\":\"BZD\",\"CDF\":\"CDF\",\"CLF\":\"CLF\",\"CLP\":\"CLP\",\"COP\":\"COP\",\"CRC\":\"CRC\",\"CUC\":\"CUC\",\"CUP\":\"CUP\",\"CVE\":\"CVE\",\"CZK\":\"CZK\",\"DJF\":\"DJF\",\"DKK\":\"DKK\",\"DOP\":\"DOP\",\"DZD\":\"DZD\",\"EGP\":\"EGP\",\"ERN\":\"ERN\",\"ETB\":\"ETB\",\"FJD\":\"FJD\",\"FKP\":\"FKP\",\"GEL\":\"GEL\",\"GGP\":\"GGP\",\"GHS\":\"GHS\",\"GIP\":\"GIP\",\"GMD\":\"GMD\",\"GNF\":\"GNF\",\"GTQ\":\"GTQ\",\"GYD\":\"GYD\",\"HNL\":\"HNL\",\"HRK\":\"HRK\",\"HTG\":\"HTG\",\"HUF\":\"HUF\",\"IDR\":\"IDR\",\"ILS\":\"ILS\",\"IMP\":\"IMP\",\"IQD\":\"IQD\",\"IRR\":\"IRR\",\"ISK\":\"ISK\",\"JEP\":\"JEP\",\"JMD\":\"JMD\",\"JOD\":\"JOD\",\"KES\":\"KES\",\"KGS\":\"KGS\",\"KHR\":\"KHR\",\"KMF\":\"KMF\",\"KPW\":\"KPW\",\"KWD\":\"KWD\",\"KYD\":\"KYD\",\"KZT\":\"KZT\",\"LAK\":\"LAK\",\"LBP\":\"LBP\",\"LKR\":\"LKR\",\"LRD\":\"LRD\",\"LSL\":\"LSL\",\"LYD\":\"LYD\",\"MAD\":\"MAD\",\"MDL\":\"MDL\",\"MGA\":\"MGA\",\"MKD\":\"MKD\",\"MMK\":\"MMK\",\"MNT\":\"MNT\",\"MOP\":\"MOP\",\"MRO\":\"MRO\",\"MUR\":\"MUR\",\"MVR\":\"MVR\",\"MWK\":\"MWK\",\"MYR\":\"MYR\",\"MZN\":\"MZN\",\"NAD\":\"NAD\",\"NGN\":\"NGN\",\"NIO\":\"NIO\",\"NPR\":\"NPR\",\"OMR\":\"OMR\",\"PAB\":\"PAB\",\"PEN\":\"PEN\",\"PGK\":\"PGK\",\"PHP\":\"PHP\",\"PKR\":\"PKR\",\"PLN\":\"PLN\",\"PYG\":\"PYG\",\"QAR\":\"QAR\",\"RON\":\"RON\",\"RSD\":\"RSD\",\"RWF\":\"RWF\",\"SAR\":\"SAR\",\"SBD\":\"SBD\",\"SCR\":\"SCR\",\"SDG\":\"SDG\",\"SHP\":\"SHP\",\"SLL\":\"SLL\",\"SOS\":\"SOS\",\"SRD\":\"SRD\",\"SSP\":\"SSP\",\"STD\":\"STD\",\"SVC\":\"SVC\",\"SYP\":\"SYP\",\"SZL\":\"SZL\",\"THB\":\"THB\",\"TJS\":\"TJS\",\"TMT\":\"TMT\",\"TND\":\"TND\",\"TOP\":\"TOP\",\"TTD\":\"TTD\",\"TWD\":\"TWD\",\"TZS\":\"TZS\",\"UAH\":\"UAH\",\"UGX\":\"UGX\",\"UYU\":\"UYU\",\"UZS\":\"UZS\",\"VEF\":\"VEF\",\"VND\":\"VND\",\"VUV\":\"VUV\",\"WST\":\"WST\",\"XAF\":\"XAF\",\"XAG\":\"XAG\",\"XAU\":\"XAU\",\"XCD\":\"XCD\",\"XDR\":\"XDR\",\"XOF\":\"XOF\",\"XPD\":\"XPD\",\"XPF\":\"XPF\",\"XPT\":\"XPT\",\"YER\":\"YER\",\"ZMW\":\"ZMW\",\"ZWL\":\"ZWL\"}\r\n\r\n', 0, '{\"endpoint\":{\"title\": \"Webhook Endpoint\",\"value\":\"ipn.CoinbaseCommerce\"}}', NULL, '2019-09-14 13:14:22', '2024-05-07 08:11:10'),
-(24, 0, 113, 'Paypal Express', 'PaypalSdk', '663a38ed101a61715091693.png', 1, '{\"clientId\":{\"title\":\"Paypal Client ID\",\"global\":true,\"value\":\"Ae0-tixtSV7DvLwIh3Bmu7JvHrjh5EfGdXr_cEklKAVjjezRZ747BxKILiBdzlKKyp-W8W_T7CKH1Ken\"},\"clientSecret\":{\"title\":\"Client Secret\",\"global\":true,\"value\":\"EOhbvHZgFNO21soQJT1L9Q00M3rK6PIEsdiTgXRBt2gtGtxwRer5JvKnVUGNU5oE63fFnjnYY7hq3HBA\"}}', '{\"AUD\":\"AUD\",\"BRL\":\"BRL\",\"CAD\":\"CAD\",\"CZK\":\"CZK\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"HKD\":\"HKD\",\"HUF\":\"HUF\",\"INR\":\"INR\",\"ILS\":\"ILS\",\"JPY\":\"JPY\",\"MYR\":\"MYR\",\"MXN\":\"MXN\",\"TWD\":\"TWD\",\"NZD\":\"NZD\",\"NOK\":\"NOK\",\"PHP\":\"PHP\",\"PLN\":\"PLN\",\"GBP\":\"GBP\",\"RUB\":\"RUB\",\"SGD\":\"SGD\",\"SEK\":\"SEK\",\"CHF\":\"CHF\",\"THB\":\"THB\",\"USD\":\"$\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:21:33'),
-(25, 0, 114, 'Stripe Checkout', 'StripeV3', '663a39afb519f1715091887.png', 1, '{\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"sk_test_51I6GGiCGv1sRiQlEi5v1or9eR0HVbuzdMd2rW4n3DxC8UKfz66R4X6n4yYkzvI2LeAIuRU9H99ZpY7XCNFC9xMs500vBjZGkKG\"},\"publishable_key\":{\"title\":\"PUBLISHABLE KEY\",\"global\":true,\"value\":\"pk_test_51I6GGiCGv1sRiQlEOisPKrjBqQqqcFsw8mXNaZ2H2baN6R01NulFS7dKFji1NRRxuchoUTEDdB7ujKcyKYSVc0z500eth7otOM\"},\"end_point\":{\"title\":\"End Point Secret\",\"global\":true,\"value\":\"whsec_lUmit1gtxwKTveLnSe88xCSDdnPOt8g5\"}}', '{\"USD\":\"USD\",\"AUD\":\"AUD\",\"BRL\":\"BRL\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"HKD\":\"HKD\",\"INR\":\"INR\",\"JPY\":\"JPY\",\"MXN\":\"MXN\",\"MYR\":\"MYR\",\"NOK\":\"NOK\",\"NZD\":\"NZD\",\"PLN\":\"PLN\",\"SEK\":\"SEK\",\"SGD\":\"SGD\"}', 0, '{\"webhook\":{\"title\": \"Webhook Endpoint\",\"value\":\"ipn.StripeV3\"}}', NULL, '2019-09-14 13:14:22', '2024-05-07 08:24:47'),
-(27, 0, 115, 'Mollie', 'Mollie', '663a387ec69371715091582.png', 1, '{\"mollie_email\":{\"title\":\"Mollie Email \",\"global\":true,\"value\":\"vi@gmail.com\"},\"api_key\":{\"title\":\"API KEY\",\"global\":true,\"value\":\"test_cucfwKTWfft9s337qsVfn5CC4vNkrn\"}}', '{\"AED\":\"AED\",\"AUD\":\"AUD\",\"BGN\":\"BGN\",\"BRL\":\"BRL\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"CZK\":\"CZK\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"HKD\":\"HKD\",\"HRK\":\"HRK\",\"HUF\":\"HUF\",\"ILS\":\"ILS\",\"ISK\":\"ISK\",\"JPY\":\"JPY\",\"MXN\":\"MXN\",\"MYR\":\"MYR\",\"NOK\":\"NOK\",\"NZD\":\"NZD\",\"PHP\":\"PHP\",\"PLN\":\"PLN\",\"RON\":\"RON\",\"RUB\":\"RUB\",\"SEK\":\"SEK\",\"SGD\":\"SGD\",\"THB\":\"THB\",\"TWD\":\"TWD\",\"USD\":\"USD\",\"ZAR\":\"ZAR\"}', 0, NULL, NULL, '2019-09-14 13:14:22', '2024-05-07 08:19:42'),
-(30, 0, 116, 'Cashmaal', 'Cashmaal', '663a361b16bd11715090971.png', 1, '{\"web_id\":{\"title\":\"Web Id\",\"global\":true,\"value\":\"3748\"},\"ipn_key\":{\"title\":\"IPN Key\",\"global\":true,\"value\":\"546254628759524554647987\"}}', '{\"PKR\":\"PKR\",\"USD\":\"USD\"}', 0, '{\"webhook\":{\"title\": \"IPN URL\",\"value\":\"ipn.Cashmaal\"}}', NULL, NULL, '2024-05-07 08:09:31'),
-(36, 0, 119, 'Mercado Pago', 'MercadoPago', '663a386c714a91715091564.png', 1, '{\"access_token\":{\"title\":\"Access Token\",\"global\":true,\"value\":\"APP_USR-7924565816849832-082312-21941521997fab717db925cf1ea2c190-1071840315\"}}', '{\"USD\":\"USD\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"NOK\":\"NOK\",\"PLN\":\"PLN\",\"SEK\":\"SEK\",\"AUD\":\"AUD\",\"NZD\":\"NZD\"}', 0, NULL, NULL, NULL, '2024-05-07 08:19:24'),
-(37, 0, 120, 'Authorize.net', 'Authorize', '663a35b9ca5991715090873.png', 1, '{\"login_id\":{\"title\":\"Login ID\",\"global\":true,\"value\":\"59e4P9DBcZv\"},\"transaction_key\":{\"title\":\"Transaction Key\",\"global\":true,\"value\":\"47x47TJyLw2E7DbR\"}}', '{\"USD\":\"USD\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"NOK\":\"NOK\",\"PLN\":\"PLN\",\"SEK\":\"SEK\",\"AUD\":\"AUD\",\"NZD\":\"NZD\"}', 0, NULL, NULL, NULL, '2024-05-07 08:07:53'),
-(46, 0, 121, 'NMI', 'NMI', '663a3897754cf1715091607.png', 1, '{\"api_key\":{\"title\":\"API Key\",\"global\":true,\"value\":\"2F822Rw39fx762MaV7Yy86jXGTC7sCDy\"}}', '{\"AED\":\"AED\",\"ARS\":\"ARS\",\"AUD\":\"AUD\",\"BOB\":\"BOB\",\"BRL\":\"BRL\",\"CAD\":\"CAD\",\"CHF\":\"CHF\",\"CLP\":\"CLP\",\"CNY\":\"CNY\",\"COP\":\"COP\",\"DKK\":\"DKK\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"HKD\":\"HKD\",\"IDR\":\"IDR\",\"ILS\":\"ILS\",\"INR\":\"INR\",\"JPY\":\"JPY\",\"KRW\":\"KRW\",\"MXN\":\"MXN\",\"MYR\":\"MYR\",\"NOK\":\"NOK\",\"NZD\":\"NZD\",\"PEN\":\"PEN\",\"PHP\":\"PHP\",\"PLN\":\"PLN\",\"PYG\":\"PYG\",\"RUB\":\"RUB\",\"SEC\":\"SEC\",\"SGD\":\"SGD\",\"THB\":\"THB\",\"TRY\":\"TRY\",\"TWD\":\"TWD\",\"USD\":\"USD\",\"ZAR\":\"ZAR\"}', 0, NULL, NULL, NULL, '2024-05-07 08:20:07'),
-(50, 0, 507, 'BTCPay', 'BTCPay', '663a35cd25a8d1715090893.png', 1, '{\"store_id\":{\"title\":\"Store Id\",\"global\":true,\"value\":\"HsqFVTXSeUFJu7caoYZc3CTnP8g5LErVdHhEXPVTheHf\"},\"api_key\":{\"title\":\"Api Key\",\"global\":true,\"value\":\"4436bd706f99efae69305e7c4eff4780de1335ce\"},\"server_name\":{\"title\":\"Server Name\",\"global\":true,\"value\":\"https:\\/\\/testnet.demo.btcpayserver.org\"},\"secret_code\":{\"title\":\"Secret Code\",\"global\":true,\"value\":\"SUCdqPn9CDkY7RmJHfpQVHP2Lf2\"}}', '{\"BTC\":\"Bitcoin\",\"LTC\":\"Litecoin\"}', 1, '{\"webhook\":{\"title\": \"IPN URL\",\"value\":\"ipn.BTCPay\"}}', NULL, NULL, '2024-05-07 08:08:13'),
-(51, 0, 508, 'Now payments hosted', 'NowPaymentsHosted', '663a38b8d57a81715091640.png', 1, '{\"api_key\":{\"title\":\"API Key\",\"global\":true,\"value\":\"--------\"},\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"------------\"}}', '{\"BTG\":\"BTG\",\"ETH\":\"ETH\",\"XMR\":\"XMR\",\"ZEC\":\"ZEC\",\"XVG\":\"XVG\",\"ADA\":\"ADA\",\"LTC\":\"LTC\",\"BCH\":\"BCH\",\"QTUM\":\"QTUM\",\"DASH\":\"DASH\",\"XLM\":\"XLM\",\"XRP\":\"XRP\",\"XEM\":\"XEM\",\"DGB\":\"DGB\",\"LSK\":\"LSK\",\"DOGE\":\"DOGE\",\"TRX\":\"TRX\",\"KMD\":\"KMD\",\"REP\":\"REP\",\"BAT\":\"BAT\",\"ARK\":\"ARK\",\"WAVES\":\"WAVES\",\"BNB\":\"BNB\",\"XZC\":\"XZC\",\"NANO\":\"NANO\",\"TUSD\":\"TUSD\",\"VET\":\"VET\",\"ZEN\":\"ZEN\",\"GRS\":\"GRS\",\"FUN\":\"FUN\",\"NEO\":\"NEO\",\"GAS\":\"GAS\",\"PAX\":\"PAX\",\"USDC\":\"USDC\",\"ONT\":\"ONT\",\"XTZ\":\"XTZ\",\"LINK\":\"LINK\",\"RVN\":\"RVN\",\"BNBMAINNET\":\"BNBMAINNET\",\"ZIL\":\"ZIL\",\"BCD\":\"BCD\",\"USDT\":\"USDT\",\"USDTERC20\":\"USDTERC20\",\"CRO\":\"CRO\",\"DAI\":\"DAI\",\"HT\":\"HT\",\"WABI\":\"WABI\",\"BUSD\":\"BUSD\",\"ALGO\":\"ALGO\",\"USDTTRC20\":\"USDTTRC20\",\"GT\":\"GT\",\"STPT\":\"STPT\",\"AVA\":\"AVA\",\"SXP\":\"SXP\",\"UNI\":\"UNI\",\"OKB\":\"OKB\",\"BTC\":\"BTC\"}', 1, '', NULL, NULL, '2024-05-07 08:20:40'),
-(52, 0, 509, 'Now payments checkout', 'NowPaymentsCheckout', '663a38a59d2541715091621.png', 1, '{\"api_key\":{\"title\":\"API Key\",\"global\":true,\"value\":\"---------------\"},\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"-----------\"}}', '{\"USD\":\"USD\",\"EUR\":\"EUR\"}', 1, '', NULL, NULL, '2024-05-07 08:20:21'),
-(53, 0, 122, '2Checkout', 'TwoCheckout', '663a39b8e64b91715091896.png', 1, '{\"merchant_code\":{\"title\":\"Merchant Code\",\"global\":true,\"value\":\"253248016872\"},\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"eQM)ID@&vG84u!O*g[p+\"}}', '{\"AFN\": \"AFN\",\"ALL\": \"ALL\",\"DZD\": \"DZD\",\"ARS\": \"ARS\",\"AUD\": \"AUD\",\"AZN\": \"AZN\",\"BSD\": \"BSD\",\"BDT\": \"BDT\",\"BBD\": \"BBD\",\"BZD\": \"BZD\",\"BMD\": \"BMD\",\"BOB\": \"BOB\",\"BWP\": \"BWP\",\"BRL\": \"BRL\",\"GBP\": \"GBP\",\"BND\": \"BND\",\"BGN\": \"BGN\",\"CAD\": \"CAD\",\"CLP\": \"CLP\",\"CNY\": \"CNY\",\"COP\": \"COP\",\"CRC\": \"CRC\",\"HRK\": \"HRK\",\"CZK\": \"CZK\",\"DKK\": \"DKK\",\"DOP\": \"DOP\",\"XCD\": \"XCD\",\"EGP\": \"EGP\",\"EUR\": \"EUR\",\"FJD\": \"FJD\",\"GTQ\": \"GTQ\",\"HKD\": \"HKD\",\"HNL\": \"HNL\",\"HUF\": \"HUF\",\"INR\": \"INR\",\"IDR\": \"IDR\",\"ILS\": \"ILS\",\"JMD\": \"JMD\",\"JPY\": \"JPY\",\"KZT\": \"KZT\",\"KES\": \"KES\",\"LAK\": \"LAK\",\"MMK\": \"MMK\",\"LBP\": \"LBP\",\"LRD\": \"LRD\",\"MOP\": \"MOP\",\"MYR\": \"MYR\",\"MVR\": \"MVR\",\"MRO\": \"MRO\",\"MUR\": \"MUR\",\"MXN\": \"MXN\",\"MAD\": \"MAD\",\"NPR\": \"NPR\",\"TWD\": \"TWD\",\"NZD\": \"NZD\",\"NIO\": \"NIO\",\"NOK\": \"NOK\",\"PKR\": \"PKR\",\"PGK\": \"PGK\",\"PEN\": \"PEN\",\"PHP\": \"PHP\",\"PLN\": \"PLN\",\"QAR\": \"QAR\",\"RON\": \"RON\",\"RUB\": \"RUB\",\"WST\": \"WST\",\"SAR\": \"SAR\",\"SCR\": \"SCR\",\"SGD\": \"SGD\",\"SBD\": \"SBD\",\"ZAR\": \"ZAR\",\"KRW\": \"KRW\",\"LKR\": \"LKR\",\"SEK\": \"SEK\",\"CHF\": \"CHF\",\"SYP\": \"SYP\",\"THB\": \"THB\",\"TOP\": \"TOP\",\"TTD\": \"TTD\",\"TRY\": \"TRY\",\"UAH\": \"UAH\",\"AED\": \"AED\",\"USD\": \"USD\",\"VUV\": \"VUV\",\"VND\": \"VND\",\"XOF\": \"XOF\",\"YER\": \"YER\"}', 0, '{\"approved_url\":{\"title\": \"Approved URL\",\"value\":\"ipn.TwoCheckout\"}}', NULL, NULL, '2024-05-07 08:24:56'),
-(54, 0, 123, 'Checkout', 'Checkout', '663a3628733351715090984.png', 1, '{\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"------\"},\"public_key\":{\"title\":\"PUBLIC KEY\",\"global\":true,\"value\":\"------\"},\"processing_channel_id\":{\"title\":\"PROCESSING CHANNEL\",\"global\":true,\"value\":\"------\"}}', '{\"USD\":\"USD\",\"EUR\":\"EUR\",\"GBP\":\"GBP\",\"HKD\":\"HKD\",\"AUD\":\"AUD\",\"CAN\":\"CAN\",\"CHF\":\"CHF\",\"SGD\":\"SGD\",\"JPY\":\"JPY\",\"NZD\":\"NZD\"}', 0, NULL, NULL, NULL, '2024-05-07 08:09:44'),
-(55, 19, 1000, 'Bank Transfer', 'bank_transfer', '663b50fc3b21c1715163388.png', 1, '[]', '[]', 0, NULL, '<div style=\"border-left: 3px solid #b5b0b0;\r\n    padding: 12px;\r\n    font-style: italic;\r\n    margin: 30px 0px;\r\n    background: #f9f9f9;\r\n    border-radius: 3px;\"><p style=\"\r\n    margin-bottom: 10px;\r\n    font-weight: bold;\r\n    font-size: 17px;\r\n\">Send the amount to the below bank information</p><p style=\"\r\n    margin-bottom: 0;\r\n\">\r\n</p><p style=\"\r\nmargin-bottom: 0;\r\n\"><span style=\"font-weight:500\">Bank Name:</span> Bank of America</p>\r\n<p style=\"\r\nmargin-bottom: 0;\r\n\"><span style=\"font-weight:500\">Branch:</span> New York</p>\r\n<p style=\"\r\nmargin-bottom: 0;\r\n\"><span style=\"font-weight:500\">Routing:</span> 1234</p>\r\n<p style=\"\r\n    margin-bottom: 0;\r\n\"><span style=\"font-weight:500\">Account Number:</span> 997855xxxxxxxx6985</p></div>', '2024-03-13 23:11:21', '2024-05-08 04:16:28'),
-(56, 0, 510, 'Binance', 'Binance', '663a35db4fd621715090907.png', 1, '{\"api_key\":{\"title\":\"API Key\",\"global\":true,\"value\":\"tsu3tjiq0oqfbtmlbevoeraxhfbp3brejnm9txhjxcp4to29ujvakvfl1ibsn3ja\"},\"secret_key\":{\"title\":\"Secret Key\",\"global\":true,\"value\":\"jzngq4t04ltw8d4iqpi7admfl8tvnpehxnmi34id1zvfaenbwwvsvw7llw3zdko8\"},\"merchant_id\":{\"title\":\"Merchant ID\",\"global\":true,\"value\":\"231129033\"}}', '{\"BTC\":\"Bitcoin\",\"USD\":\"USD\",\"BNB\":\"BNB\"}', 1, '{\"cron\":{\"title\": \"Cron Job URL\",\"value\":\"ipn.Binance\"}}', NULL, NULL, '2024-05-07 08:08:27'),
-(57, 0, 124, 'SslCommerz', 'SslCommerz', '663a397a70c571715091834.png', 1, '{\"store_id\":{\"title\":\"Store ID\",\"global\":true,\"value\":\"---------\"},\"store_password\":{\"title\":\"Store Password\",\"global\":true,\"value\":\"----------\"}}', '{\"BDT\":\"BDT\",\"USD\":\"USD\",\"EUR\":\"EUR\",\"SGD\":\"SGD\",\"INR\":\"INR\",\"MYR\":\"MYR\"}', 0, NULL, NULL, NULL, '2024-05-07 08:23:54'),
-(58, 0, 125, 'Aamarpay', 'Aamarpay', '663a34d5d1dfc1715090645.png', 1, '{\"store_id\":{\"title\":\"Store ID\",\"global\":true,\"value\":\"---------\"},\"signature_key\":{\"title\":\"Signature Key\",\"global\":true,\"value\":\"----------\"}}', '{\"BDT\":\"BDT\"}', 0, NULL, NULL, NULL, '2024-05-07 08:04:05');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gateway_currencies`
---
-
-CREATE TABLE `gateway_currencies` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `currency` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `symbol` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `method_code` int DEFAULT NULL,
-  `gateway_alias` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `min_amount` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `max_amount` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `percent_charge` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `fixed_charge` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `rate` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `gateway_parameter` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `gateway_currencies`
---
-
-INSERT INTO `gateway_currencies` (`id`, `name`, `currency`, `symbol`, `method_code`, `gateway_alias`, `min_amount`, `max_amount`, `percent_charge`, `fixed_charge`, `rate`, `gateway_parameter`, `created_at`, `updated_at`) VALUES
-(147, 'Bank Wire', 'USD', '', 1001, 'bank_wire', '10.00000000', '100000.00000000', '1.00', '5.00000000', '1.00000000', NULL, '2022-03-30 09:16:43', '2022-07-26 05:57:22'),
-(202, 'Bank Transfer', 'USD', '', 1000, 'bank_transfer', '100.00000000', '1000.00000000', '1.00', '1.00000000', '1.00000000', NULL, '2024-03-13 23:11:21', '2024-05-28 00:23:23'),
-(268, 'Authorize.net - USD', 'USD', '$', 120, 'Authorize', '1.00000000', '10.00000000', '1.00', '1.00000000', '1.00000000', '{\"login_id\":\"59e4P9DBcZv\",\"transaction_key\":\"47x47TJyLw2E7DbR\"}', '2024-05-07 08:07:53', '2024-05-07 08:07:53'),
-(269, 'BTCPay - BTC', 'BTC', '₿', 507, 'BTCPay', '1.00000000', '100.00000000', '1.00', '1.00000000', '1.00000000', '{\"store_id\":\"HsqFVTXSeUFJu7caoYZc3CTnP8g5LErVdHhEXPVTheHf\",\"api_key\":\"4436bd706f99efae69305e7c4eff4780de1335ce\",\"server_name\":\"https:\\/\\/testnet.demo.btcpayserver.org\",\"secret_code\":\"SUCdqPn9CDkY7RmJHfpQVHP2Lf2\"}', '2024-05-07 08:08:13', '2024-05-07 08:08:13'),
-(272, 'Cashmaal - PKR', 'PKR', 'pkr', 116, 'Cashmaal', '1.00000000', '10000.00000000', '10.00', '1.00000000', '100.00000000', '{\"web_id\":\"3748\",\"ipn_key\":\"546254628759524554647987\"}', '2024-05-07 08:09:31', '2024-05-07 08:09:31'),
-(273, 'Checkout - USD', 'USD', '$', 123, 'Checkout', '1.00000000', '100.00000000', '1.00', '1.00000000', '1.00000000', '{\"secret_key\":\"------\",\"public_key\":\"------\",\"processing_channel_id\":\"------\"}', '2024-05-07 08:09:44', '2024-05-07 08:09:44'),
-(276, 'Coingate - USD', 'USD', '$', 505, 'Coingate', '1.00000000', '100.00000000', '1.00', '1.00000000', '1.00000000', '{\"api_key\":\"6354mwVCEw5kHzRJ6thbGo-N\"}', '2024-05-07 08:11:37', '2024-05-07 08:11:37'),
-(280, 'CoinPayments Fiat - USD', 'USD', '$', 504, 'CoinpaymentsFiat', '1.00000000', '10000.00000000', '10.00', '1.00000000', '10.00000000', '{\"merchant_id\":\"6515561\"}', '2024-05-07 08:12:07', '2024-05-07 08:12:07'),
-(281, 'CoinPayments Fiat - AUD', 'AUD', '$', 504, 'CoinpaymentsFiat', '1.00000000', '10000.00000000', '0.00', '1.00000000', '1.00000000', '{\"merchant_id\":\"6515561\"}', '2024-05-07 08:12:07', '2024-05-07 08:12:07'),
-(282, 'Flutterwave - USD', 'USD', 'USD', 109, 'Flutterwave', '1.00000000', '2000.00000000', '0.00', '1.00000000', '1.00000000', '{\"public_key\":\"----------------\",\"secret_key\":\"-----------------------\",\"encryption_key\":\"------------------\"}', '2024-05-07 08:12:18', '2024-05-07 08:12:18'),
-(284, 'Mercado Pago - USD', 'USD', '$', 119, 'MercadoPago', '1.00000000', '10.00000000', '1.00', '1.00000000', '1.00000000', '{\"access_token\":\"APP_USR-7924565816849832-082312-21941521997fab717db925cf1ea2c190-1071840315\"}', '2024-05-07 08:19:24', '2024-05-07 08:19:24'),
-(285, 'Mollie - USD', 'USD', '$', 115, 'Mollie', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"mollie_email\":\"vi@gmail.com\",\"api_key\":\"test_cucfwKTWfft9s337qsVfn5CC4vNkrn\"}', '2024-05-07 08:19:42', '2024-05-07 08:19:42'),
-(286, 'NMI - USD', 'USD', '$', 121, 'NMI', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"api_key\":\"2F822Rw39fx762MaV7Yy86jXGTC7sCDy\"}', '2024-05-07 08:20:07', '2024-05-07 08:20:07'),
-(287, 'Now payments checkout - USD', 'USD', '$', 509, 'NowPaymentsCheckout', '1.00000000', '100.00000000', '1.00', '1.00000000', '1.00000000', '{\"api_key\":\"---------------\",\"secret_key\":\"-----------\"}', '2024-05-07 08:20:21', '2024-05-07 08:20:21'),
-(288, 'Payeer - USD', 'USD', '$', 106, 'Payeer', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"merchant_id\":\"866989763\",\"secret_key\":\"7575\"}', '2024-05-07 08:20:58', '2024-05-07 08:20:58'),
-(289, 'Paypal - USD', 'USD', '$', 101, 'Paypal', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"paypal_email\":\"sb-owud61543012@business.example.com\"}', '2024-05-07 08:21:11', '2024-05-07 08:21:11'),
-(290, 'Paypal Express - USD', 'USD', '$', 113, 'PaypalSdk', '1.00000000', '1000000.00000000', '1.00', '1.00000000', '1.00000000', '{\"clientId\":\"Ae0-tixtSV7DvLwIh3Bmu7JvHrjh5EfGdXr_cEklKAVjjezRZ747BxKILiBdzlKKyp-W8W_T7CKH1Ken\",\"clientSecret\":\"EOhbvHZgFNO21soQJT1L9Q00M3rK6PIEsdiTgXRBt2gtGtxwRer5JvKnVUGNU5oE63fFnjnYY7hq3HBA\"}', '2024-05-07 08:21:33', '2024-05-07 08:21:33'),
-(292, 'PayTM - AUD', 'AUD', '$', 105, 'Paytm', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"MID\":\"DIY12386817555501617\",\"merchant_key\":\"bKMfNxPPf_QdZppa\",\"WEBSITE\":\"DIYtestingweb\",\"INDUSTRY_TYPE_ID\":\"Retail\",\"CHANNEL_ID\":\"WEB\",\"transaction_url\":\"https:\\/\\/pguat.paytm.com\\/oltp-web\\/processTransaction\",\"transaction_status_url\":\"https:\\/\\/pguat.paytm.com\\/paytmchecksum\\/paytmCallback.jsp\"}', '2024-05-07 08:22:07', '2024-05-07 08:22:07'),
-(293, 'PayTM - USD', 'USD', '$', 105, 'Paytm', '1.00000000', '10000.00000000', '1.00', '1.00000000', '2.00000000', '{\"MID\":\"DIY12386817555501617\",\"merchant_key\":\"bKMfNxPPf_QdZppa\",\"WEBSITE\":\"DIYtestingweb\",\"INDUSTRY_TYPE_ID\":\"Retail\",\"CHANNEL_ID\":\"WEB\",\"transaction_url\":\"https:\\/\\/pguat.paytm.com\\/oltp-web\\/processTransaction\",\"transaction_status_url\":\"https:\\/\\/pguat.paytm.com\\/paytmchecksum\\/paytmCallback.jsp\"}', '2024-05-07 08:22:07', '2024-05-07 08:22:07'),
-(294, 'Perfect Money - USD', 'USD', '$', 102, 'PerfectMoney', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"passphrase\":\"hR26aw02Q1eEeUPSIfuwNypXX\",\"wallet_id\":\"U30603391\"}', '2024-05-07 08:22:25', '2024-05-07 08:22:25'),
-(295, 'RazorPay - INR', 'INR', '$', 110, 'Razorpay', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"key_id\":\"rzp_test_kiOtejPbRZU90E\",\"key_secret\":\"osRDebzEqbsE1kbyQJ4y0re7\"}', '2024-05-07 08:22:50', '2024-05-07 08:22:50'),
-(299, 'Stripe Hosted - USD', 'USD', '$', 103, 'Stripe', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"secret_key\":\"sk_test_51I6GGiCGv1sRiQlEi5v1or9eR0HVbuzdMd2rW4n3DxC8UKfz66R4X6n4yYkzvI2LeAIuRU9H99ZpY7XCNFC9xMs500vBjZGkKG\",\"publishable_key\":\"pk_test_51I6GGiCGv1sRiQlEOisPKrjBqQqqcFsw8mXNaZ2H2baN6R01NulFS7dKFji1NRRxuchoUTEDdB7ujKcyKYSVc0z500eth7otOM\"}', '2024-05-07 08:24:06', '2024-05-07 08:24:06'),
-(300, 'Stripe Storefront - USD', 'USD', '$', 111, 'StripeJs', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"secret_key\":\"sk_test_51I6GGiCGv1sRiQlEi5v1or9eR0HVbuzdMd2rW4n3DxC8UKfz66R4X6n4yYkzvI2LeAIuRU9H99ZpY7XCNFC9xMs500vBjZGkKG\",\"publishable_key\":\"pk_test_51I6GGiCGv1sRiQlEOisPKrjBqQqqcFsw8mXNaZ2H2baN6R01NulFS7dKFji1NRRxuchoUTEDdB7ujKcyKYSVc0z500eth7otOM\"}', '2024-05-07 08:24:21', '2024-05-07 08:24:21'),
-(301, 'Stripe Checkout - USD', 'USD', 'USD', 114, 'StripeV3', '10.00000000', '1000.00000000', '0.00', '1.00000000', '1.00000000', '{\"secret_key\":\"sk_test_51I6GGiCGv1sRiQlEi5v1or9eR0HVbuzdMd2rW4n3DxC8UKfz66R4X6n4yYkzvI2LeAIuRU9H99ZpY7XCNFC9xMs500vBjZGkKG\",\"publishable_key\":\"pk_test_51I6GGiCGv1sRiQlEOisPKrjBqQqqcFsw8mXNaZ2H2baN6R01NulFS7dKFji1NRRxuchoUTEDdB7ujKcyKYSVc0z500eth7otOM\",\"end_point\":\"whsec_lUmit1gtxwKTveLnSe88xCSDdnPOt8g5\"}', '2024-05-07 08:24:47', '2024-05-07 08:24:47'),
-(302, '2Checkout - USD', 'USD', '$', 122, 'TwoCheckout', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"merchant_code\":\"253248016872\",\"secret_key\":\"eQM)ID@&vG84u!O*g[p+\"}', '2024-05-07 08:24:57', '2024-05-07 08:24:57'),
-(304, 'SslCommerz - BDT', 'BDT', '৳', 124, 'SslCommerz', '1.00000000', '100.00000000', '1.00', '1.00000000', '115.00000000', '{\"store_id\":\"---------\",\"store_password\":\"----------\"}', '2024-05-08 07:34:12', '2024-05-08 07:34:12'),
-(309, 'CoinPayments - BTC', 'BTC', '₿', 503, 'Coinpayments', '1.00000000', '10000.00000000', '10.00', '1.00000000', '1.00000000', '{\"public_key\":\"---------------------\",\"private_key\":\"---------------------\",\"merchant_id\":\"---------------------\"}', '2024-05-08 07:35:24', '2024-05-08 07:35:24'),
-(312, 'Binance - BTC', 'BTC', '₿', 510, 'Binance', '1.00000000', '100.00000000', '1.00', '1.00000000', '1.00000000', '{\"api_key\":\"tsu3tjiq0oqfbtmlbevoeraxhfbp3brejnm9txhjxcp4to29ujvakvfl1ibsn3ja\",\"secret_key\":\"jzngq4t04ltw8d4iqpi7admfl8tvnpehxnmi34id1zvfaenbwwvsvw7llw3zdko8\",\"merchant_id\":\"231129033\"}', '2024-05-08 07:36:01', '2024-05-08 07:36:01'),
-(313, 'Blockchain - BTC', 'BTC', '₿', 501, 'Blockchain', '1.00000000', '1.11000000', '1.00', '11.00000000', '1.00000000', '{\"api_key\":\"55529946-05ca-48ff-8710-f279d86b1cc5\",\"xpub_code\":\"xpub6CKQ3xxWyBoFAF83izZCSFUorptEU9AF8TezhtWeMU5oefjX3sFSBw62Lr9iHXPkXmDQJJiHZeTRtD9Vzt8grAYRhvbz4nEvBu3QKELVzFK\"}', '2024-05-08 07:40:45', '2024-05-08 07:40:45'),
-(314, 'Coinbase Commerce - USD', 'USD', '$', 506, 'CoinbaseCommerce', '1.00000000', '10000.00000000', '10.00', '1.00000000', '1.00000000', '{\"api_key\":\"c47cd7df-d8e8-424b-a20a\",\"secret\":\"55871878-2c32-4f64-ab66\"}', '2024-05-08 07:41:51', '2024-05-08 07:41:51'),
-(315, 'Instamojo - INR', 'INR', '₹', 112, 'Instamojo', '1.00000000', '10000.00000000', '1.00', '1.00000000', '85.00000000', '{\"api_key\":\"test_2241633c3bc44a3de84a3b33969\",\"auth_token\":\"test_279f083f7bebefd35217feef22d\",\"salt\":\"19d38908eeff4f58b2ddda2c6d86ca25\"}', '2024-05-08 07:42:57', '2024-05-08 07:42:57'),
-(316, 'Now payments hosted - BTC', 'BTC', '₿', 508, 'NowPaymentsHosted', '1.00000000', '1000.00000000', '1.00', '1.00000000', '1.00000000', '{\"api_key\":\"--------\",\"secret_key\":\"------------\"}', '2024-05-08 07:43:55', '2024-05-08 07:43:55'),
-(318, 'PayStack - NGN', 'NGN', '₦', 107, 'Paystack', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1420.00000000', '{\"public_key\":\"pk_test_cd330608eb47970889bca397ced55c1dd5ad3783\",\"secret_key\":\"sk_test_8a0b1f199362d7acc9c390bff72c4e81f74e2ac3\"}', '2024-05-08 07:44:50', '2024-05-08 07:44:50'),
-(319, 'Skrill - AED', 'AED', '$', 104, 'Skrill', '1.00000000', '10000.00000000', '1.00', '1.00000000', '1.00000000', '{\"pay_to_email\":\"merchant@skrill.com\",\"secret_key\":\"---\"}', '2024-05-08 07:45:07', '2024-05-08 07:45:07'),
-(320, 'Skrill - USD', 'USD', '$', 104, 'Skrill', '1.00000000', '10000.00000000', '1.00', '1.00000000', '2.00000000', '{\"pay_to_email\":\"merchant@skrill.com\",\"secret_key\":\"---\"}', '2024-05-08 07:45:07', '2024-05-08 07:45:07');
+(64, 'banner.content', '{\"has_image\":\"1\",\"heading\":\"A lot of things hurt. Saving lives doesn\'t have to\",\"background_image\":\"66965aa258dbf1721129634.jpg\"}', NULL, 'basic', '', '2024-05-01 00:06:45', '2024-07-16 05:33:54'),
+(67, 'footer.content', '{\"has_image\":\"1\",\"title\":\"Animi sequi aliquam illum voluptatum ratione, quaerat dignissimos fugiat. Ea, vitae odio quasi aspernatur expedita maiores, quidem voluptates libero quaerat fugiat nisi, ratione inventore iusto nostrum voluptas sint culpa.\",\"btn_name\":\"Blood Donor\",\"btn_url\":\"#\",\"first_count_digits\":\"4523\",\"first_count_title\":\"Donors\",\"second_count_digits\":\"5324\",\"second_count_title\":\"Volunteers\",\"background_image\":\"6696593272e701721129266.jpg\"}', NULL, 'basic', '', '2024-07-16 05:27:46', '2024-07-16 05:27:46'),
+(68, 'about.element', '{\"title\":\"100% Automated\",\"sub_title\":\"Aamet consectetur adipisicing elit. Est voluptatibus accusamus nam labore, quam a quo. Quibusdam est voluptatibus animi quia\",\"about_icon\":\"<i class=\\\"fas fa-search\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:32:16', '2024-07-16 05:32:47'),
+(69, 'about.element', '{\"title\":\"Always Free\",\"sub_title\":\"Aamet consectetur adipisicing elit. Est voluptatibus accusamus nam labore, quam a quo. Quibusdam est voluptatibus animi quia.\",\"about_icon\":\"<i class=\\\"fas fa-compass\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:33:14', '2024-07-16 05:33:14'),
+(70, 'about.element', '{\"title\":\"Data is Secured\",\"sub_title\":\"Aamet consectetur adipisicing elit. Est voluptatibus accusamus nam labore, quam a quo. Quibusdam est voluptatibus animi quia.\",\"about_icon\":\"<i class=\\\"fas fa-lock\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:33:33', '2024-07-16 05:33:33'),
+(75, 'blood.content', '{\"has_image\":\"1\",\"heading\":\"Avaiable Blood Donors\",\"background_image\":\"66965b3b3ea2a1721129787.png\"}', NULL, 'basic', '', '2024-07-16 05:36:27', '2024-07-16 05:36:27'),
+(76, 'breadcrumb.content', '{\"has_image\":\"1\",\"background_image\":\"66965b4c3852f1721129804.jpg\"}', NULL, 'basic', '', '2024-07-16 05:36:44', '2024-07-16 05:36:44'),
+(77, 'donor.content', '{\"has_image\":\"1\",\"heading\":\"Top Donors\",\"sub_heading\":\"Dolor sit amet, consectetur adipisicing elit. Dignissimos soluta est qui totam expedita eaque, deleniti quidem sequi magni iure nulla corporis.\",\"background_image\":\"66965ba62d5e01721129894.png\"}', NULL, 'basic', '', '2024-07-16 05:38:14', '2024-07-16 05:38:14'),
+(78, 'faq.content', '{\"heading\":\"Frequently Asked Questions\",\"sub_heading\":\"Dolor sit amet consectetur adipisicing elit. Ad voluptatum fuga eius expedita, nulla quos blanditiis nobis laboriosam. Natus cum eum fuga praesentium.\"}', NULL, 'basic', '', '2024-07-16 05:38:29', '2024-07-16 05:38:29'),
+(79, 'faq.element', '{\"title\":\"Eligendi in enim quisquam dolor voluptates nihil.\",\"answer\":\"Eligendi in enim quisquam dolor voluptates nihil.\\tEligendi in enim quisquam dolor voluptates nihil.\\tEligendi in enim quisquam dolor voluptates nihil.\\tEligendi in enim quisquam dolor voluptates nihil.\"}', NULL, 'basic', '', '2024-07-16 05:38:45', '2024-07-16 05:38:45'),
+(80, 'faq.element', '{\"title\":\"Doloremque perspiciatis harum voluptatibus natus.\",\"answer\":\"Doloremque perspiciatis harum voluptatibus natus.\\tEligendi in enim quisquam dolor voluptates nihil.\"}', NULL, 'basic', '', '2024-07-16 05:38:57', '2024-07-16 05:38:57'),
+(81, 'faq.element', '{\"title\":\"Eligendi in enim quisquam dolor voluptates nihil.\",\"answer\":\"Dolor sit amet consectetur adipisicing elit. Ad voluptatum fuga eius expedita, nulla quos blanditiis nobis laboriosam. Natus cum eum fuga praesentium.\"}', NULL, 'basic', '', '2024-07-16 05:39:08', '2024-07-16 05:39:08'),
+(82, 'featured_donor.content', '{\"has_image\":\"1\",\"heading\":\"Featured Donor\",\"sub_heading\":\"Dolor sit amet, consectetur adipisicing elit. Dignissimos soluta est qui totam expedita eaque, deleniti quidem sequi magni iure nulla corporis.\",\"background_image\":\"66965bf80ed001721129976.png\"}', NULL, 'basic', '', '2024-07-16 05:39:36', '2024-07-16 05:39:36'),
+(83, 'how_it_work.content', '{\"has_image\":\"1\",\"heading\":\"The Blood Donation Process\",\"background_image\":\"66965c143deb41721130004.jpg\"}', NULL, 'basic', '', '2024-07-16 05:40:04', '2024-07-16 05:40:04'),
+(84, 'how_it_work.element', '{\"title\":\"Registration\",\"icon\":\"<i class=\\\"far fa-registered\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:40:21', '2024-07-16 05:40:21'),
+(85, 'how_it_work.element', '{\"title\":\"Health History\",\"icon\":\"<i class=\\\"fas fa-briefcase-medical\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:40:32', '2024-07-16 05:40:32'),
+(86, 'how_it_work.element', '{\"title\":\"Blood Donation\",\"icon\":\"<i class=\\\"fas fa-tint\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:40:43', '2024-07-16 05:40:43'),
+(87, 'how_it_work.element', '{\"title\":\"Refreshment and Recovery\",\"icon\":\"<i class=\\\"fas fa-heart\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:40:58', '2024-07-16 05:40:58'),
+(88, 'latest_donor.content', '{\"has_image\":\"1\",\"heading\":\"Latest Donor\",\"sub_heading\":\"Dolor sit amet, consectetur adipisicing elit. Dignissimos soluta est qui totam expedita eaque, deleniti quidem sequi magni iure nulla corporis.\",\"background_image\":\"66965c6209ed61721130082.png\"}', NULL, 'basic', '', '2024-07-16 05:41:22', '2024-07-16 05:41:22'),
+(89, 'overview.content', '{\"has_image\":\"1\",\"heading\":\"Bloodlab is committed to advancing public policies that promote safety, increase availability, and spur innovation.\",\"background_image\":\"66965c78687d11721130104.jpg\"}', NULL, 'basic', '', '2024-07-16 05:41:44', '2024-07-16 05:41:44'),
+(90, 'overview.element', '{\"title\":\"5012 Donors\",\"overview_icon\":\"<i class=\\\"fas fa-users-cog\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:42:02', '2024-07-16 05:42:02'),
+(91, 'overview.element', '{\"title\":\"52 Areas\",\"overview_icon\":\"<i class=\\\"fas fa-globe-asia\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:42:17', '2024-07-16 05:42:17'),
+(92, 'overview.element', '{\"title\":\"320 Volunteer\",\"overview_icon\":\"<i class=\\\"fas fa-user-injured\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:42:32', '2024-07-16 05:42:32'),
+(93, 'overview.element', '{\"title\":\"8 Blood Groups\",\"overview_icon\":\"<i class=\\\"fas fa-tint\\\"><\\/i>\"}', NULL, 'basic', '', '2024-07-16 05:42:45', '2024-07-16 05:42:45'),
+(94, 'patner.content', '{\"heading\":\"Our Community Partner\",\"sub_heading\":\"Earum optio in ipsum, non dolore, veritatis molestias assumenda sint aspernatur.\"}', NULL, 'basic', '', '2024-07-16 05:43:04', '2024-07-16 05:43:04'),
+(95, 'patner.element', '{\"has_image\":\"1\",\"background_image\":\"66965cd32ec0b1721130195.png\"}', NULL, 'basic', '', '2024-07-16 05:43:15', '2024-07-16 05:43:15'),
+(96, 'patner.element', '{\"has_image\":\"1\",\"background_image\":\"66965cdb947f11721130203.png\"}', NULL, 'basic', '', '2024-07-16 05:43:23', '2024-07-16 05:43:23'),
+(97, 'patner.element', '{\"has_image\":\"1\",\"background_image\":\"66965ce2ae9031721130210.png\"}', NULL, 'basic', '', '2024-07-16 05:43:30', '2024-07-16 05:43:30'),
+(98, 'patner.element', '{\"has_image\":\"1\",\"background_image\":\"66965ceae26ad1721130218.png\"}', NULL, 'basic', '', '2024-07-16 05:43:38', '2024-07-16 05:43:38'),
+(99, 'patner.element', '{\"has_image\":\"1\",\"background_image\":\"66965cf180f691721130225.png\"}', NULL, 'basic', '', '2024-07-16 05:43:45', '2024-07-16 05:43:45'),
+(100, 'social_icon.element', '{\"title\":\"X\",\"social_icon\":\"<i class=\\\"fab fa-twitter\\\"><\\/i>\",\"url\":\"https:\\/\\/x.com\"}', NULL, 'basic', '', '2024-07-16 05:44:33', '2024-07-16 05:44:33'),
+(101, 'social_icon.element', '{\"title\":\"Instagram\",\"social_icon\":\"<i class=\\\"fab fa-instagram\\\"><\\/i>\",\"url\":\"https:\\/\\/instagram.com\\/coffeewithmahi\"}', NULL, 'basic', '', '2024-07-16 05:44:58', '2024-07-16 05:44:58'),
+(102, 'testimonial.content', '{\"has_image\":\"1\",\"heading\":\"What Blood Donors say\",\"sub_heading\":\"Architecto corporis voluptate ut iure veritatis tempore vitae. Minima ea provident eaque.\",\"background_image\":\"66965d582f7361721130328.jpg\"}', NULL, 'basic', '', '2024-07-16 05:45:28', '2024-07-16 05:45:28'),
+(103, 'testimonial.element', '{\"name\":\"Andrew Tate\",\"testimonial\":\"Repellat, laudantium soluta laborum distinctio iste modi consectetur, atque, consequatur facere quidem hic unde harum alias molestias eveniet accusantium. Quasi natus aut minima modi saepe beatae reprehenderit illum\",\"rating\":\"5.00\",\"donor_count\":\"16\"}', NULL, 'basic', '', '2024-07-16 05:45:56', '2024-07-16 05:45:56'),
+(104, 'testimonial.element', '{\"name\":\"Diva Dadlani\",\"testimonial\":\"Repellat, laudantium soluta laborum distinctio iste modi consectetur, atque, consequatur facere quidem hic unde harum alias molestias eveniet accusantium. Quasi natus aut minima modi saepe beatae reprehenderit illum\",\"rating\":\"5.00\",\"donor_count\":\"24\"}', NULL, 'basic', '', '2024-07-16 05:46:24', '2024-07-16 05:46:24'),
+(105, 'testimonial.element', '{\"name\":\"Di Marchent\",\"testimonial\":\"Repellat, laudantium soluta laborum distinctio iste modi consectetur, atque, consequatur facere quidem hic unde harum alias molestias eveniet accusantium. Quasi natus aut minima modi saepe beatae reprehenderit illum\",\"rating\":\"5.00\",\"donor_count\":\"27\"}', NULL, 'basic', '', '2024-07-16 05:46:52', '2024-07-17 01:02:28'),
+(106, 'testimonial.element', '{\"name\":\"Ananat MohaRaja\",\"testimonial\":\"Repellat, laudantium soluta laborum distinctio iste modi consectetur, atque, consequatur facere quidem hic unde harum alias molestias eveniet accusantium. Quasi natus aut minima modi saepe beatae reprehenderit illum\",\"rating\":\"5.00\",\"donor_count\":\"29\"}', NULL, 'basic', '', '2024-07-16 05:47:14', '2024-07-16 05:47:14'),
+(107, 'testimonial.element', '{\"name\":\"Rex Riana\",\"testimonial\":\"Repellat, laudantium soluta laborum distinctio iste modi consectetur, atque, consequatur facere quidem hic unde harum alias molestias eveniet accusantium. Quasi natus aut minima modi saepe beatae reprehenderit illum\",\"rating\":\"5.00\",\"donor_count\":\"28\"}', NULL, 'basic', '', '2024-07-17 01:01:29', '2024-07-17 01:01:29'),
+(109, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Doloribus cumque fugit eligendi quisquam placeat quas voluptate. Quos\",\"description\":\"<p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Excepturi quo porro autem, beatae at provident cum atque quidem reprehenderit quam explicabo neque vel laborum perferendis quas officiis ex voluptatum, laudantium alias fugit quae, nostrum hic. Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod excepturi veritatis, ut magnam. Dolorem, quas.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Excepturi quo porro autem, beatae at provident cum atque quidem reprehenderit quam explicabo neque vel laborum perferendis quas officiis ex voluptatum, laudantium alias fugit quae, nostrum hic. Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod excepturi veritatis, ut magnam. Dolorem, quas.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Excepturi quo porro autem, beatae at provident cum atque quidem reprehenderit quam explicabo neque vel laborum perferendis quas officiis ex voluptatum, laudantium alias fugit quae, nostrum hic. Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod excepturi veritatis, ut magnam. Dolorem, quas.<\\/p>\",\"image\":\"66a1fab60b1821721891510.jpg\"}', '{\"image\":null,\"description\":null,\"social_title\":null,\"social_description\":null,\"keywords\":null}', 'basic', 'doloribus-cumque-fugit-eligendi-quisquam-placeat-quas-voluptate-quos', '2024-07-17 05:38:42', '2024-07-25 01:11:50'),
+(110, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Cumque fugit eligendi quisquam placeat quas voluptate. Quos\",\"description\":\"<p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Excepturi quo porro autem, beatae at provident cum atque quidem reprehenderit quam explicabo neque vel laborum perferendis quas officiis ex voluptatum, laudantium alias fugit quae, nostrum hic. Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod excepturi veritatis, ut magnam. Dolorem, quas.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod.<span style=\\\"margin-top:0px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);\\\">Excepturi quo porro autem,\\u00a0<\\/span><\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\"><span style=\\\"margin-top:0px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);\\\">beatae at provident cum atque quidem reprehenderit quam explicabo neque vel laborum perferendis quas officiis ex voluptatum, laudantium alias fugit quae, nostrum hic. Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod excepturi veritatis, ut magnam. Dolorem, quas.<\\/span><\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod.<\\/p>\",\"image\":\"66a1fa95163d91721891477.jpg\"}', '{\"image\":null,\"description\":null,\"social_title\":null,\"social_description\":null,\"keywords\":null}', 'basic', 'cumque-fugit-eligendi-quisquam-placeat-quas-voluptate-quos', '2024-07-17 05:39:21', '2024-07-25 01:11:18'),
+(111, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Aliquid doloribus cumque fugit eligendi quisquam placeat quas voluptate. Quo\",\"description\":\"<p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Excepturi quo porro autem, beatae at provident cum atque quidem reprehenderit quam explicabo neque vel laborum perferendis quas officiis ex voluptatum, laudantium alias fugit quae, nostrum hic. Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod excepturi veritatis, ut magnam. Dolorem, quas.<\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod.<span style=\\\"margin-top:0px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);\\\">Excepturi quo porro autem, beatae at provident cum atque quidem reprehenderit quam explicabo neque vel laborum perferendis quas officiis ex voluptatum, laudantium alias fugit quae, nostrum hic. Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod excepturi veritatis, ut magnam. Dolorem, quas.<\\/span><\\/p><p style=\\\"margin-top:20px;margin-right:0px;margin-left:0px;color:rgb(80,80,80);font-family:Roboto, sans-serif;font-size:16px;\\\">Animi expedita dolore libero odio corrupti ratione culpa, ipsum esse pariatur illo, excepturi vero, maiores omnis praesentium fuga dolores molestias accusamus illum! Ducimus laborum molestias unde iusto quaerat consectetur suscipit placeat, amet accusamus velit nihil voluptate harum ipsum debitis nam eius saepe! Eius culpa error itaque minima dolorum quae voluptates molestiae nesciunt natus accusamus ab, facere officia praesentium quod.<\\/p>\",\"image\":\"66a1fac16576e1721891521.jpg\"}', '{\"image\":null,\"description\":null,\"social_title\":null,\"social_description\":null,\"keywords\":null}', 'basic', 'aliquid-doloribus-cumque-fugit-eligendi-quisquam-placeat-quas-voluptate-quo', '2024-07-17 05:40:07', '2024-07-25 01:12:01'),
+(112, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"O-type blood donors needed emergency after London cyber-attack\",\"description\":\"<p class=\\\"sc-eb7bd5f6-0 fYAfXe\\\" style=\\\"margin-right:0px;margin-left:0px;padding:0px;border:0px;font-size:18px;line-height:26px;font-family:\'BBC Reith Serif\', Helvetica, Arial, sans-serif;vertical-align:baseline;color:rgb(32,34,36);letter-spacing:-0.36px;\\\">An appeal has been launched for O blood-type donors to book appointments across the country following the ransomware attack affecting major London hospitals.<\\/p><p class=\\\"sc-eb7bd5f6-0 fYAfXe\\\" style=\\\"margin-right:0px;margin-left:0px;padding:0px;border:0px;font-size:18px;line-height:26px;font-family:\'BBC Reith Serif\', Helvetica, Arial, sans-serif;vertical-align:baseline;color:rgb(32,34,36);letter-spacing:-0.36px;\\\">The IT attack means the affected hospitals cannot currently match patients\' blood at the same frequency as usual.<\\/p><p class=\\\"sc-eb7bd5f6-0 fYAfXe\\\" style=\\\"margin-right:0px;margin-left:0px;padding:0px;border:0px;font-size:18px;line-height:26px;font-family:\'BBC Reith Serif\', Helvetica, Arial, sans-serif;vertical-align:baseline;color:rgb(32,34,36);letter-spacing:-0.36px;\\\">Several<a href=\\\"https:\\/\\/www.bbc.co.uk\\/news\\/articles\\/c288n8rkpvno\\\" class=\\\"sc-c9299ecf-0 bZUiKB\\\" style=\\\"margin:0px;padding:0px;border:0px;font-style:inherit;font-variant:inherit;font-size:18px;line-height:26px;vertical-align:baseline;color:rgb(32,34,36);text-decoration-line:underline;letter-spacing:-0.36px;\\\">\\u00a0London hospitals declared a critical incident<\\/a>, cancelled operations and tests, and were unable to carry out blood transfusions last week after the attack on the pathology firm Synnovis, which Qilin, a Russian group of cyber criminals, is understood to have been behind.<\\/p><p class=\\\"sc-eb7bd5f6-0 fYAfXe\\\" style=\\\"margin-right:0px;margin-left:0px;padding:0px;border:0px;font-size:18px;line-height:26px;font-family:\'BBC Reith Serif\', Helvetica, Arial, sans-serif;vertical-align:baseline;color:rgb(32,34,36);letter-spacing:-0.36px;\\\">On Monday afternoon, the NHS blood donation website implemented a queuing system for booking appointments, which is used to manage times of higher demand.<\\/p><p class=\\\"sc-eb7bd5f6-0 fYAfXe\\\" style=\\\"margin-right:0px;margin-left:0px;padding:0px;border:0px;font-size:18px;line-height:26px;font-family:\'BBC Reith Serif\', Helvetica, Arial, sans-serif;vertical-align:baseline;color:rgb(32,34,36);letter-spacing:-0.36px;\\\"><span style=\\\"color:rgb(32,34,36);font-style:inherit;letter-spacing:-0.36px;\\\">NHS Blood and Transplant is calling for O positive and O negative blood donors to book appointments in one of the<\\/span><span style=\\\"color:rgb(32,34,36);font-style:inherit;letter-spacing:-0.36px;\\\">\\u00a0<\\/span><a href=\\\"https:\\/\\/www.blood.co.uk\\/the-donation-process\\/about-our-donation-venues\\/\\\" class=\\\"sc-c9299ecf-0 bZUiKB\\\" style=\\\"font-size:18px;font-style:inherit;font-variant:inherit;letter-spacing:-0.36px;color:rgb(32,34,36);text-decoration-line:underline;margin:0px;padding:0px;border:0px;line-height:26px;vertical-align:baseline;\\\">25 NHS Blood Donor Centres<\\/a><span style=\\\"color:rgb(32,34,36);font-style:inherit;letter-spacing:-0.36px;\\\">\\u00a0<\\/span><span style=\\\"color:rgb(32,34,36);font-style:inherit;letter-spacing:-0.36px;\\\">in England.<\\/span><\\/p><p class=\\\"sc-eb7bd5f6-0 fYAfXe\\\" style=\\\"margin-right:0px;margin-left:0px;color:rgb(32,34,36);font-size:18px;line-height:26px;font-style:inherit;font-variant:inherit;padding:0px;border:0px;font-family:\'BBC Reith Serif\', Helvetica, Arial, sans-serif;vertical-align:baseline;letter-spacing:-0.36px;\\\">For surgeries and procedures requiring blood to take place, hospitals need to use O- type blood - known as the universal blood type - as this is safe to use for all patients. It is used in emergencies or when a patient\'s blood type is unknown.<\\/p><p class=\\\"sc-eb7bd5f6-0 fYAfXe\\\" style=\\\"margin-right:0px;margin-left:0px;color:rgb(32,34,36);font-size:18px;line-height:26px;font-style:inherit;font-variant:inherit;padding:0px;border:0px;font-family:\'BBC Reith Serif\', Helvetica, Arial, sans-serif;vertical-align:baseline;letter-spacing:-0.36px;\\\">Blood has a shelf life of 35 days so stocks need to be continually replenished, the NHS said.<\\/p>\",\"image\":\"6697ae5da66a41721216605.png\"}', '{\"image\":null,\"description\":null,\"social_title\":null,\"social_description\":null,\"keywords\":null}', 'basic', 'o-type-blood-donors-needed-emergency-after-london-cyber-attack', '2024-07-17 05:43:25', '2024-07-17 05:44:13');
 
 -- --------------------------------------------------------
 
@@ -503,8 +441,6 @@ INSERT INTO `gateway_currencies` (`id`, `name`, `currency`, `symbol`, `method_co
 CREATE TABLE `general_settings` (
   `id` bigint UNSIGNED NOT NULL,
   `site_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cur_text` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'currency text',
-  `cur_sym` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'currency symbol',
   `email_from` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_from_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_template` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
@@ -518,26 +454,19 @@ CREATE TABLE `general_settings` (
   `sms_config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `firebase_config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `global_shortcodes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `kv` tinyint(1) NOT NULL DEFAULT '0',
-  `ev` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'email verification, 0 - dont check, 1 - check',
   `en` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'email notification, 0 - dont send, 1 - send',
-  `sv` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'mobile verication, 0 - dont check, 1 - check',
   `sn` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'sms notification, 0 - dont send, 1 - send',
   `pn` tinyint(1) NOT NULL DEFAULT '1',
   `force_ssl` tinyint(1) NOT NULL DEFAULT '0',
-  `in_app_payment` tinyint(1) NOT NULL DEFAULT '1',
   `maintenance_mode` tinyint(1) NOT NULL DEFAULT '0',
   `secure_password` tinyint(1) NOT NULL DEFAULT '0',
   `agree` tinyint(1) NOT NULL DEFAULT '0',
   `multi_language` tinyint(1) NOT NULL DEFAULT '1',
-  `registration` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: Off	, 1: On',
   `active_template` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `socialite_credentials` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `last_cron` datetime DEFAULT NULL,
   `available_version` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `system_customized` tinyint(1) NOT NULL DEFAULT '0',
   `paginate_number` int NOT NULL DEFAULT '0',
-  `currency_format` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1=>Both\r\n2=>Text Only\r\n3=>Symbol Only',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -546,8 +475,8 @@ CREATE TABLE `general_settings` (
 -- Dumping data for table `general_settings`
 --
 
-INSERT INTO `general_settings` (`id`, `site_name`, `cur_text`, `cur_sym`, `email_from`, `email_from_name`, `email_template`, `sms_template`, `sms_from`, `push_title`, `push_template`, `base_color`, `secondary_color`, `mail_config`, `sms_config`, `firebase_config`, `global_shortcodes`, `kv`, `ev`, `en`, `sv`, `sn`, `pn`, `force_ssl`, `in_app_payment`, `maintenance_mode`, `secure_password`, `agree`, `multi_language`, `registration`, `active_template`, `socialite_credentials`, `last_cron`, `available_version`, `system_customized`, `paginate_number`, `currency_format`, `created_at`, `updated_at`) VALUES
-(1, 'Laramin', 'USD', '$', 'info@viserlab.com', '{{site_name}}', '<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n  <!--[if !mso]><!-->\r\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n  <!--<![endif]-->\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n  <title></title>\r\n  <style type=\"text/css\">\r\n.ReadMsgBody { width: 100%; background-color: #ffffff; }\r\n.ExternalClass { width: 100%; background-color: #ffffff; }\r\n.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }\r\nhtml { width: 100%; }\r\nbody { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; margin: 0; padding: 0; }\r\ntable { border-spacing: 0; table-layout: fixed; margin: 0 auto;border-collapse: collapse; }\r\ntable table table { table-layout: auto; }\r\n.yshortcuts a { border-bottom: none !important; }\r\nimg:hover { opacity: 0.9 !important; }\r\na { color: #0087ff; text-decoration: none; }\r\n.textbutton a { font-family: \'open sans\', arial, sans-serif !important;}\r\n.btn-link a { color:#FFFFFF !important;}\r\n\r\n@media only screen and (max-width: 480px) {\r\nbody { width: auto !important; }\r\n*[class=\"table-inner\"] { width: 90% !important; text-align: center !important; }\r\n*[class=\"table-full\"] { width: 100% !important; text-align: center !important; }\r\n/* image */\r\nimg[class=\"img1\"] { width: 100% !important; height: auto !important; }\r\n}\r\n</style>\r\n\r\n\r\n\r\n  <table bgcolor=\"#414a51\" width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n    <tbody><tr>\r\n      <td height=\"50\"></td>\r\n    </tr>\r\n    <tr>\r\n      <td align=\"center\" style=\"text-align:center;vertical-align:top;font-size:0;\">\r\n        <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n          <tbody><tr>\r\n            <td align=\"center\" width=\"600\">\r\n              <!--header-->\r\n              <table class=\"table-inner\" width=\"95%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n                <tbody><tr>\r\n                  <td bgcolor=\"#0087ff\" style=\"border-top-left-radius:6px; border-top-right-radius:6px;text-align:center;vertical-align:top;font-size:0;\" align=\"center\">\r\n                    <table width=\"90%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n                      <tbody><tr>\r\n                        <td height=\"20\"></td>\r\n                      </tr>\r\n                      <tr>\r\n                        <td align=\"center\" style=\"font-family: \'Open sans\', Arial, sans-serif; color:#FFFFFF; font-size:16px; font-weight: bold;\">This is a System Generated Email</td>\r\n                      </tr>\r\n                      <tr>\r\n                        <td height=\"20\"></td>\r\n                      </tr>\r\n                    </tbody></table>\r\n                  </td>\r\n                </tr>\r\n              </tbody></table>\r\n              <!--end header-->\r\n              <table class=\"table-inner\" width=\"95%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n                <tbody><tr>\r\n                  <td bgcolor=\"#FFFFFF\" align=\"center\" style=\"text-align:center;vertical-align:top;font-size:0;\">\r\n                    <table align=\"center\" width=\"90%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n                      <tbody><tr>\r\n                        <td height=\"35\"></td>\r\n                      </tr>\r\n                      <!--logo-->\r\n                      <tr>\r\n                        <td align=\"center\" style=\"vertical-align:top;font-size:0;\">\r\n                          <a href=\"#\">\r\n                            <img style=\"display:block; line-height:0px; font-size:0px; border:0px;\" src=\"https://i.ibb.co/rw2fTRM/logo-dark.png\" width=\"220\" alt=\"img\">\r\n                          </a>\r\n                        </td>\r\n                      </tr>\r\n                      <!--end logo-->\r\n                      <tr>\r\n                        <td height=\"40\"></td>\r\n                      </tr>\r\n                      <!--headline-->\r\n                      <tr>\r\n                        <td align=\"center\" style=\"font-family: \'Open Sans\', Arial, sans-serif; font-size: 22px;color:#414a51;font-weight: bold;\">Hello {{fullname}} ({{username}})</td>\r\n                      </tr>\r\n                      <!--end headline-->\r\n                      <tr>\r\n                        <td align=\"center\" style=\"text-align:center;vertical-align:top;font-size:0;\">\r\n                          <table width=\"40\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n                            <tbody><tr>\r\n                              <td height=\"20\" style=\" border-bottom:3px solid #0087ff;\"></td>\r\n                            </tr>\r\n                          </tbody></table>\r\n                        </td>\r\n                      </tr>\r\n                      <tr>\r\n                        <td height=\"20\"></td>\r\n                      </tr>\r\n                      <!--content-->\r\n                      <tr>\r\n                        <td align=\"left\" style=\"font-family: \'Open sans\', Arial, sans-serif; color:#7f8c8d; font-size:16px; line-height: 28px;\">{{message}}</td>\r\n                      </tr>\r\n                      <!--end content-->\r\n                      <tr>\r\n                        <td height=\"40\"></td>\r\n                      </tr>\r\n              \r\n                    </tbody></table>\r\n                  </td>\r\n                </tr>\r\n                <tr>\r\n                  <td height=\"45\" align=\"center\" bgcolor=\"#f4f4f4\" style=\"border-bottom-left-radius:6px;border-bottom-right-radius:6px;\">\r\n                    <table align=\"center\" width=\"90%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n                      <tbody><tr>\r\n                        <td height=\"10\"></td>\r\n                      </tr>\r\n                      <!--preference-->\r\n                      <tr>\r\n                        <td class=\"preference-link\" align=\"center\" style=\"font-family: \'Open sans\', Arial, sans-serif; color:#95a5a6; font-size:14px;\">\r\n                          © 2024 <a href=\"#\">{{site_name}}</a>&nbsp;. All Rights Reserved. \r\n                        </td>\r\n                      </tr>\r\n                      <!--end preference-->\r\n                      <tr>\r\n                        <td height=\"10\"></td>\r\n                      </tr>\r\n                    </tbody></table>\r\n                  </td>\r\n                </tr>\r\n              </tbody></table>\r\n            </td>\r\n          </tr>\r\n        </tbody></table>\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td height=\"60\"></td>\r\n    </tr>\r\n  </tbody></table>', 'hi {{fullname}} ({{username}}), {{message}}', '{{site_name}}', '{{site_name}}', 'hi {{fullname}} ({{username}}), {{message}}', '346dff', '063862', '{\"name\":\"php\"}', '{\"name\":\"clickatell\",\"clickatell\":{\"api_key\":\"----------------\"},\"infobip\":{\"username\":\"------------8888888\",\"password\":\"-----------------\"},\"message_bird\":{\"api_key\":\"-------------------\"},\"nexmo\":{\"api_key\":\"----------------------\",\"api_secret\":\"----------------------\"},\"sms_broadcast\":{\"username\":\"----------------------\",\"password\":\"-----------------------------\"},\"twilio\":{\"account_sid\":\"-----------------------\",\"auth_token\":\"---------------------------\",\"from\":\"----------------------\"},\"text_magic\":{\"username\":\"-----------------------\",\"apiv2_key\":\"-------------------------------\"},\"custom\":{\"method\":\"get\",\"url\":\"https:\\/\\/hostname.com\\/demo-api-v1\",\"headers\":{\"name\":[\"api_key\"],\"value\":[\"test_api 555\"]},\"body\":{\"name\":[\"from_number\"],\"value\":[\"5657545757\"]}}}', '{\"apiKey\":\"AIzaSyCb6zm7_8kdStXjZMgLZpwjGDuTUg0e_qM\",\"authDomain\":\"flutter-prime-df1c5.firebaseapp.com\",\"projectId\":\"flutter-prime-df1c5\",\"storageBucket\":\"flutter-prime-df1c5.appspot.com\",\"messagingSenderId\":\"274514992002\",\"appId\":\"1:274514992002:web:4d77660766f4797500cd9b\",\"measurementId\":\"G-KFPM07RXRC\",\"serverKey\":\"AAAA14oqxFc:APA91bE9uJdrjU_FX3gg_EtCfApRqoNojV71m6J-9yCQC7GoL2pBFcN9pdJjLLQxEAUcNxxatfWKLcnl5qCuLsmpPdr_3QRtH9XzfIu1MrLUJU3dHkBc4CGIkYMM9EWgXCNFjudhhQmH\"}', '{\n    \"site_name\":\"Name of your site\",\n    \"site_currency\":\"Currency of your site\",\n    \"currency_symbol\":\"Symbol of currency\"\n}', 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 'basic', '{\"google\":{\"client_id\":\"------------\",\"client_secret\":\"-------------\",\"status\":1},\"facebook\":{\"client_id\":\"------\",\"client_secret\":\"------\",\"status\":1},\"linkedin\":{\"client_id\":\"-----\",\"client_secret\":\"-----\",\"status\":1}}', '2024-06-27 10:36:16', '1.0', 0, 20, 1, NULL, '2024-06-27 04:36:16');
+INSERT INTO `general_settings` (`id`, `site_name`, `email_from`, `email_from_name`, `email_template`, `sms_template`, `sms_from`, `push_title`, `push_template`, `base_color`, `secondary_color`, `mail_config`, `sms_config`, `firebase_config`, `global_shortcodes`, `en`, `sn`, `pn`, `force_ssl`, `maintenance_mode`, `secure_password`, `agree`, `multi_language`, `active_template`, `last_cron`, `available_version`, `system_customized`, `paginate_number`, `created_at`, `updated_at`) VALUES
+(1, 'BloodLab', 'info@viserlab.com', '{{site_name}}', '<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n  <!--[if !mso]><!-->\r\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n  <!--<![endif]-->\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n  <title></title>\r\n  <style type=\"text/css\">\r\n.ReadMsgBody { width: 100%; background-color: #ffffff; }\r\n.ExternalClass { width: 100%; background-color: #ffffff; }\r\n.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }\r\nhtml { width: 100%; }\r\nbody { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; margin: 0; padding: 0; }\r\ntable { border-spacing: 0; table-layout: fixed; margin: 0 auto;border-collapse: collapse; }\r\ntable table table { table-layout: auto; }\r\n.yshortcuts a { border-bottom: none !important; }\r\nimg:hover { opacity: 0.9 !important; }\r\na { color: #0087ff; text-decoration: none; }\r\n.textbutton a { font-family: \'open sans\', arial, sans-serif !important;}\r\n.btn-link a { color:#FFFFFF !important;}\r\n\r\n@media only screen and (max-width: 480px) {\r\nbody { width: auto !important; }\r\n*[class=\"table-inner\"] { width: 90% !important; text-align: center !important; }\r\n*[class=\"table-full\"] { width: 100% !important; text-align: center !important; }\r\n/* image */\r\nimg[class=\"img1\"] { width: 100% !important; height: auto !important; }\r\n}\r\n</style>\r\n\r\n\r\n\r\n  <table bgcolor=\"#414a51\" width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n    <tbody><tr>\r\n      <td height=\"50\"></td>\r\n    </tr>\r\n    <tr>\r\n      <td align=\"center\" style=\"text-align:center;vertical-align:top;font-size:0;\">\r\n        <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n          <tbody><tr>\r\n            <td align=\"center\" width=\"600\">\r\n              <!--header-->\r\n              <table class=\"table-inner\" width=\"95%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n                <tbody><tr>\r\n                  <td bgcolor=\"#0087ff\" style=\"border-top-left-radius:6px; border-top-right-radius:6px;text-align:center;vertical-align:top;font-size:0;\" align=\"center\">\r\n                    <table width=\"90%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n                      <tbody><tr>\r\n                        <td height=\"20\"></td>\r\n                      </tr>\r\n                      <tr>\r\n                        <td align=\"center\" style=\"font-family: \'Open sans\', Arial, sans-serif; color:#FFFFFF; font-size:16px; font-weight: bold;\">This is a System Generated Email</td>\r\n                      </tr>\r\n                      <tr>\r\n                        <td height=\"20\"></td>\r\n                      </tr>\r\n                    </tbody></table>\r\n                  </td>\r\n                </tr>\r\n              </tbody></table>\r\n              <!--end header-->\r\n              <table class=\"table-inner\" width=\"95%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n                <tbody><tr>\r\n                  <td bgcolor=\"#FFFFFF\" align=\"center\" style=\"text-align:center;vertical-align:top;font-size:0;\">\r\n                    <table align=\"center\" width=\"90%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n                      <tbody><tr>\r\n                        <td height=\"35\"></td>\r\n                      </tr>\r\n                      <!--logo-->\r\n                      <tr>\r\n                        <td align=\"center\" style=\"vertical-align:top;font-size:0;\">\r\n                          <a href=\"#\">\r\n                            <img style=\"display:block; line-height:0px; font-size:0px; border:0px;\" src=\"https://i.ibb.co/rw2fTRM/logo-dark.png\" width=\"220\" alt=\"img\">\r\n                          </a>\r\n                        </td>\r\n                      </tr>\r\n                      <!--end logo-->\r\n                      <tr>\r\n                        <td height=\"40\"></td>\r\n                      </tr>\r\n                      <!--headline-->\r\n                      <tr>\r\n                        <td align=\"center\" style=\"font-family: \'Open Sans\', Arial, sans-serif; font-size: 22px;color:#414a51;font-weight: bold;\">Hello {{fullname}} ({{username}})</td>\r\n                      </tr>\r\n                      <!--end headline-->\r\n                      <tr>\r\n                        <td align=\"center\" style=\"text-align:center;vertical-align:top;font-size:0;\">\r\n                          <table width=\"40\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n                            <tbody><tr>\r\n                              <td height=\"20\" style=\" border-bottom:3px solid #0087ff;\"></td>\r\n                            </tr>\r\n                          </tbody></table>\r\n                        </td>\r\n                      </tr>\r\n                      <tr>\r\n                        <td height=\"20\"></td>\r\n                      </tr>\r\n                      <!--content-->\r\n                      <tr>\r\n                        <td align=\"left\" style=\"font-family: \'Open sans\', Arial, sans-serif; color:#7f8c8d; font-size:16px; line-height: 28px;\">{{message}}</td>\r\n                      </tr>\r\n                      <!--end content-->\r\n                      <tr>\r\n                        <td height=\"40\"></td>\r\n                      </tr>\r\n              \r\n                    </tbody></table>\r\n                  </td>\r\n                </tr>\r\n                <tr>\r\n                  <td height=\"45\" align=\"center\" bgcolor=\"#f4f4f4\" style=\"border-bottom-left-radius:6px;border-bottom-right-radius:6px;\">\r\n                    <table align=\"center\" width=\"90%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n                      <tbody><tr>\r\n                        <td height=\"10\"></td>\r\n                      </tr>\r\n                      <!--preference-->\r\n                      <tr>\r\n                        <td class=\"preference-link\" align=\"center\" style=\"font-family: \'Open sans\', Arial, sans-serif; color:#95a5a6; font-size:14px;\">\r\n                          © 2024 <a href=\"#\">{{site_name}}</a>&nbsp;. All Rights Reserved. \r\n                        </td>\r\n                      </tr>\r\n                      <!--end preference-->\r\n                      <tr>\r\n                        <td height=\"10\"></td>\r\n                      </tr>\r\n                    </tbody></table>\r\n                  </td>\r\n                </tr>\r\n              </tbody></table>\r\n            </td>\r\n          </tr>\r\n        </tbody></table>\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td height=\"60\"></td>\r\n    </tr>\r\n  </tbody></table>', 'hi {{fullname}} ({{username}}), {{message}}', '{{site_name}}', '{{site_name}}', 'hi {{fullname}} ({{username}}), {{message}}', 'FB3640', '17173A', '{\"name\":\"php\"}', '{\"name\":\"clickatell\",\"clickatell\":{\"api_key\":\"----------------\"},\"infobip\":{\"username\":\"------------8888888\",\"password\":\"-----------------\"},\"message_bird\":{\"api_key\":\"-------------------\"},\"nexmo\":{\"api_key\":\"----------------------\",\"api_secret\":\"----------------------\"},\"sms_broadcast\":{\"username\":\"----------------------\",\"password\":\"-----------------------------\"},\"twilio\":{\"account_sid\":\"-----------------------\",\"auth_token\":\"---------------------------\",\"from\":\"----------------------\"},\"text_magic\":{\"username\":\"-----------------------\",\"apiv2_key\":\"-------------------------------\"},\"custom\":{\"method\":\"get\",\"url\":\"https:\\/\\/hostname.com\\/demo-api-v1\",\"headers\":{\"name\":[\"api_key\"],\"value\":[\"test_api 555\"]},\"body\":{\"name\":[\"from_number\"],\"value\":[\"5657545757\"]}}}', '{\"apiKey\":\"AIzaSyCb6zm7_8kdStXjZMgLZpwjGDuTUg0e_qM\",\"authDomain\":\"flutter-prime-df1c5.firebaseapp.com\",\"projectId\":\"flutter-prime-df1c5\",\"storageBucket\":\"flutter-prime-df1c5.appspot.com\",\"messagingSenderId\":\"274514992002\",\"appId\":\"1:274514992002:web:4d77660766f4797500cd9b\",\"measurementId\":\"G-KFPM07RXRC\",\"serverKey\":\"AAAA14oqxFc:APA91bE9uJdrjU_FX3gg_EtCfApRqoNojV71m6J-9yCQC7GoL2pBFcN9pdJjLLQxEAUcNxxatfWKLcnl5qCuLsmpPdr_3QRtH9XzfIu1MrLUJU3dHkBc4CGIkYMM9EWgXCNFjudhhQmH\"}', '{\n    \"site_name\":\"Name of your site\",\n    \"site_currency\":\"Currency of your site\",\n    \"currency_symbol\":\"Symbol of currency\"\n}', 1, 1, 0, 0, 0, 0, 1, 1, 'basic', '2024-06-27 10:36:16', '1.0', 0, 20, NULL, '2024-07-25 00:58:55');
 
 -- --------------------------------------------------------
 
@@ -570,7 +499,35 @@ CREATE TABLE `languages` (
 --
 
 INSERT INTO `languages` (`id`, `name`, `code`, `is_default`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'English', 'en', 1, '660b94fa876ac1712035066.png', '2020-07-06 03:47:55', '2024-04-01 23:17:46');
+(1, 'English', 'en', 1, '660b94fa876ac1712035066.png', '2020-07-06 03:47:55', '2024-04-01 23:17:46'),
+(12, 'Bangla', 'bn', 0, '6698c43e9741c1721287742.png', '2024-07-18 01:29:03', '2024-07-18 01:29:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `locations`
+--
+
+CREATE TABLE `locations` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city_id` int DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0' COMMENT 'Enable : 1, Disable : 0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `name`, `city_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Khulshi', 1, 1, '2024-07-15 05:58:01', '2024-07-15 05:58:08'),
+(2, 'Islampur', 2, 1, '2024-07-15 06:03:29', '2024-07-15 06:03:44'),
+(3, 'Dewanganj', 2, 1, '2024-07-15 06:03:39', '2024-07-15 06:03:42'),
+(4, 'North Florida', 3, 1, '2024-07-17 07:04:10', '2024-07-17 07:04:25'),
+(5, 'South Florida', 3, 1, '2024-07-17 07:04:19', '2024-07-17 07:04:22'),
+(6, 'Jackson Heights', 3, 1, '2024-07-17 07:04:34', '2024-07-17 07:04:37');
 
 -- --------------------------------------------------------
 
@@ -611,7 +568,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (23, '2019_12_14_000001_create_personal_access_tokens_table', 12),
 (24, '2021_05_23_111859_create_email_logs_table', 13),
 (25, '2022_02_26_061836_create_forms_table', 14),
-(26, '2023_06_15_144908_create_update_logs_table', 15);
+(26, '2023_06_15_144908_create_update_logs_table', 15),
+(27, '0001_01_01_000000_create_users_table', 16),
+(28, '0001_01_01_000001_create_cache_table', 16),
+(29, '0001_01_01_000002_create_jobs_table', 16);
 
 -- --------------------------------------------------------
 
@@ -762,23 +722,10 @@ CREATE TABLE `notification_templates` (
 --
 
 INSERT INTO `notification_templates` (`id`, `act`, `name`, `subject`, `push_title`, `email_body`, `sms_body`, `push_body`, `shortcodes`, `email_status`, `email_sent_from_name`, `email_sent_from_address`, `sms_status`, `sms_sent_from`, `push_status`, `created_at`, `updated_at`) VALUES
-(1, 'BAL_ADD', 'Balance - Added', 'Your Account has been Credited', '{{site_name}} - Balance Added', '<div>We\'re writing to inform you that an amount of {{amount}} {{site_currency}} has been successfully added to your account.</div><div><br></div><div>Here are the details of the transaction:</div><div><br></div><div><b>Transaction Number: </b>{{trx}}</div><div><b>Current Balance:</b> {{post_balance}} {{site_currency}}</div><div><b>Admin Note:</b> {{remark}}</div><div><br></div><div>If you have any questions or require further assistance, please don\'t hesitate to contact us. We\'re here to assist you.</div>', 'We\'re writing to inform you that an amount of {{amount}} {{site_currency}} has been successfully added to your account.', '{{amount}} {{site_currency}} has been successfully added to your account.', '{\"trx\":\"Transaction number for the action\",\"amount\":\"Amount inserted by the admin\",\"remark\":\"Remark inserted by the admin\",\"post_balance\":\"Balance of the user after this transaction\"}', 1, '{{site_name}} Finance', NULL, 0, NULL, 1, '2021-11-03 12:00:00', '2024-05-25 00:49:44'),
-(2, 'BAL_SUB', 'Balance - Subtracted', 'Your Account has been Debited', '{{site_name}} - Balance Subtracted', '<div>We wish to inform you that an amount of {{amount}} {{site_currency}} has been successfully deducted from your account.</div><div><br></div><div>Below are the details of the transaction:</div><div><br></div><div><b>Transaction Number:</b> {{trx}}</div><div><b>Current Balance: </b>{{post_balance}} {{site_currency}}</div><div><b>Admin Note:</b> {{remark}}</div><div><br></div><div>Should you require any further clarification or assistance, please do not hesitate to reach out to us. We are here to assist you in any way we can.</div><div><br></div><div>Thank you for your continued trust in {{site_name}}.</div>', 'We wish to inform you that an amount of {{amount}} {{site_currency}} has been successfully deducted from your account.', '{{amount}} {{site_currency}} debited from your account.', '{\"trx\":\"Transaction number for the action\",\"amount\":\"Amount inserted by the admin\",\"remark\":\"Remark inserted by the admin\",\"post_balance\":\"Balance of the user after this transaction\"}', 1, '{{site_name}} Finance', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-05-08 07:17:48'),
-(3, 'DEPOSIT_COMPLETE', 'Deposit - Automated - Successful', 'Deposit Completed Successfully', '{{site_name}} - Deposit successful', '<div>We\'re delighted to inform you that your deposit of {{amount}} {{site_currency}} via {{method_name}} has been completed.</div><div><br></div><div>Below, you\'ll find the details of your deposit:</div><div><br></div><div><b>Amount:</b> {{amount}} {{site_currency}}</div><div><b>Charge: </b>{{charge}} {{site_currency}}</div><div><b>Conversion Rate:</b> 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div><b>Received:</b> {{method_amount}} {{method_currency}}</div><div><b>Paid via:</b> {{method_name}}</div><div><b>Transaction Number:</b> {{trx}}</div><div><br></div><div>Your current balance stands at {{post_balance}} {{site_currency}}.</div><div><br></div><div>If you have any questions or need further assistance, feel free to reach out to our support team. We\'re here to assist you in any way we can.</div>', 'We\'re delighted to inform you that your deposit of {{amount}} {{site_currency}} via {{method_name}} has been completed.', 'Deposit Completed Successfully', '{\"trx\":\"Transaction number for the deposit\",\"amount\":\"Amount inserted by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the deposit method\",\"method_currency\":\"Currency of the deposit method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"post_balance\":\"Balance of the user after this transaction\"}', 1, '{{site_name}} Billing', NULL, 1, NULL, 1, '2021-11-03 12:00:00', '2024-05-08 07:20:34'),
-(4, 'DEPOSIT_APPROVE', 'Deposit - Manual - Approved', 'Deposit Request Approved', '{{site_name}} - Deposit Request Approved', '<div>We are pleased to inform you that your deposit request of {{amount}} {{site_currency}} via {{method_name}} has been approved.</div><div><br></div><div>Here are the details of your deposit:</div><div><br></div><div><b>Amount:</b> {{amount}} {{site_currency}}</div><div><b>Charge: </b>{{charge}} {{site_currency}}</div><div><b>Conversion Rate:</b> 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div><b>Received: </b>{{method_amount}} {{method_currency}}</div><div><b>Paid via: </b>{{method_name}}</div><div><b>Transaction Number: </b>{{trx}}</div><div><br></div><div>Your current balance now stands at {{post_balance}} {{site_currency}}.</div><div><br></div><div>Should you have any questions or require further assistance, please feel free to contact our support team. We\'re here to help.</div>', 'We are pleased to inform you that your deposit request of {{amount}} {{site_currency}} via {{method_name}} has been approved.', 'Deposit of {{amount}} {{site_currency}} via {{method_name}} has been approved.', '{\"trx\":\"Transaction number for the deposit\",\"amount\":\"Amount inserted by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the deposit method\",\"method_currency\":\"Currency of the deposit method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"post_balance\":\"Balance of the user after this transaction\"}', 1, '{{site_name}} Billing', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-05-08 07:19:49'),
-(5, 'DEPOSIT_REJECT', 'Deposit - Manual - Rejected', 'Deposit Request Rejected', '{{site_name}} - Deposit Request Rejected', '<div>We regret to inform you that your deposit request of {{amount}} {{site_currency}} via {{method_name}} has been rejected.</div><div><br></div><div>Here are the details of the rejected deposit:</div><div><br></div><div><b>Conversion Rate:</b> 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div><b>Received:</b> {{method_amount}} {{method_currency}}</div><div><b>Paid via:</b> {{method_name}}</div><div><b>Charge:</b> {{charge}}</div><div><b>Transaction Number:</b> {{trx}}</div><div><br></div><div>If you have any questions or need further clarification, please don\'t hesitate to contact us. We\'re here to assist you.</div><div><br></div><div>Rejection Reason:</div><div>{{rejection_message}}</div><div><br></div><div>Thank you for your understanding.</div>', 'We regret to inform you that your deposit request of {{amount}} {{site_currency}} via {{method_name}} has been rejected.', 'Your deposit request of {{amount}} {{site_currency}} via {{method_name}} has been rejected.', '{\"trx\":\"Transaction number for the deposit\",\"amount\":\"Amount inserted by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the deposit method\",\"method_currency\":\"Currency of the deposit method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"rejection_message\":\"Rejection message by the admin\"}', 1, '{{site_name}} Billing', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-05-08 07:20:13'),
-(6, 'DEPOSIT_REQUEST', 'Deposit - Manual - Requested', 'Deposit Request Submitted Successfully', NULL, '<div>We are pleased to confirm that your deposit request of {{amount}} {{site_currency}} via {{method_name}} has been submitted successfully.</div><div><br></div><div>Below are the details of your deposit:</div><div><br></div><div><b>Amount:</b> {{amount}} {{site_currency}}</div><div><b>Charge:</b> {{charge}} {{site_currency}}</div><div><b>Conversion Rate:</b> 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div><b>Payable:</b> {{method_amount}} {{method_currency}}</div><div><b>Pay via: </b>{{method_name}}</div><div><b>Transaction Number:</b> {{trx}}</div><div><br></div><div>Should you have any questions or require further assistance, please feel free to reach out to our support team. We\'re here to assist you.</div>', 'We are pleased to confirm that your deposit request of {{amount}} {{site_currency}} via {{method_name}} has been submitted successfully.', 'Your deposit request of {{amount}} {{site_currency}} via {{method_name}} submitted successfully.', '{\"trx\":\"Transaction number for the deposit\",\"amount\":\"Amount inserted by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the deposit method\",\"method_currency\":\"Currency of the deposit method\",\"method_amount\":\"Amount after conversion between base currency and method currency\"}', 1, '{{site_name}} Billing', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-04-25 03:27:42'),
 (7, 'PASS_RESET_CODE', 'Password - Reset - Code', 'Password Reset', '{{site_name}} Password Reset Code', '<div>We\'ve received a request to reset the password for your account on <b>{{time}}</b>. The request originated from\r\n            the following IP address: <b>{{ip}}</b>, using <b>{{browser}}</b> on <b>{{operating_system}}</b>.\r\n    </div><br>\r\n    <div><span>To proceed with the password reset, please use the following account recovery code</span>: <span><b><font size=\"6\">{{code}}</font></b></span></div><br>\r\n    <div><span>If you did not initiate this password reset request, please disregard this message. Your account security\r\n            remains our top priority, and we advise you to take appropriate action if you suspect any unauthorized\r\n            access to your account.</span></div>', 'To proceed with the password reset, please use the following account recovery code: {{code}}', 'To proceed with the password reset, please use the following account recovery code: {{code}}', '{\"code\":\"Verification code for password reset\",\"ip\":\"IP address of the user\",\"browser\":\"Browser of the user\",\"operating_system\":\"Operating system of the user\",\"time\":\"Time of the request\"}', 1, '{{site_name}} Authentication Center', NULL, 0, NULL, 0, '2021-11-03 12:00:00', '2024-05-08 07:24:57'),
 (8, 'PASS_RESET_DONE', 'Password - Reset - Confirmation', 'Password Reset Successful', NULL, '<div><div><span>We are writing to inform you that the password reset for your account was successful. This action was completed at {{time}} from the following browser</span>: <span>{{browser}}</span><span>on {{operating_system}}, with the IP address</span>: <span>{{ip}}</span>.</div><br><div><span>Your account security is our utmost priority, and we are committed to ensuring the safety of your information. If you did not initiate this password reset or notice any suspicious activity on your account, please contact our support team immediately for further assistance.</span></div></div>', 'We are writing to inform you that the password reset for your account was successful.', 'We are writing to inform you that the password reset for your account was successful.', '{\"ip\":\"IP address of the user\",\"browser\":\"Browser of the user\",\"operating_system\":\"Operating system of the user\",\"time\":\"Time of the request\"}', 1, '{{site_name}} Authentication Center', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-04-25 03:27:24'),
 (9, 'ADMIN_SUPPORT_REPLY', 'Support - Reply', 'Re: {{ticket_subject}} - Ticket #{{ticket_id}}', '{{site_name}} - Support Ticket Replied', '<div>\r\n    <div><span>Thank you for reaching out to us regarding your support ticket with the subject</span>:\r\n        <span>\"{{ticket_subject}}\"&nbsp;</span><span>and ticket ID</span>: {{ticket_id}}.</div><br>\r\n    <div><span>We have carefully reviewed your inquiry, and we are pleased to provide you with the following\r\n            response</span><span>:</span></div><br>\r\n    <div>{{reply}}</div><br>\r\n    <div><span>If you have any further questions or need additional assistance, please feel free to reply by clicking on\r\n            the following link</span>: <a href=\"{{link}}\" title=\"\" target=\"_blank\">{{link}}</a><span>. This link will take you to\r\n            the ticket thread where you can provide further information or ask for clarification.</span></div><br>\r\n    <div><span>Thank you for your patience and cooperation as we worked to address your concerns.</span></div>\r\n</div>', 'Thank you for reaching out to us regarding your support ticket with the subject: \"{{ticket_subject}}\" and ticket ID: {{ticket_id}}. We have carefully reviewed your inquiry. To check the response, please go to the following link: {{link}}', 'Re: {{ticket_subject}} - Ticket #{{ticket_id}}', '{\"ticket_id\":\"ID of the support ticket\",\"ticket_subject\":\"Subject  of the support ticket\",\"reply\":\"Reply made by the admin\",\"link\":\"URL to view the support ticket\"}', 1, '{{site_name}} Support Team', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-05-08 07:26:06'),
-(10, 'EVER_CODE', 'Verification - Email', 'Email Verification Code', NULL, '<div>\r\n    <div><span>Thank you for taking the time to verify your email address with us. Your email verification code\r\n            is</span>: <b><font size=\"6\">{{code}}</font></b></div><br>\r\n    <div><span>Please enter this code in the designated field on our platform to complete the verification\r\n            process.</span></div><br>\r\n    <div><span>If you did not request this verification code, please disregard this email. Your account security is our\r\n            top priority, and we advise you to take appropriate measures if you suspect any unauthorized access.</span>\r\n    </div><br>\r\n    <div><span>If you have any questions or encounter any issues during the verification process, please don\'t hesitate\r\n            to contact our support team for assistance.</span></div><br>\r\n    <div><span>Thank you for choosing us.</span></div>\r\n</div>', '---', '---', '{\"code\":\"Email verification code\"}', 1, '{{site_name}} Verification Center', NULL, 0, NULL, 0, '2021-11-03 12:00:00', '2024-04-25 03:27:12'),
-(11, 'SVER_CODE', 'Verification - SMS', 'Verify Your Mobile Number', NULL, '---', 'Your mobile verification code is {{code}}. Please enter this code in the appropriate field to verify your mobile number. If you did not request this code, please ignore this message.', '---', '{\"code\":\"SMS Verification Code\"}', 0, '{{site_name}} Verification Center', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-04-25 03:27:03'),
-(12, 'WITHDRAW_APPROVE', 'Withdraw - Approved', 'Withdrawal Confirmation: Your Request Processed Successfully', '{{site_name}} - Withdrawal Request Approved', '<div>We are writing to inform you that your withdrawal request of {{amount}} {{site_currency}} via {{method_name}} has been processed successfully.</div><div><br></div><div>Below are the details of your withdrawal:</div><div><br></div><div><b>Amount:</b> {{amount}} {{site_currency}}</div><div><b>Charge:</b> {{charge}} {{site_currency}}</div><div><b>Conversion Rate:</b> 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div><b>You will receive:</b> {{method_amount}} {{method_currency}}</div><div><b>Via:</b> {{method_name}}</div><div><b>Transaction Number:</b> {{trx}}</div><div><br></div><hr><div><br></div><div><b>Details of Processed Payment:</b></div><div>{{admin_details}}</div><div><br></div><div>Should you have any questions or require further assistance, feel free to reach out to our support team. We\'re here to help.</div>', 'We are writing to inform you that your withdrawal request of {{amount}} {{site_currency}} via {{method_name}} has been processed successfully.', 'Withdrawal Confirmation: Your Request Processed Successfully', '{\"trx\":\"Transaction number for the withdraw\",\"amount\":\"Amount requested by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the withdraw method\",\"method_currency\":\"Currency of the withdraw method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"admin_details\":\"Details provided by the admin\"}', 1, '{{site_name}} Finance', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-05-08 07:26:37'),
-(13, 'WITHDRAW_REJECT', 'Withdraw - Rejected', 'Withdrawal Request Rejected', '{{site_name}} - Withdrawal Request Rejected', '<div>We regret to inform you that your withdrawal request of {{amount}} {{site_currency}} via {{method_name}} has been rejected.</div><div><br></div><div>Here are the details of your withdrawal:</div><div><br></div><div><b>Amount:</b> {{amount}} {{site_currency}}</div><div><b>Charge:</b> {{charge}} {{site_currency}}</div><div><b>Conversion Rate:</b> 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div><b>Expected Amount:</b> {{method_amount}} {{method_currency}}</div><div><b>Via:</b> {{method_name}}</div><div><b>Transaction Number:</b> {{trx}}</div><div><br></div><hr><div><br></div><div><b>Refund Details:</b></div><div>{{amount}} {{site_currency}} has been refunded to your account, and your current balance is {{post_balance}} {{site_currency}}.</div><div><br></div><hr><div><br></div><div><b>Reason for Rejection:</b></div><div>{{admin_details}}</div><div><br></div><div>If you have any questions or concerns regarding this rejection or need further assistance, please do not hesitate to contact our support team. We apologize for any inconvenience this may have caused.</div>', 'We regret to inform you that your withdrawal request of {{amount}} {{site_currency}} via {{method_name}} has been rejected.', 'Withdrawal Request Rejected', '{\"trx\":\"Transaction number for the withdraw\",\"amount\":\"Amount requested by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the withdraw method\",\"method_currency\":\"Currency of the withdraw method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"post_balance\":\"Balance of the user after fter this action\",\"admin_details\":\"Rejection message by the admin\"}', 1, '{{site_name}} Finance', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-05-08 07:26:55'),
-(14, 'WITHDRAW_REQUEST', 'Withdraw - Requested', 'Withdrawal Request Confirmation', '{{site_name}} - Requested for withdrawal', '<div>We are pleased to inform you that your withdrawal request of {{amount}} {{site_currency}} via {{method_name}} has been submitted successfully.</div><div><br></div><div>Here are the details of your withdrawal:</div><div><br></div><div><b>Amount:</b> {{amount}} {{site_currency}}</div><div><b>Charge:</b> {{charge}} {{site_currency}}</div><div><b>Conversion Rate:</b> 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div><b>Expected Amount:</b> {{method_amount}} {{method_currency}}</div><div><b>Via:</b> {{method_name}}</div><div><b>Transaction Number:</b> {{trx}}</div><div><br></div><div>Your current balance is {{post_balance}} {{site_currency}}.</div><div><br></div><div>Should you have any questions or require further assistance, feel free to reach out to our support team. We\'re here to help.</div>', 'We are pleased to inform you that your withdrawal request of {{amount}} {{site_currency}} via {{method_name}} has been submitted successfully.', 'Withdrawal request submitted successfully', '{\"trx\":\"Transaction number for the withdraw\",\"amount\":\"Amount requested by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the withdraw method\",\"method_currency\":\"Currency of the withdraw method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"post_balance\":\"Balance of the user after fter this transaction\"}', 1, '{{site_name}} Finance', NULL, 1, NULL, 0, '2021-11-03 12:00:00', '2024-05-08 07:27:20'),
-(15, 'DEFAULT', 'Default Template', '{{subject}}', '{{subject}}', '{{message}}', '{{message}}', '{{message}}', '{\"subject\":\"Subject\",\"message\":\"Message\"}', 1, NULL, NULL, 1, NULL, 1, '2019-09-14 13:14:22', '2024-05-16 01:32:53'),
-(16, 'KYC_APPROVE', 'KYC Approved', 'KYC Details has been approved', '{{site_name}} - KYC Approved', '<div><div><span>We are pleased to inform you that your Know Your Customer (KYC) information has been successfully reviewed and approved. This means that you are now eligible to conduct any payout operations within our system.</span></div><br><div><span>Your commitment to completing the KYC process promptly is greatly appreciated, as it helps us ensure the security and integrity of our platform for all users.</span></div><br><div><span>With your KYC verification now complete, you can proceed with confidence to carry out any payout transactions you require. Should you encounter any issues or have any questions along the way, please don\'t hesitate to reach out to our support team. We\'re here to assist you every step of the way.</span></div><br><div><span>Thank you once again for choosing {{site_name}} and for your cooperation in this matter.</span></div></div>', 'We are pleased to inform you that your Know Your Customer (KYC) information has been successfully reviewed and approved. This means that you are now eligible to conduct any payout operations within our system.', 'Your  Know Your Customer (KYC) information has been approved successfully', '[]', 1, '{{site_name}} Verification Center', NULL, 1, NULL, 0, NULL, '2024-05-08 07:23:57'),
-(17, 'KYC_REJECT', 'KYC Rejected', 'KYC has been rejected', '{{site_name}} - KYC Rejected', '<div><div><span>We regret to inform you that the Know Your Customer (KYC) information provided has been reviewed and unfortunately, it has not met our verification standards. As a result, we are unable to approve your KYC submission at this time.</span></div><br><div><span>We understand that this news may be disappointing, and we want to assure you that we take these matters seriously to maintain the security and integrity of our platform.</span></div><br><div><span>Reasons for rejection may include discrepancies or incomplete information in the documentation provided. If you believe there has been a misunderstanding or if you would like further clarification on why your KYC was rejected, please don\'t hesitate to contact our support team.</span></div><br><div><span>We encourage you to review your submitted information and ensure that all details are accurate and up-to-date. Once any necessary adjustments have been made, you are welcome to resubmit your KYC information for review.</span></div><br><div><span>We apologize for any inconvenience this may cause and appreciate your understanding and cooperation in this matter.</span></div><br><div>Rejection Reason:</div><div>{{reason}}</div><div><br></div><div><span>Thank you for your continued support and patience.</span></div></div>', 'We regret to inform you that the Know Your Customer (KYC) information provided has been reviewed and unfortunately, it has not met our verification standards. As a result, we are unable to approve your KYC submission at this time. We encourage you to review your submitted information and ensure that all details are accurate and up-to-date. Once any necessary adjustments have been made, you are welcome to resubmit your KYC information for review.', 'Your  Know Your Customer (KYC) information has been rejected', '{\"reason\":\"Rejection Reason\"}', 1, '{{site_name}} Verification Center', NULL, 1, NULL, 0, NULL, '2024-05-08 07:24:13');
+(15, 'DEFAULT', 'Default Template', '{{subject}}', '{{subject}}', '{{message}}', '{{message}}', '{{message}}', '{\"subject\":\"Subject\",\"message\":\"Message\"}', 1, NULL, NULL, 1, NULL, 1, '2019-09-14 13:14:22', '2024-05-16 01:32:53');
 
 -- --------------------------------------------------------
 
@@ -803,47 +750,10 @@ CREATE TABLE `pages` (
 --
 
 INSERT INTO `pages` (`id`, `name`, `slug`, `tempname`, `secs`, `seo_content`, `is_default`, `created_at`, `updated_at`) VALUES
-(1, 'HOME', '/', 'templates.basic.', '[\"about\",\"blog\",\"counter\",\"faq\",\"feature\",\"service\",\"subscribe\"]', '{\"image\":\"663212c9551ed1714557641.png\",\"description\":\"Et recusandae Minus\",\"social_title\":null,\"social_description\":\"Odit magna eos cons\",\"keywords\":null}', 1, '2020-07-11 06:23:58', '2024-05-01 04:04:59'),
-(4, 'Blog', 'blog', 'templates.basic.', NULL, NULL, 1, '2020-10-22 01:14:43', '2020-10-22 01:14:43'),
+(1, 'Home', '/', 'templates.basic.', '[\"blood\",\"about\",\"donor\",\"overview\",\"latest_donor\",\"how_it_work\",\"featured_donor\",\"patner\",\"testimonial\",\"blog\"]', '{\"image\":\"663212c9551ed1714557641.png\",\"description\":\"Et recusandae Minus\",\"social_title\":null,\"social_description\":\"Odit magna eos cons\",\"keywords\":null}', 1, '2020-07-11 06:23:58', '2024-07-17 07:24:35'),
+(2, 'About us', 'about-us', 'templates.basic.', '[\"about\",\"blog\"]', NULL, 1, '2024-07-16 06:37:33', '2024-07-16 06:37:46'),
+(4, 'Blog', 'blog', 'templates.basic.', NULL, NULL, 1, '2020-10-22 01:14:43', '2024-07-17 05:12:59'),
 (5, 'Contact', 'contact', 'templates.basic.', NULL, NULL, 1, '2020-10-22 01:14:53', '2020-10-22 01:14:53');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `token` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `personal_access_tokens`
---
-
-CREATE TABLE `personal_access_tokens` (
-  `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `last_used_at` timestamp NULL DEFAULT NULL,
-  `expires_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `personal_access_tokens`
---
-
-INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(1, 'App\\Models\\User', 1, 'auth_token', '53ed217f997c78844331512b6d609df2ff6eba9e771ec52c0ff425d7115f4ac6', '[\"user\"]', NULL, NULL, '2024-05-13 03:36:32', '2024-05-13 03:36:32');
 
 -- --------------------------------------------------------
 
@@ -857,6 +767,14 @@ CREATE TABLE `subscribers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `subscribers`
+--
+
+INSERT INTO `subscribers` (`id`, `email`, `created_at`, `updated_at`) VALUES
+(2, 'abcdefff@gmail.com', '2024-07-17 07:53:15', '2024-07-17 07:53:15'),
+(3, 'abc@gmail.com', '2024-07-17 07:53:41', '2024-07-17 07:53:41');
 
 -- --------------------------------------------------------
 
@@ -962,7 +880,11 @@ INSERT INTO `support_messages` (`id`, `support_ticket_id`, `admin_id`, `message`
 (57, 31, 0, 'Delectus elit illo', '2024-05-07 05:12:14', '2024-05-07 05:12:14'),
 (58, 32, 0, 'Nihil impedit incid', '2024-05-07 05:12:19', '2024-05-07 05:12:19'),
 (59, 33, 0, 'Dolorum asperiores a', '2024-05-07 05:12:24', '2024-05-07 05:12:24'),
-(60, 34, 0, 'Eveniet est consect', '2024-05-08 02:58:36', '2024-05-08 02:58:36');
+(60, 34, 0, 'Eveniet est consect', '2024-05-08 02:58:36', '2024-05-08 02:58:36'),
+(61, 35, 0, 'Accusamus provident', '2024-07-16 08:16:10', '2024-07-16 08:16:10'),
+(62, 36, 0, 'Cupidatat fugiat om', '2024-07-16 08:29:09', '2024-07-16 08:29:09'),
+(63, 36, 0, 'Done', '2024-07-16 08:30:23', '2024-07-16 08:30:23'),
+(64, 37, 0, 'Vel ea exercitatione', '2024-07-25 01:13:24', '2024-07-25 01:13:24');
 
 -- --------------------------------------------------------
 
@@ -1022,130 +944,10 @@ INSERT INTO `support_tickets` (`id`, `user_id`, `name`, `email`, `ticket`, `subj
 (31, 1, 'User Name', 'user@site.com', '789070', 'Reprehenderit et nos', 0, 3, '2024-05-07 11:12:14', '2024-05-07 05:12:14', '2024-05-07 05:12:14'),
 (32, 1, 'User Name', 'user@site.com', '880953', 'Omnis fuga Accusant', 0, 3, '2024-05-07 11:12:19', '2024-05-07 05:12:19', '2024-05-07 05:12:19'),
 (33, 1, 'User Name', 'user@site.com', '121667', 'Hic ullamco optio q', 0, 3, '2024-05-07 11:12:24', '2024-05-07 05:12:24', '2024-05-07 05:12:24'),
-(34, 0, 'Rahim Mooney', 'koxo@mailinator.com', '60510939', 'Mollitia eveniet co', 0, 2, '2024-05-08 08:58:36', '2024-05-08 02:58:36', '2024-05-08 02:58:36');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `transactions`
---
-
-CREATE TABLE `transactions` (
-  `id` bigint UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `amount` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `charge` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `post_balance` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `trx_type` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `trx` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `details` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remark` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `transactions`
---
-
-INSERT INTO `transactions` (`id`, `user_id`, `amount`, `charge`, `post_balance`, `trx_type`, `trx`, `details`, `remark`, `created_at`, `updated_at`) VALUES
-(1, 1, '100.00000000', '2.00000000', '15277.55755565', '+', '7A27BS2YJXEW', 'Deposit Via Mollie - USD', 'deposit', '2024-02-13 07:57:29', '2023-02-13 07:57:29'),
-(2, 2, '100.00000000', '0.00000000', '100.00000000', '+', 'HMVHJAWTAT4H', 'Initial balance given', 'balance_add', '2024-03-13 22:45:54', '2024-03-13 22:45:54'),
-(3, 2, '100.00000000', '0.00000000', '0.00000000', '-', 'EXT7MGTXZVWD', 'Initial balance substructed', 'balance_subtract', '2024-03-13 22:46:46', '2024-03-13 22:46:46'),
-(4, 1, '1.00000000', '1.02000000', '15276.55755565', '-', 'QTHYVTWBA2E9', '-0.02 USD Withdraw Via Bank Transfer', 'withdraw', '2024-03-13 23:22:26', '2024-03-13 23:22:26'),
-(5, 1, '10.00000000', '0.00000000', '15286.55755565', '+', 'WPU6VCMGH5UA', 'test', 'balance_add', '2024-04-20 04:14:30', '2024-04-20 04:14:30'),
-(6, 1, '10.00000000', '0.00000000', '15296.55755565', '+', 'Q4G9AHVXRSDC', 'test', 'balance_add', '2024-04-20 04:15:20', '2024-04-20 04:15:20'),
-(7, 1, '10.00000000', '1.20000000', '15286.55755565', '-', 'RUJS3U2CVQZ4', '8.80 USD Withdraw Via Bank Transfer', 'withdraw', '2024-04-20 23:46:05', '2024-04-20 23:46:05'),
-(8, 1, '10.00000000', '0.00000000', '15296.55755565', '+', 'RUJS3U2CVQZ4', '$10.00 USD Refunded from withdrawal rejection', 'withdraw_reject', '2024-04-20 23:46:23', '2024-04-20 23:46:23'),
-(9, 3, '10.00000000', '0.00000000', '10.00000000', '+', '2GHF9UHEXVC1', 'test', 'balance_add', '2024-04-22 04:25:33', '2024-04-22 04:25:33'),
-(10, 1, '122.00000000', '3.44000000', '15174.55755565', '-', '5VNNH5JN18PV', '118.56 USD Withdraw Via Bank Transfer', 'withdraw', '2024-04-23 05:54:52', '2024-04-23 05:54:52'),
-(11, 3, '10.00000000', '0.00000000', '20.00000000', '+', 'SFE5FWUPJ3CH', 'Remark', 'balance_add', '2024-04-25 03:09:40', '2024-04-25 03:09:40'),
-(12, 3, '10.00000000', '0.00000000', '30.00000000', '+', 'VUA4MYF3ZSQD', 'Remark', 'balance_add', '2024-04-25 03:25:18', '2024-04-25 03:25:18'),
-(13, 4, '100000.00000000', '0.00000000', '100000.00000000', '+', 'TFMDU3KOR2S4', 'Remark', 'balance_add', '2024-05-01 01:33:03', '2024-05-01 01:33:03'),
-(14, 4, '122.00000000', '3.44000000', '99878.00000000', '-', 'JDGS5UGXV4GH', '118.56 USD Withdraw Via Bank Transfer', 'withdraw', '2024-05-01 01:33:15', '2024-05-01 01:33:15'),
-(15, 4, '100.00000000', '0.00000000', '99978.00000000', '+', 'T97FZ6Z5XB3G', 'Remark', 'balance_add', '2024-05-01 03:02:25', '2024-05-01 03:02:25'),
-(16, 4, '100.00000000', '0.00000000', '99978.00000000', '+', '83A2D6T3JT2E', 'Remark', 'balance_add', '2024-05-01 03:02:25', '2024-05-01 03:02:25'),
-(17, 4, '100.00000000', '0.00000000', '99878.00000000', '-', 'W6Z5DWFOX1PB', 'Remark', 'balance_subtract', '2024-05-01 03:02:47', '2024-05-01 03:02:47'),
-(18, 4, '100.00000000', '0.00000000', '99778.00000000', '-', 'RRJ284K4D28D', 'Remark', 'balance_subtract', '2024-05-01 03:02:47', '2024-05-01 03:02:47'),
-(19, 4, '10.00000000', '0.00000000', '99788.00000000', '+', 'HHT6NSZGJZJ4', 'Remark', 'balance_add', '2024-05-01 03:06:12', '2024-05-01 03:06:12'),
-(20, 4, '10.00000000', '0.00000000', '99778.00000000', '-', 'MOT9W1B9NSPG', 'Remark', 'balance_subtract', '2024-05-01 03:06:25', '2024-05-01 03:06:25'),
-(21, 4, '10.00000000', '0.00000000', '99768.00000000', '-', 'JU38DT1WDUWK', 'Remark', 'balance_subtract', '2024-05-01 03:06:40', '2024-05-01 03:06:40'),
-(22, 4, '10.00000000', '0.00000000', '99758.00000000', '-', 'RT8M8N8DR8FB', 'Remark', 'balance_subtract', '2024-05-01 03:06:41', '2024-05-01 03:06:41'),
-(23, 4, '10.00000000', '0.00000000', '99748.00000000', '-', '125H3BSZAPFA', 'Remark', 'balance_subtract', '2024-05-01 03:06:41', '2024-05-01 03:06:41'),
-(24, 4, '10.00000000', '0.00000000', '99738.00000000', '-', 'P82S7HKJZ39J', 'Remark', 'balance_subtract', '2024-05-01 03:06:41', '2024-05-01 03:06:41'),
-(25, 4, '10.00000000', '0.00000000', '99738.00000000', '-', 'GE7NHW2YD688', 'Remark', 'balance_subtract', '2024-05-01 03:06:41', '2024-05-01 03:06:41'),
-(26, 1, '122.00000000', '3.44000000', '15052.55755565', '-', '531O1SVG4JRA', '118.56 USD Withdraw Via Bank Transfer', 'withdraw', '2024-05-03 22:26:07', '2024-05-03 22:26:07'),
-(27, 4, '10.00000000', '0.00000000', '99748.00000000', '+', 'AB8RUDYOO38P', 'Remark', 'balance_add', '2024-05-03 23:31:12', '2024-05-03 23:31:12'),
-(28, 1, '10.00000000', '0.00000000', '15042.55755565', '-', '1HBVQRHDCFN2', 'Remark', 'balance_subtract', '2024-05-05 03:38:12', '2024-05-05 03:38:12'),
-(29, 1, '10.00000000', '0.00000000', '15052.55755565', '+', 'NW6LUO3EIXDI', 'Test balance added', 'balance_add', '2024-05-08 07:01:34', '2024-05-08 07:01:34'),
-(30, 1, '10.00000000', '0.00000000', '15042.55755565', '-', '625XHOGW9XI9', 'Test Balance Substructed', 'balance_subtract', '2024-05-08 07:01:49', '2024-05-08 07:01:49'),
-(31, 1, '10.00000000', '0.00000000', '15052.55755565', '+', 'DYTYC84YMIYQ', 'Test balance added', 'balance_add', '2024-05-08 07:02:03', '2024-05-08 07:02:03'),
-(32, 1, '100.00000000', '2.00000000', '15152.55755565', '+', 'H24XSZ51VXZA', 'Deposit Via Bank Transfer', 'deposit', '2024-05-08 07:02:36', '2024-05-08 07:02:36'),
-(33, 2, '122.00000000', '0.00000000', '122.00000000', '+', 'JDGS5UGXV4GH', 'Refunded for withdrawal rejection', 'withdraw_reject', '2024-05-08 07:13:51', '2024-05-08 07:13:51'),
-(34, 1, '150.00000000', '4.00000000', '15002.55755565', '-', '9AMJUTGDVU19', 'Withdraw request via Bank Transfer', 'withdraw', '2024-05-16 01:18:46', '2024-05-16 01:18:46'),
-(35, 1, '10.00000000', '0.00000000', '15012.55755565', '+', 'P9YB1333C4VH', 'Remark', 'balance_add', '2024-05-25 00:50:03', '2024-05-25 00:50:03'),
-(36, 1, '10.00000000', '0.00000000', '15022.55755565', '+', 'YTGKKNG5SEGD', 'Remark', 'balance_add', '2024-05-25 00:53:51', '2024-05-25 00:53:51'),
-(37, 1, '10.00000000', '0.00000000', '15032.55755565', '+', 'Z8L1DFGJ8LO3', 'Remark', 'balance_add', '2024-05-25 00:55:45', '2024-05-25 00:55:45'),
-(38, 1, '10.00000000', '0.00000000', '15042.55755565', '+', '9UQO293N3K1R', 'Remark', 'balance_add', '2024-05-25 00:56:55', '2024-05-25 00:56:55'),
-(39, 1, '10.00000000', '0.00000000', '15052.55755565', '+', 'LXZO3F46Z6PH', 'Remark', 'balance_add', '2024-05-25 00:57:09', '2024-05-25 00:57:09'),
-(40, 1, '10.00000000', '0.00000000', '15062.55755565', '+', '486KUQ9J6UL3', 'Remark', 'balance_add', '2024-05-25 22:25:57', '2024-05-25 22:25:57'),
-(41, 1, '10.00000000', '0.00000000', '15072.55755565', '+', 'Y4RF4VSUFZJ4', 'Remark', 'balance_add', '2024-05-25 22:26:20', '2024-05-25 22:26:20'),
-(42, 1, '10.00000000', '0.00000000', '15082.55755565', '+', 'L15AH4J83W8I', 'Remark', 'balance_add', '2024-05-25 22:26:50', '2024-05-25 22:26:50'),
-(43, 1, '10.00000000', '0.00000000', '15092.55755565', '+', 'Q3DUYYC3C4KZ', 'Remark', 'balance_add', '2024-05-25 22:27:07', '2024-05-25 22:27:07'),
-(44, 1, '10.00000000', '0.00000000', '15102.55755565', '+', '8QZPM151QEGW', 'Remark', 'balance_add', '2024-05-25 22:27:30', '2024-05-25 22:27:30'),
-(45, 1, '10.00000000', '0.00000000', '15112.55755565', '+', 'H8RWU958723D', 'Remark', 'balance_add', '2024-05-25 22:36:46', '2024-05-25 22:36:46'),
-(46, 1, '10.00000000', '0.00000000', '15122.55755565', '+', 'QIZ9VFTJ9Y99', 'Remark', 'balance_add', '2024-05-25 22:40:35', '2024-05-25 22:40:35'),
-(47, 1, '10.00000000', '0.00000000', '15132.55755565', '+', 'TRYGW7AG2HVQ', 'Remark', 'balance_add', '2024-05-25 22:41:27', '2024-05-25 22:41:27'),
-(48, 1, '10.00000000', '0.00000000', '15142.55755565', '+', 'HY8H12S1ZLHA', 'Remark', 'balance_add', '2024-05-25 22:42:16', '2024-05-25 22:42:16'),
-(49, 1, '10.00000000', '0.00000000', '15152.55755565', '+', '7ZX5KOB4C8TC', 'Remark', 'balance_add', '2024-05-25 22:42:36', '2024-05-25 22:42:36'),
-(50, 1, '10.00000000', '0.00000000', '15162.55755565', '+', 'C367M5VJBLPJ', 'Remark', 'balance_add', '2024-05-25 22:44:37', '2024-05-25 22:44:37'),
-(51, 1, '10.00000000', '0.00000000', '15172.55755565', '+', 'NXSUTN6GGY4F', 'Remark', 'balance_add', '2024-05-25 22:44:54', '2024-05-25 22:44:54'),
-(52, 1, '10.00000000', '0.00000000', '15182.55755565', '+', '4HDURQJBVO3A', 'Remark', 'balance_add', '2024-05-25 22:45:20', '2024-05-25 22:45:20'),
-(53, 1, '10.00000000', '0.00000000', '15192.55755565', '+', '53CFDTSW8NPF', 'Remark', 'balance_add', '2024-05-25 22:45:26', '2024-05-25 22:45:26'),
-(54, 1, '10.00000000', '0.00000000', '15202.55755565', '+', 'N5ZD7XTREIQ4', 'Remark', 'balance_add', '2024-05-25 22:45:44', '2024-05-25 22:45:44'),
-(55, 1, '10.00000000', '0.00000000', '15212.55755565', '+', 'IMBRHIS2FC4Z', 'Remark', 'balance_add', '2024-05-25 22:48:13', '2024-05-25 22:48:13'),
-(56, 1, '10.00000000', '0.00000000', '15222.55755565', '+', 'FSSCFTVBGB1M', 'Remark', 'balance_add', '2024-05-25 22:51:59', '2024-05-25 22:51:59'),
-(57, 13, '250.00000000', '0.00000000', '250.00000000', '+', 'Z8TAZAERQEBN', 'test', 'balance_add', '2024-05-26 03:59:11', '2024-05-26 03:59:11'),
-(58, 1, '22.00000000', '0.00000000', '15244.55755565', '+', 'SN64TDK6WZUF', 'test', 'balance_add', '2024-05-29 00:12:42', '2024-05-29 00:12:42'),
-(59, 1, '10.00000000', '0.00000000', '15254.55755565', '+', 'U8V7W79UJUTB', 'Remark', 'balance_add', '2024-05-29 00:57:27', '2024-05-29 00:57:27'),
-(60, 1, '10.00000000', '0.00000000', '15264.55755565', '+', 'QWZIL9CK3PLG', 'Remark', 'balance_add', '2024-05-29 00:58:34', '2024-05-29 00:58:34'),
-(61, 1, '10.00000000', '0.00000000', '15274.55755565', '+', 'FJHTG1IP965U', 'Remark', 'balance_add', '2024-05-29 00:59:25', '2024-05-29 00:59:25'),
-(62, 1, '10.00000000', '0.00000000', '15284.55755565', '+', 'OCOC7UWDNOEM', 'Remark', 'balance_add', '2024-05-29 00:59:56', '2024-05-29 00:59:56'),
-(63, 1, '10.00000000', '0.00000000', '15294.55755565', '+', 'SUFN2RN75BMX', 'Remark', 'balance_add', '2024-05-29 01:00:13', '2024-05-29 01:00:13'),
-(64, 1, '10.00000000', '0.00000000', '15304.55755565', '+', 'EX83LBFXVH49', 'Remark', 'balance_add', '2024-05-29 01:00:40', '2024-05-29 01:00:40'),
-(65, 1, '10.00000000', '0.00000000', '15314.55755565', '+', '6NT1IAFXRDNT', 'Remark', 'balance_add', '2024-05-29 01:01:36', '2024-05-29 01:01:36'),
-(66, 1, '10.00000000', '0.00000000', '15324.55755565', '+', 'KOB66W5CYKCX', 'Remark', 'balance_add', '2024-05-29 01:01:58', '2024-05-29 01:01:58'),
-(67, 1, '10.00000000', '0.00000000', '15334.55755565', '+', '15TLDGDJEVNH', 'Remark', 'balance_add', '2024-05-29 01:02:46', '2024-05-29 01:02:46'),
-(68, 1, '10.00000000', '0.00000000', '15344.55755565', '+', 'W5B8NON6UFE9', 'Remark', 'balance_add', '2024-05-29 01:03:52', '2024-05-29 01:03:52'),
-(69, 1, '10.00000000', '0.00000000', '15354.55755565', '+', '24QAHTJS4P2G', 'Remark', 'balance_add', '2024-05-29 01:04:32', '2024-05-29 01:04:32'),
-(70, 1, '10.00000000', '0.00000000', '15364.55755565', '+', 'ECM3939IS8YX', 'Remark', 'balance_add', '2024-05-29 01:05:12', '2024-05-29 01:05:12'),
-(71, 1, '10.00000000', '0.00000000', '15374.55755565', '+', '6E2BYF9NZ6OH', 'Remark', 'balance_add', '2024-05-29 01:05:19', '2024-05-29 01:05:19'),
-(72, 1, '10.00000000', '0.00000000', '15384.55755565', '+', 'F4PCDI9MUWJQ', 'Remark', 'balance_add', '2024-05-29 01:05:52', '2024-05-29 01:05:52'),
-(73, 1, '10.00000000', '0.00000000', '15394.55755565', '+', 'CJGDNRU1OMPW', 'Remark', 'balance_add', '2024-05-29 01:06:44', '2024-05-29 01:06:44'),
-(74, 1, '10.00000000', '0.00000000', '15404.55755565', '+', 'DN1C1HCPXY49', 'Remark', 'balance_add', '2024-05-29 01:08:00', '2024-05-29 01:08:00'),
-(75, 1, '10.00000000', '0.00000000', '15414.55755565', '+', '1W6EKQNI1L1M', 'Remark', 'balance_add', '2024-05-29 01:11:30', '2024-05-29 01:11:30'),
-(76, 1, '10.00000000', '0.00000000', '15424.55755565', '+', 'MPWZA94IDC7G', 'Remark', 'balance_add', '2024-05-29 01:12:24', '2024-05-29 01:12:24'),
-(77, 1, '10.00000000', '0.00000000', '15434.55755565', '+', '1GQA6FOK9KK8', 'Remark', 'balance_add', '2024-05-29 01:12:32', '2024-05-29 01:12:32'),
-(78, 1, '10.00000000', '0.00000000', '15444.55755565', '+', '413KYJ8ECOFX', 'Remark', 'balance_add', '2024-05-29 01:12:39', '2024-05-29 01:12:39'),
-(79, 1, '10.00000000', '0.00000000', '15454.55755565', '+', 'VEMYISK3OBQR', 'Remark', 'balance_add', '2024-05-29 01:13:12', '2024-05-29 01:13:12'),
-(80, 1, '10.00000000', '0.00000000', '15464.55755565', '+', 'IAS7QOZV3S8D', 'Remark', 'balance_add', '2024-05-29 01:13:22', '2024-05-29 01:13:22'),
-(81, 1, '10.00000000', '0.00000000', '15474.55755565', '+', '8WQPEGE52ULZ', 'Remark', 'balance_add', '2024-05-29 01:13:39', '2024-05-29 01:13:39'),
-(82, 1, '10.00000000', '0.00000000', '15484.55755565', '+', '51XAEMFY563F', 'Remark', 'balance_add', '2024-05-29 01:14:08', '2024-05-29 01:14:08'),
-(83, 1, '10.00000000', '0.00000000', '15494.55755565', '+', '9XKD7DJZ2IAF', 'Remark', 'balance_add', '2024-05-29 01:14:22', '2024-05-29 01:14:22'),
-(84, 1, '10.00000000', '0.00000000', '15504.55755565', '+', 'HXFY1RJUH4UD', 'Remark', 'balance_add', '2024-05-29 01:14:44', '2024-05-29 01:14:44'),
-(85, 1, '10.00000000', '0.00000000', '15514.55755565', '+', '6YYNLMXVL5LT', 'Remark', 'balance_add', '2024-05-29 01:15:07', '2024-05-29 01:15:07'),
-(86, 1, '10.00000000', '0.00000000', '15524.55755565', '+', '6Z764Y5ZM6PA', 'Remark', 'balance_add', '2024-05-29 01:15:40', '2024-05-29 01:15:40'),
-(87, 1, '10.00000000', '0.00000000', '15534.55755565', '+', 'C2MNQ99CCQCN', 'Remark', 'balance_add', '2024-05-29 01:15:46', '2024-05-29 01:15:46'),
-(88, 1, '10.00000000', '0.00000000', '15544.55755565', '+', '3XMJTEHDHYKW', 'Remark', 'balance_add', '2024-05-29 01:16:31', '2024-05-29 01:16:31'),
-(89, 1, '10.00000000', '0.00000000', '15554.55755565', '+', 'RV7YRRZDUTK3', 'Remark', 'balance_add', '2024-05-29 01:28:47', '2024-05-29 01:28:47'),
-(90, 1, '10.00000000', '0.00000000', '15564.55755565', '+', 'VBLQV6OV9C8P', 'Remark', 'balance_add', '2024-05-29 01:29:06', '2024-05-29 01:29:06'),
-(91, 1, '10.00000000', '0.00000000', '15574.55755565', '+', 'M7G6I9S7QI9N', 'Remark', 'balance_add', '2024-05-29 01:30:21', '2024-05-29 01:30:21'),
-(92, 1, '10.00000000', '0.00000000', '15584.55755565', '+', 'HGWV2PVAO7RB', 'Remark', 'balance_add', '2024-05-29 01:31:10', '2024-05-29 01:31:10'),
-(93, 1, '10.00000000', '0.00000000', '15594.55755565', '+', 'RIKK18LO8RLU', 'Remark', 'balance_add', '2024-05-29 01:31:20', '2024-05-29 01:31:20'),
-(94, 1, '10.00000000', '0.00000000', '15604.55755565', '+', 'IXIMFHBP61TL', '10', 'balance_add', '2024-05-29 01:31:38', '2024-05-29 01:31:38'),
-(95, 1, '10.00000000', '0.00000000', '15614.55755565', '+', 'S8FKH8XLYM15', '10', 'balance_add', '2024-05-29 01:31:53', '2024-05-29 01:31:53'),
-(96, 1, '10.00000000', '0.00000000', '15624.55755565', '+', 'J3P49PW6Q8IY', 'Remark', 'balance_add', '2024-05-29 01:33:45', '2024-05-29 01:33:45'),
-(97, 1, '10.00000000', '0.00000000', '15634.55755565', '+', '34D24KO13LVR', 'Remark', 'balance_add', '2024-05-29 01:34:38', '2024-05-29 01:34:38');
+(34, 0, 'Rahim Mooney', 'koxo@mailinator.com', '60510939', 'Mollitia eveniet co', 0, 2, '2024-05-08 08:58:36', '2024-05-08 02:58:36', '2024-05-08 02:58:36'),
+(35, 0, 'Nell Harrison', 'zohuwycody@mail.com', '02540540', 'Rerum sapiente eu mo', 3, 2, '2024-07-16 14:16:10', '2024-07-16 08:16:10', '2024-07-17 04:13:08'),
+(36, 0, 'Sacha Patterson', 'vurydalat@mail.com', '47924383', 'Aspernatur expedita', 3, 2, '2024-07-16 14:30:23', '2024-07-16 08:29:09', '2024-07-17 01:25:56'),
+(37, 0, 'Cally Wade', 'rylebyta@mail.com', '81780969', 'Beatae fugiat aliqua', 3, 2, '2024-07-25 07:13:24', '2024-07-25 01:13:24', '2024-07-25 01:44:40');
 
 -- --------------------------------------------------------
 
@@ -1160,183 +962,6 @@ CREATE TABLE `update_logs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` bigint UNSIGNED NOT NULL,
-  `firstname` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `lastname` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dial_code` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mobile` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ref_by` int UNSIGNED NOT NULL DEFAULT '0',
-  `balance` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country_code` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `zip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0: banned, 1: active',
-  `kyc_data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `kyc_rejection_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `kv` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: KYC Unverified, 2: KYC pending, 1: KYC verified',
-  `ev` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: email unverified, 1: email verified',
-  `sv` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: mobile unverified, 1: mobile verified',
-  `profile_complete` tinyint(1) NOT NULL DEFAULT '0',
-  `ver_code` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'stores verification code',
-  `ver_code_send_at` datetime DEFAULT NULL COMMENT 'verification send time',
-  `ts` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: 2fa off, 1: 2fa on',
-  `tv` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0: 2fa unverified, 1: 2fa verified',
-  `tsc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ban_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provider` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provider_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `dial_code`, `mobile`, `ref_by`, `balance`, `password`, `country_name`, `country_code`, `city`, `state`, `zip`, `address`, `status`, `kyc_data`, `kyc_rejection_reason`, `kv`, `ev`, `sv`, `profile_complete`, `ver_code`, `ver_code_send_at`, `ts`, `tv`, `tsc`, `ban_reason`, `remember_token`, `provider`, `provider_id`, `created_at`, `updated_at`) VALUES
-(1, 'User', 'Name', 'username', 'user@site.com', '880', '123456789', 0, '15634.55755565', '$2y$12$9bkGelac8AdqIPIe2GQ6tOpCoW/B2PxggXRdvnlT2ue5g.NzwEqsO', 'Bangladesh', 'BD', 'London', 'London', '5874', '\"London\"', 1, '[{\"name\":\"Full Name\",\"type\":\"text\",\"value\":\"Lane Zimmerman\"},{\"name\":\"Email\",\"type\":\"email\",\"value\":\"admin@site.com\"},{\"name\":\"Gender\",\"type\":\"select\",\"value\":\"Male\"},{\"name\":\"NID Number\",\"type\":\"number\",\"value\":\"114\"},{\"name\":\"NID Photo Front\",\"type\":\"file\",\"value\":\"2024\\/06\\/27\\/667d3ca1c16f91719483553.png\"},{\"name\":\"NID Photo Back\",\"type\":\"file\",\"value\":\"2024\\/06\\/27\\/667d3ca27e5b61719483554.png\"},{\"name\":\"You Hobby\",\"type\":\"checkbox\",\"value\":[\"Programming\",\"Gardening\"]}]', NULL, 1, 1, 1, 1, '989550', '2024-05-22 09:19:41', 0, 1, NULL, NULL, 'fn4Bz99177Fsb9CFma4bquzwjOSjsSL4mTHEYvq6rBij6heSya1gegZjuRgU', NULL, NULL, '2020-07-25 00:40:06', '2024-06-27 04:19:25'),
-(2, 'firstname', 'lastname', 'username2', 'user2@site.com', '92', '8805646546987', 0, '122.00000000', '$2y$10$kvu.xRlHv32YheJWV3NWneQR0vPIA5Eev01jUjQeieHQDJSE1XXs.', 'Pakistan', 'PK', 'Non rerum modi nostr', 'Esse itaque qui dolo', '55356', '\"Fugiat aut numquam r\"', 1, NULL, NULL, 0, 0, 1, 1, '639242', '2024-04-07 11:52:30', 0, 1, NULL, NULL, NULL, NULL, NULL, '2020-11-19 04:18:38', '2024-05-08 07:13:51'),
-(3, 'user44', 'name44', 'username3', 'user457@site.com', '1', '65659854857', 0, '0.00000000', '$2y$10$UD7lj91bK2SK0CEqtIi/s.XZKh8Wm.ajz1DimEuoDBLiNAE29zY7a', 'Algeria', 'US', 'FFF', '7878', '5874', '\"Address\"', 1, NULL, NULL, 0, 1, 1, 0, '112922', '2020-11-23 12:45:44', 0, 1, NULL, NULL, NULL, NULL, NULL, '2020-11-23 06:45:43', '2024-05-08 04:06:43'),
-(4, 'User55', 'Name55', 'testuser123', 'testuser123@gmail.com', '370', '1268654254541', 0, '1180.00000000', '$2y$10$0TizysQNL9Yw6DYOji5Eh.mrstho4NhuVam7ssaCYS0Y9JegnopZG', 'Lithuania', 'LT', 'Dhaka', 'Dhaka', '1230', '\"Dhaka\"', 1, NULL, NULL, 0, 1, 1, 0, '950194', '2021-03-15 09:35:45', 0, 1, NULL, NULL, NULL, NULL, NULL, '2021-03-15 03:35:45', '2024-05-08 04:06:43'),
-(5, 'Test', 'User', 'testuser55', 'user990@site.com', '880', '93654545453', 0, '0.00000000', '$2y$10$bV6Mi/8uv/MirSHWtn8qz.txLfzvSaovndD.GPCoCaHD8UK/bdJOi', 'Bangladesh', 'BD', NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 1, 1, 0, '678128', '2024-04-02 11:38:38', 0, 1, NULL, NULL, NULL, NULL, NULL, '2021-04-17 01:17:26', '2024-05-08 04:06:43'),
-(6, 'User', 'Name', 'username99', 'user99@site.com', '994', '96565654', 0, '0.00000000', '$2y$10$jbMEuGQ/U.gTPihO4jfBD.wnnWgZNyhj3n2VUkp0V2LOaGau6HbF6', 'Azerbaijan', 'AZ', NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, 1, 0, '475799', '2024-04-23 04:46:17', 0, 1, NULL, NULL, NULL, NULL, NULL, '2021-04-28 00:41:42', '2024-05-08 04:06:43'),
-(7, 'My', 'Name', 'username5', 'user5@site.com', '93', '65465456454', 0, '0.00000000', '$2y$10$.tD1XpK.E4ubM4Pg3yEuYO3tzMasHqd2pzsRjm8nGYKhIwxTmNI/2', 'Afghanistan', 'AF', '', '', '', '\"\"', 1, NULL, NULL, 0, 1, 1, 0, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, '2021-05-10 06:24:07', '2024-05-08 04:06:43'),
-(8, 'My', 'Name', 'username6', 'user6@site.com', '376', '936546334', 8, '10010.00000000', '$2y$10$0BuEBEfe82oTukY9BFrODeFP9d4sS7KJdoHBPk1oziRkKAC/D8VOi', 'Andorra', 'AD', 'Dhaka', 'Dhaka', '1230', '\"Bangladesh\"', 1, NULL, NULL, 0, 1, 1, 0, NULL, NULL, 1, 1, 'FSLM3BZVLNPY7JYI', NULL, NULL, NULL, NULL, '2021-05-10 06:27:04', '2024-05-08 04:06:43'),
-(9, 'Test', 'Name', 'testuser', 'test@mail.com', '61', '65463548554', 0, '0.00000000', '$2y$10$OhSvy7ncR6dBuhTnUvmiXuJRjpLfjWtZdE2uYKx/P46lJoZ00omfC', 'Australia', 'AU', NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, 1, 0, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, '2021-05-19 05:47:02', '2024-05-08 04:06:43'),
-(10, 'My', 'Name', 'myname5587', 'myname5587@myname5587.myname5587', '1264', '123456789', 0, '0.00000000', '$2y$10$19byGz10jEXEQDxsoLTrMug4qYnuzT9O3S4.o0w8YN72mruuGh.8m', 'Anguilla', 'AI', '', '', '', '\"\"', 1, NULL, NULL, 0, 0, 1, 0, '467842', '2021-06-09 12:15:34', 0, 1, NULL, NULL, NULL, NULL, NULL, '2021-06-09 06:15:33', '2024-05-08 04:06:43'),
-(11, 'Test', 'test', 'budyhopaze', 'test@site.com', '93', '34', 0, '0.00000000', '$2y$12$Qxyd0LlWaeNeDimyIYMy0uX4crc0m3kDkBuUmIvebQmBf1Vpp7dAe', 'Afghanistan', 'AF', 'In dolore quos ut et', 'Esse esse ut in par', '35979', '\"Facilis delectus ma\"', 1, NULL, NULL, 0, 1, 1, 1, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, '2024-05-05 00:36:44', '2024-05-08 07:50:38'),
-(12, 'Test', 'test', 'username987', 'test987@site.com', '213', '123456789', 0, '0.00000000', '$2y$12$ICAzzLCOT.yKF5DLLCQ2duhikd87p5KMHmXiAALV4M5rY7ejkzplS', 'Algeria', 'DZ', NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1, 1, 1, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, '2024-05-05 03:41:31', '2024-05-08 04:06:44'),
-(13, 'Test', 'test', 'username69874', 'viserlabteam369@gmail.com', '355', '12345678', 0, '250.00000000', '$2y$12$D5dGGZvdHpr4ASCLv/wGdusM5fxtNq.1XE2b4CjGKMUD9gnieppRC', 'Albania', 'AL', NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, 1, 1, 1, NULL, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, '2024-05-06 03:29:52', '2024-05-26 03:59:11');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_logins`
---
-
-CREATE TABLE `user_logins` (
-  `id` bigint UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `user_ip` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country_code` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `longitude` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `latitude` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `browser` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `os` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `user_logins`
---
-
-INSERT INTO `user_logins` (`id`, `user_id`, `user_ip`, `city`, `country`, `country_code`, `longitude`, `latitude`, `browser`, `os`, `created_at`, `updated_at`) VALUES
-(1, 1, '127.0.0.1', '', '', '', '', '', 'Chrome', 'Windows 10', '2024-05-07 05:11:31', '2024-05-07 05:11:31'),
-(2, 1, '127.0.0.1', '', '', '', '', '', 'Chrome', 'Windows 10', '2024-05-07 07:13:08', '2024-05-07 07:13:08'),
-(3, 1, '127.0.0.1', '', '', '', '', '', 'Chrome', 'Windows 10', '2024-05-07 23:58:38', '2024-05-07 23:58:38'),
-(4, 1, '127.0.0.1', '', '', '', '', '', 'Chrome', 'Windows 10', '2024-05-08 03:09:14', '2024-05-08 03:09:14'),
-(5, 1, '127.0.0.1', '', '', '', '', '', 'Chrome', 'Windows 10', '2024-05-08 03:42:06', '2024-05-08 03:42:06'),
-(6, 1, '127.0.0.1', '', '', '', '', '', 'Chrome', 'Windows 10', '2024-05-13 01:11:13', '2024-05-13 01:11:13'),
-(7, 1, '127.0.0.1', '', '', '', '', '', 'Unknown Browser', 'Unknown OS Platform', '2024-05-13 03:36:32', '2024-05-13 03:36:32'),
-(8, 1, '127.0.0.1', '', '', '', '', '', 'Chrome', 'Windows 10', '2024-06-24 05:11:13', '2024-06-24 05:11:13'),
-(9, 1, '127.0.0.1', '', '', '', '', '', 'Chrome', 'Windows 10', '2024-06-27 04:13:10', '2024-06-27 04:13:10');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `withdrawals`
---
-
-CREATE TABLE `withdrawals` (
-  `id` bigint UNSIGNED NOT NULL,
-  `method_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `user_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `amount` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `currency` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `rate` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `charge` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `trx` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `final_amount` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `after_charge` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `withdraw_information` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1=>success, 2=>pending, 3=>cancel,  ',
-  `admin_feedback` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `withdrawals`
---
-
-INSERT INTO `withdrawals` (`id`, `method_id`, `user_id`, `amount`, `currency`, `rate`, `charge`, `trx`, `final_amount`, `after_charge`, `withdraw_information`, `status`, `admin_feedback`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '10.00000000', 'USD', '1.00000000', '1.20000000', 'CFKTEECKPXTG', '8.80000000', '8.80000000', NULL, 0, NULL, '2023-02-13 07:58:14', '2023-02-13 07:58:14'),
-(2, 1, 1, '1.00000000', 'USD', '1.00000000', '1.02000000', 'QTHYVTWBA2E9', '-0.02000000', '-0.02000000', '[{\"name\":\"Bank Name\",\"type\":\"text\",\"value\":\"Coby Ferrell\"},{\"name\":\"Account Name\",\"type\":\"text\",\"value\":\"Katell Mills\"},{\"name\":\"Account Number\",\"type\":\"text\",\"value\":\"276\"}]', 1, 'Have you sent -0.02 USD?', '2024-03-13 23:22:20', '2024-03-13 23:25:29'),
-(3, 1, 1, '10.00000000', 'USD', '1.00000000', '1.20000000', 'CGF68WYEMNV1', '8.80000000', '8.80000000', NULL, 0, NULL, '2024-03-21 10:39:58', '2024-03-21 10:39:58'),
-(4, 1, 1, '10.00000000', 'USD', '1.00000000', '1.20000000', 'RUJS3U2CVQZ4', '8.80000000', '8.80000000', '[{\"name\":\"Bank Name\",\"type\":\"text\",\"value\":\"Hayley Gates\"},{\"name\":\"Account Name\",\"type\":\"text\",\"value\":\"Adam Nolan\"},{\"name\":\"Account Number\",\"type\":\"text\",\"value\":\"153\"}]', 3, 'Reason of Rejection', '2024-04-20 23:44:26', '2024-04-20 23:46:23'),
-(5, 1, 1, '122.00000000', 'USD', '1.00000000', '3.44000000', '5VNNH5JN18PV', '118.56000000', '118.56000000', '[{\"name\":\"Bank Name\",\"type\":\"text\",\"value\":\"Ezra Vincent\"},{\"name\":\"Account Name\",\"type\":\"text\",\"value\":\"Ezra Valdez\"},{\"name\":\"Account Number\",\"type\":\"text\",\"value\":\"725\"}]', 1, 'adsf', '2024-04-23 05:54:48', '2024-05-01 00:11:52'),
-(6, 2, 1, '100.00000000', 'USD', '1.00000000', '0.01000000', 'HZG24Y3MJUPT', '99.99000000', '99.99000000', NULL, 0, NULL, '2024-04-25 07:41:44', '2024-04-25 07:41:44'),
-(7, 1, 2, '122.00000000', 'USD', '1.00000000', '3.44000000', 'JDGS5UGXV4GH', '118.56000000', '118.56000000', '[{\"name\":\"Bank Name\",\"type\":\"text\",\"value\":\"Amena Cleveland\"},{\"name\":\"Account Name\",\"type\":\"text\",\"value\":\"Malachi Graves\"},{\"name\":\"Account Number\",\"type\":\"text\",\"value\":\"936\"}]', 3, 'Withdrawal request rejected for wrong information', '2024-05-01 01:33:08', '2024-05-08 07:13:51'),
-(8, 1, 1, '122.00000000', 'USD', '1.00000000', '3.44000000', '531O1SVG4JRA', '118.56000000', '118.56000000', '[{\"name\":\"Bank Name\",\"type\":\"text\",\"value\":\"Athena Ruiz\"},{\"name\":\"Account Name\",\"type\":\"text\",\"value\":\"Lydia Jarvis\"},{\"name\":\"Account Number\",\"type\":\"text\",\"value\":\"812\"},{\"name\":\"Screenshot\",\"type\":\"file\",\"value\":\"2024\\/05\\/04\\/6635b8de2731e1714796766.png\"}]', 1, 'Withdrawal request approved', '2024-05-03 22:25:12', '2024-05-08 07:10:55'),
-(9, 1, 1, '122.00000000', 'USD', '1.00000000', '3.44000000', 'MHQJQSQ6OKFQ', '118.56000000', '118.56000000', NULL, 0, NULL, '2024-05-05 03:29:57', '2024-05-05 03:29:57'),
-(10, 1, 1, '122.00000000', 'USD', '1.00000000', '3.44000000', 'GVROW5P3VSBV', '118.56000000', '118.56000000', NULL, 0, NULL, '2024-05-05 03:30:42', '2024-05-05 03:30:42'),
-(11, 1, 1, '122.00000000', 'USD', '1.00000000', '3.44000000', '76YCUEY4DYO1', '118.56000000', '118.56000000', NULL, 0, NULL, '2024-05-05 03:32:51', '2024-05-05 03:32:51'),
-(12, 1, 1, '122.00000000', 'USD', '1.00000000', '3.44000000', 'EKL4IQ4A3CJM', '118.56000000', '118.56000000', NULL, 0, NULL, '2024-05-05 06:23:06', '2024-05-05 06:23:06'),
-(13, 2, 1, '11.00000000', 'USD', '1.00000000', '0.00110000', '7UD1V317OYNX', '10.99890000', '10.99890000', NULL, 0, NULL, '2024-05-05 07:15:50', '2024-05-05 07:15:50'),
-(14, 1, 1, '124.00000000', 'USD', '1.00000000', '3.48000000', 'VL2WHV2NH4HR', '120.52000000', '120.52000000', NULL, 0, NULL, '2024-05-05 07:16:42', '2024-05-05 07:16:42'),
-(15, 2, 1, '100.00000000', 'USD', '1.00000000', '0.01000000', 'WBWSZYBG2SMC', '99.99000000', '99.99000000', NULL, 0, NULL, '2024-05-07 07:41:04', '2024-05-07 07:41:04'),
-(16, 1, 1, '1000.00000000', 'USD', '1.00000000', '21.00000000', '8H2IHPV39VSW', '979.00000000', '979.00000000', NULL, 0, NULL, '2024-05-08 03:54:37', '2024-05-08 03:54:37'),
-(17, 2, 1, '10.00000000', 'USD', '1.00000000', '0.00100000', 'O685MW75I7QA', '9.99900000', '9.99900000', NULL, 0, NULL, '2024-05-08 03:57:00', '2024-05-08 03:57:00'),
-(18, 1, 1, '150.00000000', 'USD', '1.00000000', '4.00000000', '9AMJUTGDVU19', '146.00000000', '146.00000000', '[{\"name\":\"Bank Name\",\"type\":\"text\",\"value\":\"Patricia Harrell\"},{\"name\":\"Account Number\",\"type\":\"text\",\"value\":\"799\"},{\"name\":\"Account Holder Name\",\"type\":\"text\",\"value\":\"Ria Vincent\"},{\"name\":\"Branch Name\",\"type\":\"text\",\"value\":\"Mia Benton\"}]', 1, 'Have you sen', '2024-05-16 01:18:43', '2024-05-16 01:23:26');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `withdraw_methods`
---
-
-CREATE TABLE `withdraw_methods` (
-  `id` bigint UNSIGNED NOT NULL,
-  `form_id` int UNSIGNED NOT NULL DEFAULT '0',
-  `name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `min_limit` decimal(28,8) DEFAULT '0.00000000',
-  `max_limit` decimal(28,8) NOT NULL DEFAULT '0.00000000',
-  `fixed_charge` decimal(28,8) DEFAULT '0.00000000',
-  `rate` decimal(28,8) DEFAULT '0.00000000',
-  `percent_charge` decimal(5,2) DEFAULT NULL,
-  `currency` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `withdraw_methods`
---
-
-INSERT INTO `withdraw_methods` (`id`, `form_id`, `name`, `image`, `min_limit`, `max_limit`, `fixed_charge`, `rate`, `percent_charge`, `currency`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(1, 13, 'Bank Transfer', '663b5107b79341715163399.png', '122.00000000', '1000.00000000', '1.00000000', '1.00000000', '2.00', 'USD', '<div style=\"border-left: 3px solid #b5b0b0;\r\n    padding: 12px;\r\n    font-style: italic;\r\n    margin: 30px 0px;\r\n    background: #f9f9f9;\r\n    border-radius: 3px;\"><p style=\"margin-bottom: 10px; font-size: 17px;\">Please complete the following information accurately to ensure timely processing of your payment. We are unable to assume responsibility for any delays or errors resulting from incomplete or inaccurate information.</p></div>', 1, '2022-03-30 09:09:11', '2024-05-18 06:11:11'),
-(2, 14, 'Mobile Money', '663b51104331a1715163408.png', '1.00000000', '1000.00000000', '0.00000000', '1.00000000', '0.01', 'USD', '<div style=\"border-left: 3px solid #b5b0b0;\r\n    padding: 12px;\r\n    font-style: italic;\r\n    margin: 30px 0px;\r\n    background: #f9f9f9;\r\n    border-radius: 3px;\"><p style=\"margin-bottom: 10px; font-size: 17px;\">Please complete the following information accurately to ensure timely processing of your payment. We are unable to assume responsibility for any delays or errors resulting from incomplete or inaccurate information.</p></div>', 1, '2022-03-30 09:10:12', '2024-05-08 04:16:48');
 
 --
 -- Indexes for dumped tables
@@ -1362,40 +987,54 @@ ALTER TABLE `admin_password_resets`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cron_jobs`
+-- Indexes for table `advertisements`
 --
-ALTER TABLE `cron_jobs`
+ALTER TABLE `advertisements`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cron_job_logs`
+-- Indexes for table `bloods`
 --
-ALTER TABLE `cron_job_logs`
+ALTER TABLE `bloods`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cron_schedules`
+-- Indexes for table `cache`
 --
-ALTER TABLE `cron_schedules`
+ALTER TABLE `cache`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `cache_locks`
+--
+ALTER TABLE `cache_locks`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `cities`
+--
+ALTER TABLE `cities`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `deposits`
+-- Indexes for table `donors`
 --
-ALTER TABLE `deposits`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `device_tokens`
---
-ALTER TABLE `device_tokens`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `donors`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`,`phone`);
 
 --
 -- Indexes for table `extensions`
 --
 ALTER TABLE `extensions`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
 -- Indexes for table `forms`
@@ -1410,19 +1049,6 @@ ALTER TABLE `frontends`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `gateways`
---
-ALTER TABLE `gateways`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `code` (`code`);
-
---
--- Indexes for table `gateway_currencies`
---
-ALTER TABLE `gateway_currencies`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `general_settings`
 --
 ALTER TABLE `general_settings`
@@ -1432,6 +1058,12 @@ ALTER TABLE `general_settings`
 -- Indexes for table `languages`
 --
 ALTER TABLE `languages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `locations`
+--
+ALTER TABLE `locations`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1459,14 +1091,6 @@ ALTER TABLE `pages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
-
---
 -- Indexes for table `subscribers`
 --
 ALTER TABLE `subscribers`
@@ -1491,40 +1115,9 @@ ALTER TABLE `support_tickets`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transactions`
---
-ALTER TABLE `transactions`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `update_logs`
 --
 ALTER TABLE `update_logs`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`,`email`);
-
---
--- Indexes for table `user_logins`
---
-ALTER TABLE `user_logins`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `withdrawals`
---
-ALTER TABLE `withdrawals`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `withdraw_methods`
---
-ALTER TABLE `withdraw_methods`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1550,39 +1143,39 @@ ALTER TABLE `admin_password_resets`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `cron_jobs`
+-- AUTO_INCREMENT for table `advertisements`
 --
-ALTER TABLE `cron_jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `advertisements`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `cron_job_logs`
+-- AUTO_INCREMENT for table `bloods`
 --
-ALTER TABLE `cron_job_logs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `bloods`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `cron_schedules`
+-- AUTO_INCREMENT for table `cities`
 --
-ALTER TABLE `cron_schedules`
+ALTER TABLE `cities`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `deposits`
+-- AUTO_INCREMENT for table `donors`
 --
-ALTER TABLE `deposits`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT for table `device_tokens`
---
-ALTER TABLE `device_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `donors`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `extensions`
 --
 ALTER TABLE `extensions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1595,19 +1188,7 @@ ALTER TABLE `forms`
 -- AUTO_INCREMENT for table `frontends`
 --
 ALTER TABLE `frontends`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
-
---
--- AUTO_INCREMENT for table `gateways`
---
-ALTER TABLE `gateways`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
-
---
--- AUTO_INCREMENT for table `gateway_currencies`
---
-ALTER TABLE `gateway_currencies`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=327;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `general_settings`
@@ -1619,13 +1200,19 @@ ALTER TABLE `general_settings`
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `locations`
+--
+ALTER TABLE `locations`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `notification_logs`
@@ -1643,19 +1230,13 @@ ALTER TABLE `notification_templates`
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT for table `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `subscribers`
 --
 ALTER TABLE `subscribers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `support_attachments`
@@ -1667,49 +1248,19 @@ ALTER TABLE `support_attachments`
 -- AUTO_INCREMENT for table `support_messages`
 --
 ALTER TABLE `support_messages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `support_tickets`
 --
 ALTER TABLE `support_tickets`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
---
--- AUTO_INCREMENT for table `transactions`
---
-ALTER TABLE `transactions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `update_logs`
 --
 ALTER TABLE `update_logs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `user_logins`
---
-ALTER TABLE `user_logins`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `withdrawals`
---
-ALTER TABLE `withdrawals`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `withdraw_methods`
---
-ALTER TABLE `withdraw_methods`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -95,7 +95,7 @@
                         @endforelse
                     </div>
                     <nav class="mt-4 pagination-md">
-                        {{$donors->links()}}
+                        {{ paginateLinks($donors) }}
                     </nav>
                 </div>
                 <div class="col-xl-2 d-xl-block d-none">
